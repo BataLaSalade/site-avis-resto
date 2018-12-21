@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { ListResto } from "../mock-resto";
-import { Resto } from "../model/Resto";
+import { Resto } from '../model/Resto';
+import { RestoService } from "../resto.service";
 
 @Component({
   selector: 'app-map',
@@ -16,13 +17,17 @@ export class MapComponent implements OnInit {
   label: string = this.userPosition.label;
   zoom: number = 8;
   
-  listResto = ListResto;
+  listResto: Resto[];
+  getListResto(): void {
+    this.listResto = this.restoService.getListResto();
+  }
   
   
   
-  constructor() { }
+  constructor(private restoService: RestoService) { }
 
   ngOnInit() {
+    this.getListResto();
   }
 
 }
