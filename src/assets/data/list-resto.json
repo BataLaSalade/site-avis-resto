@@ -1,4 +1,5 @@
-[
+
+var datas = [
 {
     "restaurantName":"Bronco",
     "address":"39 Rue des Petites Écuries, 75010 Paris",
@@ -92,10 +93,10 @@
     ]
 },
 {
-    "restaurantName":"Babalou",
+    "restaurantName":"Spok",
     "address":"4 Rue Lamarck, 75018 Paris",
-    "lat":48.8865035,
-    "long":2.3442197,
+    "lat":43.480244,
+    "long":5.373828,
     "ratings":[
         {
             "stars":5,
@@ -103,6 +104,30 @@
         },
         {
             "stars":3,
+            "comment":"J'ai trouvé ça correct, sans plus"
+        },
+        {
+            "stars":4,
+            "comment":"J'ai trouvé ça correct, sans plus"
+        }
+    ]
+},
+{
+    "restaurantName":"Spok",
+    "address":"4 Rue Lamarck, 75018 Paris",
+    "lat":43.478763,
+    "long":5.374606,
+    "ratings":[
+        {
+            "stars":5,
+            "comment":"Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
+        },
+        {
+            "stars":1,
+            "comment":"J'ai trouvé ça pas terrible, voila"
+        },
+        {
+            "stars":4,
             "comment":"J'ai trouvé ça correct, sans plus"
         }
     ]

@@ -7,6 +7,8 @@
   <agm-marker 
   [latitude]="lat" 
   [longitude]="lng"
-  [iconUrl]="iconUrl"></agm-marker>
-  <!--<img src="../../assets/img/1x/outline_account_circle_white_18dp.png" alt="">-->
+  [label]="label"></agm-marker>
+  <agm-marker *ngFor="let resto of listResto"
+  [latitude]="resto.lat" 
+  [longitude]="resto.long"></agm-marker>
 </agm-map>
