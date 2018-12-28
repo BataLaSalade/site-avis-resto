@@ -23,7 +23,7 @@ export class MapComponent implements OnInit {
   zoom: number = 8;
 
   listResto: Resto[];
-  getListResto(): void {
+  setListResto(): void {
     this.listResto = this.restoService.getListResto();
   }
 
@@ -48,14 +48,12 @@ export class MapComponent implements OnInit {
     console.warn(`ERREUR (${error.code}): ${error.message}`)
   }
 
-  
-  
   constructor(
     private restoService: RestoService,
     private userService: UserService) { }
 
   ngOnInit() {
-    this.getListResto();
+    this.setListResto();
     this.refreshUserPosition();
   }
 
