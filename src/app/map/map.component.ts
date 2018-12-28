@@ -12,19 +12,17 @@ import { UserService } from "../user.service";
 })
 export class MapComponent implements OnInit {
 
-  /*userPosition: User = { lat: 43.475721, long: 5.378782, label: "M"};
-  lat: number = this.userPosition.lat;
-  lng: number = this.userPosition.long;
-  label: string = this.userPosition.label;
-  zoom: number = 8;*/
-  lat: number;
-  lng: number;
-  label: string;
+  userLat: number;
+  userLong: number;
+  userMarker:string;
   zoom: number = 8;
+
+  restoMarker: string;
 
   listResto: Resto[];
   setListResto(): void {
     this.listResto = this.restoService.getListResto();
+    this.restoMarker = "../../assets/img/1x/restoFichier 4.png"
   }
 
   refreshUserPosition() {
@@ -34,9 +32,9 @@ export class MapComponent implements OnInit {
   success(position) {
     var coords = position.coords;
     if(coords != null && coords.latitude != null) {
-      this.lat = coords.latitude;
-      this.lng = coords.longitude;
-      this.label = "M";
+      this.userLat = coords.latitude;
+      this.userLong = coords.longitude;
+      this.userMarker = "../../assets/img/1x/userFichier 2.png";
       console.log('Votre position actuelle etait :');
       console.log(`Latitude : ${coords.latitude}`);
       console.log(`Longitude : ${coords.longitude}`);

@@ -1,14 +1,15 @@
 <agm-map 
-[latitude]="lat" 
-[longitude]="lng" 
+[latitude]="userLat" 
+[longitude]="userLong" 
 [zoom]="zoom" 
 [disableDefaultUI]="false"
 [zoomControl]="false">
   <agm-marker 
-  [latitude]="lat" 
-  [longitude]="lng"
-  [label]="label"></agm-marker>
+  [latitude]="userLat" 
+  [longitude]="userLong"
+  [iconUrl]="userMarker"></agm-marker>
   <agm-marker *ngFor="let resto of listResto"
   [latitude]="resto.lat" 
-  [longitude]="resto.long"></agm-marker>
+  [longitude]="resto.long"
+  [iconUrl]="restoMarker"></agm-marker>
 </agm-map>
