@@ -1,0 +1,15 @@
+.sectionRating{
+    .ratingScore, .ratingStars, .ratingStar, .ratingNumber {
+        display: inline-block;
+    }
+    .ratingStars{
+        list-style: none;
+        .ratingStar {
+          height: 20px;
+          width:20px;
+          background-color: aqua;
+          //background-image: url("img_tree.gif");
+          //background-size: cover;
+        }
+    }
+}
