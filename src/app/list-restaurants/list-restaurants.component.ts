@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListResto } from "../mock-resto";
+
 @Component({
   selector: 'app-list-restaurants',
   templateUrl: './list-restaurants.component.html',

@@ -1,4 +1,12 @@
+$primary700 : rgb(30, 136, 229);
+$primary800: rgb(0, 75, 160);
+$primary600:rgb(99, 164, 255);
+$secondary500: rgb(233, 30, 99);
+$grey:#8c8c8c;
+$spacer:#c2c2c2;
+
+
 .wrapper {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 21% 79%;
 }

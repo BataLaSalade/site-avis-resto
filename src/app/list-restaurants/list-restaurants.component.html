@@ -1,25 +1,27 @@
 <p>
   list-restaurants works!
 </p>
-<div *ngFor="let resto of listResto">{{resto.restaurantName}}</div>
+
 <div class="sectionResto" *ngFor="let resto of listResto">
-  <div class="sectionTextContent">
-    <div class="sectionHeader">
+  <div  class="sectionTextContent">
+    <div  class="sectionHeader">
       <h3 class="title">{{resto.restaurantName}}</h3>
       <div class="sectionRating">
-        <span class="ratingScore">score moyen</span>
+        <span class="ratingScore">4.5</span>
         <ol class="ratingStars">
-          <li class="ratingStar"></li>
-          <li class="ratingStar"></li>
-          <li class="ratingStar"></li>
-          <li class="ratingStar"></li>
-          <li class="ratingStar"></li>
+          <li class="ratingStar"><img src="../../assets/img/1x/emptyStarFichier 5.png" alt="rating star"></li>
+          <li class="ratingStar"><img src="../../assets/img/1x/emptyStarFichier 5.png" alt="rating star"></li>
+          <li class="ratingStar"><img src="../../assets/img/1x/emptyStarFichier 5.png" alt="rating star"></li>
+          <li class="ratingStar"><img src="../../assets/img/1x/emptyStarFichier 5.png" alt="rating star"></li>
+          <li class="ratingStar"><img src="../../assets/img/1x/emptyStarFichier 5.png" alt="rating star"></li>
         </ol>
-        <span class="ratingNumber">nb avis</span>
+        <span class="ratingNumber">(3000)</span>
       </div>
     </div>
-    <div class="sectionDescription">{{resto.address}}</div>
+    <div  class="sectionDescription">{{resto.address}}</div>
   </div>
-  <div class="sectionImageContent"></div>
+  <div  class="sectionImageContent"></div>
 </div>
+
+
 <app-details></app-details>

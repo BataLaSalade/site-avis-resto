@@ -1,15 +1,59 @@
-.sectionRating{
-    .ratingScore, .ratingStars, .ratingStar, .ratingNumber {
-        display: inline-block;
+@import '../app.component.scss';
+
+.sectionResto{
+    
+    border-bottom: 1px solid $spacer;
+    display: grid;
+    grid-template-columns: 75% 25%;
+    margin-right: 8px;
+    .sectionTextContent, .sectionImageContent {
+        margin: 8px 0px;
     }
-    .ratingStars{
-        list-style: none;
-        .ratingStar {
-          height: 20px;
-          width:20px;
-          background-color: aqua;
-          //background-image: url("img_tree.gif");
-          //background-size: cover;
+    .sectionTextContent{
+        .sectionHeader{
+            .title{
+                margin: 8px 0px 0px 8px;
+                opacity: 0.8;
+            }
+            .sectionRating{
+                font-size: 0.8rem;
+                display: flex;
+                align-items: center;
+                .ratingScore, .ratingStars, .ratingNumber{
+                    margin-left: 8px;
+                }
+                .ratingScore, .ratingStars, .ratingStar, .ratingNumber {
+                    display: inline-block;
+                }
+                .ratingScore{
+                    color: $secondary500;
+                }
+                .ratingStars{
+                    list-style: none;
+                    padding: 0;
+                    .ratingStar {
+                      height: 25px;
+                      width:25px;
+                    }
+                }
+                .ratingNumber{
+                    color: $grey;
+                    opacity: 0.7;
+                }
+            }
+        }
+        .sectionDescription{
+            margin: 0px 0px 8px 8px;
+            color: $grey;
+
         }
     }
+    .sectionImageContent{
+        margin: 8px 0px 0px 8px;
+        height: 90px;
+        width: 80px;
+        border: solid black 1px;
+    }
+    
 }
+
