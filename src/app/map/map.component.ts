@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { ListResto } from "../mock-resto";
 import { Resto } from '../model/Resto';
-import { RestoService } from "../resto.service";
-import { UserService } from "../user.service";
+import { RestoService } from "../services/resto.service";
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: 'app-map',
