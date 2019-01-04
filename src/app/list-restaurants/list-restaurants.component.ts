@@ -7,8 +7,8 @@ import { ListResto } from "../mock-resto";
   styleUrls: ['./list-restaurants.component.scss']
 })
 export class ListRestaurantsComponent implements OnInit {
-
-    listResto = ListResto
+  star = '../../assets/img/1x/emptyStar.png'
+  listResto = ListResto
 
   
   constructor() { }
