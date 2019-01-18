@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user';
-import { ListResto } from "../mock-resto";
 import { Resto } from '../model/Resto';
 import { RestoService } from "../services/resto.service";
 import { UserService } from "../services/user.service";
+//import {} from "googlemaps";
 
 @Component({
   selector: 'app-map',
@@ -20,9 +19,10 @@ export class MapComponent implements OnInit {
   restoMarker: string;
 
   listResto: Resto[];
+  //listRestoResponse: Resto[];
   setListResto(): void {
     this.listResto = this.restoService.getListResto();
-    this.restoMarker = "../../assets/img/1x/restoFichier 4.png"
+    this.restoMarker = "../../assets/img/1x/restoFichier4.png"
   }
 
   refreshUserPosition() {
@@ -48,7 +48,8 @@ export class MapComponent implements OnInit {
 
   constructor(
     private restoService: RestoService,
-    private userService: UserService) { }
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
     this.setListResto();

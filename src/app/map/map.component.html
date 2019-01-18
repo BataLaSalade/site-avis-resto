@@ -9,7 +9,7 @@
   [longitude]="userLong"
   [iconUrl]="userMarker"></agm-marker>
   <agm-marker *ngFor="let resto of listResto"
-  [latitude]="resto.lat" 
-  [longitude]="resto.long"
+  [latitude]="resto.geometry.location.lat" 
+  [longitude]="resto.geometry.location.lng"
   [iconUrl]="restoMarker"></agm-marker>
 </agm-map>

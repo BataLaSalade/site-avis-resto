@@ -6,9 +6,9 @@
   <div class="sectionResto" *ngFor="let resto of listResto">
     <div  class="sectionTextContent">
       <div  class="sectionHeader">
-        <h3 class="title">{{resto.restaurantName}}</h3>
+        <h3 class="title">{{resto.name}}</h3>
         <div class="sectionRating">
-          <span class="ratingScore">4.5</span>
+          <span class="ratingScore">{{resto.rating}}</span>
           <ol class="ratingStars">
             <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
             <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
@@ -16,10 +16,10 @@
             <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
             <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
           </ol>
-          <span class="ratingNumber">(3000)</span>
+          <span class="ratingNumber">{{resto.user_ratings_total}}</span>
         </div>
       </div>
-      <div  class="sectionDescription">{{resto.address}}</div>
+      <div  class="sectionDescription">{{resto.vicinity}}</div>
     </div>
     <div  class="sectionImageContent"></div>
   </div>
