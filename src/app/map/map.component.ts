@@ -14,12 +14,12 @@ export class MapComponent implements OnInit {
   userLat: number;
   userLong: number;
   userMarker:string;
-  zoom: number = 8;
+  zoom: number = 15;
 
   restoMarker: string;
 
   listResto: Resto[];
-  //listRestoResponse: Resto[];
+  
   setListResto(): void {
     this.listResto = this.restoService.getListResto();
     this.restoMarker = "../../assets/img/1x/restoFichier4.png"

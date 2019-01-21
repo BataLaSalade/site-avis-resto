@@ -11,5 +11,21 @@
   <agm-marker *ngFor="let resto of listResto"
   [latitude]="resto.geometry.location.lat" 
   [longitude]="resto.geometry.location.lng"
-  [iconUrl]="restoMarker"></agm-marker>
+  [iconUrl]="restoMarker"
+  (markerClick)="clickedMarker(resto)">
+    <agm-info-window>
+        <h3 class="title">{{resto.name}}</h3>
+        <div class="sectionRating">
+          <span class="ratingScore">{{resto.rating}}</span>
+          <ol class="ratingStars">
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
+          </ol>
+          <span class="ratingNumber">{{resto.user_ratings_total}}</span>
+        </div>
+    </agm-info-window>
+  </agm-marker>
 </agm-map>
