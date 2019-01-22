@@ -10,7 +10,6 @@ import { Resto } from "../model/Resto";
 })
 export class ListRestaurantsComponent implements OnInit {
   star = '../../assets/img/1x/emptyStar.png'
-  //listResto = ListResto
   listResto: Resto[];
   
   setListResto(): void {

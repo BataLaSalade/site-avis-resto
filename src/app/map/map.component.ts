@@ -20,6 +20,11 @@ export class MapComponent implements OnInit {
 
   listResto: Resto[];
   
+  constructor(
+    private restoService: RestoService,
+    private userService: UserService
+  ) { }
+
   setListResto(): void {
     this.listResto = this.restoService.getListResto();
     this.restoMarker = "../../assets/img/1x/restoFichier4.png"
@@ -45,11 +50,6 @@ export class MapComponent implements OnInit {
   error(error) {
     console.warn(`ERREUR (${error.code}): ${error.message}`)
   }
-
-  constructor(
-    private restoService: RestoService,
-    private userService: UserService
-  ) { }
 
   ngOnInit() {
     this.setListResto();
