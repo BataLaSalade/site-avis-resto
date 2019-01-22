@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resto } from '../model/Resto';
-import { ListResto } from '../mock-resto';
+import { ListResto } from '../../assets/data/getResto';
+
 
 @Injectable({
   providedIn: 'root'
