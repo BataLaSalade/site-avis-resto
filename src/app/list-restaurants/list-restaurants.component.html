@@ -10,11 +10,11 @@
         <div class="sectionRating">
           <span class="ratingScore">{{resto.rating}}</span>
           <ol class="ratingStars">
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ star + ')'}"></li>
+              <li class="ratingStar" id="1" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1) + ')'}"></li>
+              <li class="ratingStar" id="2" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 2) + ')'}"></li>
+              <li class="ratingStar" id="3" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3) + ')'}"></li>
+              <li class="ratingStar" id="4" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4) + ')'}"></li>
+              <li class="ratingStar" id="5" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 5) + ')'}"></li>
           </ol>
           <span class="ratingNumber">{{resto.user_ratings_total}}</span>
         </div>
