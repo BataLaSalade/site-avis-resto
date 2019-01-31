@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resto } from '../model/Resto';
 import { ListResto } from '../../assets/data/getResto';
+import { Observable, of, from} from 'rxjs';
 
 
 @Injectable({
@@ -8,8 +9,12 @@ import { ListResto } from '../../assets/data/getResto';
 })
 export class RestoService {
 
-  getListResto(): Resto[] {
-    return ListResto;
+  getListResto(): Observable<Resto[]> {
+    return of (ListResto);
+  }
+
+  getResto(): Observable<Resto> {
+    return from (ListResto);
   }
   
   constructor() { }

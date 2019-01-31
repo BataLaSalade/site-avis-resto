@@ -26,7 +26,8 @@ export class MapComponent implements OnInit {
   ) { }
 
   setListResto(): void {
-    this.listResto = this.restoService.getListResto();
+    this.restoService.getListResto()
+      .subscribe(listResto => this.listResto = listResto);
     this.restoMarker = "../../assets/img/1x/restoFichier4.png"
   }
 
