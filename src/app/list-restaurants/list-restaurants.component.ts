@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
-import { $ } from 'protractor';
+import { RestoStars} from '../model/RestoStars';
+import { Star } from "../model/Star"
 
 @Component({
   selector: 'app-list-restaurants',
@@ -16,9 +17,14 @@ export class ListRestaurantsComponent implements OnInit{
   styleStarObj = {
     backgroundImage: "url('../../assets/img/1x/emptyStar.png')"
   }
+  
+  AllStars: RestoStars[]
+
   emptyStar: string = '../../assets/img/1x/emptyStar.png';
   listResto: Resto[];
   resto:Resto;
+
+  id: number;
   
   constructor(private restoService: RestoService) {}
 
@@ -33,7 +39,7 @@ export class ListRestaurantsComponent implements OnInit{
     let numberOfStars: number;
     let completedStarURL: string;
     //for (starId = 1; starId<=5; starId++) {
-      let elem = document.getElementById(String(starId));
+      
       if (decimalPartRate>=0 && decimalPartRate<0.25) { // arrondi inf
         numberOfStars = Math.floor(ratingScore);
         return starURL += (starId<=numberOfStars) ? "filledStar.png" : "emptyStar.png";
@@ -50,7 +56,8 @@ export class ListRestaurantsComponent implements OnInit{
           //TODO : Set URL
           //this.styleStarObj.backgroundImage = starURL;
         } else {
-          let previousStarID = starId-1;
+          //let elem = document.getElementById(String(this.id));
+          let previousStarID = this.id-1;
           let previousStarElem = document.getElementById(String(previousStarID));
           let halfStarAbsolutePath = 'url("http://localhost:4200/assets/img/1x/halfStar.png")';
           let currentComputedStyle = window.getComputedStyle(previousStarElem).backgroundImage;
@@ -63,6 +70,42 @@ export class ListRestaurantsComponent implements OnInit{
     //}
   }
 
+  createAllRestoStar(listResto: Resto[]){
+    let allStars=[];
+    var id: number = 0;
+    for (const resto of listResto) {
+      var listOfStarForOneResto = [];
+      var number: number;
+      for ( number = 1; number <= 5; number++) {
+        id+=1;
+        let currentStar = new Star();
+        currentStar.init(id, number)
+        listOfStarForOneResto.push(currentStar);
+        console.log("id: "+currentStar.id+" number: "+currentStar.starNumber+ " bkg: " + currentStar.backgroundImageURL );
+      }
+      allStars.push(listOfStarForOneResto)
+    }
+    console.log(allStars);
+  }
+  listOfStarId = []
+  createListOfStarId() {
+    const numberOfStar = 5;
+    let id: number;
+
+    for (id = 1; id <= (this.listResto.length*numberOfStar); id++) {
+      this.listOfStarId.push(id);
+    }
+    console.log(this.listOfStarId)
+  }
+
+  getId(){
+    let splicedID = this.listOfStarId.splice(0,1);
+    let id = splicedID[0];
+    console.log(id);
+    this.id = id;
+    return this.id
+  }
+
   listRestoObservable = this.restoService.getListResto();
   setListResto(): void {
     this.listRestoObservable
@@ -73,7 +116,9 @@ export class ListRestaurantsComponent implements OnInit{
   ngOnInit() {
     this.setListResto();
     this.getResto();
-    
+    //this.createAllRestoStar(this.listResto)
+    this.createListOfStarId()
+    //this.getId()
     
   }
   ngAfterViewInit(){
