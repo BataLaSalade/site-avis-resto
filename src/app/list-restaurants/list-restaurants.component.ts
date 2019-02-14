@@ -87,6 +87,7 @@ export class ListRestaurantsComponent implements OnInit{
     }
     console.log(allStars);
   }
+  
   listOfStarId = []
   createListOfStarId() {
     const numberOfStar = 5;
