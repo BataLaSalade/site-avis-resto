@@ -43,6 +43,23 @@ export class ListRestaurantsComponent implements OnInit{
     return starURL + resultPng
   }
 
+  getUrlPhotoRequest(resto: Resto) {
+    if (typeof resto.photos == "undefined") {
+      let defaultImg: string = "../../assets/img/1x/emptyStar.png";
+      return defaultImg;
+    } else {
+      let firstPart: string = "https://maps.googleapis.com/maps/api/place/photo"
+      let maxWidthKey: string = "?maxwidth=";
+      let maxWidthValue: string = "80";
+      let photoReferenceKey: string = "&photoreference=";
+      let photoReferenceValue: string = resto.photos[0].photo_reference;
+      let keyKey: string = "&key=";
+      let keyValue: string = "AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM";
+      let url: string = firstPart+maxWidthKey+maxWidthValue+photoReferenceKey+photoReferenceValue+keyKey+keyValue    
+      return url;
+    }  
+  }
+
   ngOnInit() {
     this.getListResto();
   }
