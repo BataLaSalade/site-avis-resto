@@ -10,20 +10,11 @@
         <div class="sectionRating">
           <span class="ratingScore">{{resto.rating}}</span>
           <ol class="ratingStars">
-            <!--
-            <li class="ratingStar" id="{{id}}" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1, resto.name) + ')'}"></li>
-            <li class="ratingStar" id="{{id}}" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 2, resto.name) + ')'}"></li>
-            <li class="ratingStar" id="{{id}}" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3, resto.name) + ')'}"></li>
-            <li class="ratingStar" id="{{id}}" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4, resto.name) + ')'}"></li>
-            <li class="ratingStar" id="{{id}}" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 5, resto.name) + ')'}"></li>
-            -->
-            
-            <li class="ratingStar" id="{{getId()}}" [ngStyle]="{'background-image':'url(../../assets/img/1x/emptyStar.png)'}"></li>
-            <li class="ratingStar" id="{{getId()}}" [ngStyle]="{'background-image':'url(../../assets/img/1x/emptyStar.png)'}"></li>
-            <li class="ratingStar" id="{{getId()}}" [ngStyle]="{'background-image':'url(../../assets/img/1x/emptyStar.png)'}"></li>
-            <li class="ratingStar" id="{{getId()}}" [ngStyle]="{'background-image':'url(../../assets/img/1x/emptyStar.png)'}"></li>
-            <li class="ratingStar" id="{{getId()}}" [ngStyle]="{'background-image':'url(../../assets/img/1x/emptyStar.png)'}"></li>
-            
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 0, resto.name) + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1, resto.name) + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 2, resto.name) + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3, resto.name) + ')'}"></li>
+            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4, resto.name) + ')'}"></li>
           </ol>
           <span class="ratingNumber">{{resto.user_ratings_total}}</span>
         </div>
