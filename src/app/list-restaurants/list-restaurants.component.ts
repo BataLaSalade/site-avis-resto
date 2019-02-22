@@ -9,7 +9,7 @@ import { Resto } from "../model/Resto";
   selector: 'app-list-restaurants',
   templateUrl: './list-restaurants.component.html',
   styleUrls: ['./list-restaurants.component.scss']
-})
+},)
 
 export class ListRestaurantsComponent implements OnInit{
 
@@ -47,7 +47,7 @@ export class ListRestaurantsComponent implements OnInit{
     return starURL + resultPng
   }
 
-  getUrlPhotoRequest(resto: Resto) {
+  getUrlPhotoRequest(resto: any) {
     if (typeof resto.photos == "undefined") {
       let defaultImg: string = "../../assets/img/1x/emptyStar.png";
 
@@ -67,9 +67,14 @@ export class ListRestaurantsComponent implements OnInit{
     }  
   }
 
+  
   onSelect(resto: Resto){
+    let listOfRestoElem = document.getElementById("scrollSection");
+    let detailsElem = document.getElementsByName("app-details");
     this.selectedResto = resto;
     console.log(resto);
+    console.log(listOfRestoElem);
+    listOfRestoElem.hidden=true;
   }
 
   ngOnInit() {
