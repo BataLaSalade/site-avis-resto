@@ -67,14 +67,8 @@ export class ListRestaurantsComponent implements OnInit{
     }  
   }
 
-  
   onSelect(resto: Resto){
-    let listOfRestoElem = document.getElementById("scrollSection");
-    let detailsElem = document.getElementsByName("app-details");
     this.selectedResto = resto;
-    console.log(resto);
-    console.log(listOfRestoElem);
-    listOfRestoElem.hidden=true;
   }
 
   ngOnInit() {
