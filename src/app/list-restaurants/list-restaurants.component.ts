@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
+//import { Geometry } from "../model/Geometry";
+//import { Rate } from "../model/Rate";
+//import { Photo } from "../model/Photo";
 
 @Component({
   selector: 'app-list-restaurants',
@@ -12,10 +15,11 @@ export class ListRestaurantsComponent implements OnInit{
 
   emptyStar: string = '../../assets/img/1x/emptyStar.png';
   listResto: Resto[];
-  resto:Resto;
+  resto: Resto;
   restoObservable = this.restoService.getResto();
   listRestoObservable = this.restoService.getListResto();
-
+  selectedResto: Resto;
+  
   constructor(private restoService: RestoService) {}
 
   getResto(): void{
@@ -46,7 +50,9 @@ export class ListRestaurantsComponent implements OnInit{
   getUrlPhotoRequest(resto: Resto) {
     if (typeof resto.photos == "undefined") {
       let defaultImg: string = "../../assets/img/1x/emptyStar.png";
+
       return defaultImg;
+
     } else {
       let firstPart: string = "https://maps.googleapis.com/maps/api/place/photo"
       let maxWidthKey: string = "?maxwidth=";
@@ -56,8 +62,14 @@ export class ListRestaurantsComponent implements OnInit{
       let keyKey: string = "&key=";
       let keyValue: string = "AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM";
       let url: string = firstPart+maxWidthKey+maxWidthValue+photoReferenceKey+photoReferenceValue+keyKey+keyValue    
+      
       return url;
     }  
+  }
+
+  onSelect(resto: Resto){
+    this.selectedResto = resto;
+    console.log(resto);
   }
 
   ngOnInit() {

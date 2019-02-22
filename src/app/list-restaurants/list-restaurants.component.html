@@ -3,7 +3,7 @@
 </div>
 
 <div id="scrollSection">
-  <div class="sectionResto" *ngFor="let resto of listResto">
+  <div class="sectionResto" *ngFor="let resto of listResto" (click)="onSelect(resto)">
     <div  class="sectionTextContent">
       <div  class="sectionHeader">
         <h3 class="title">{{resto.name}}</h3>
