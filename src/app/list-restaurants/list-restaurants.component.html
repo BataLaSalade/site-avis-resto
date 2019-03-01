@@ -1,9 +1,9 @@
-<div id="filterSection">
+<div id="filterSection" *ngIf="!selectedResto">
   list-restaurants works!
 </div>
 
 <div *ngIf="!selectedResto">
-  <div id="scrollSection">
+  <div class="scrollSection">
     <div class="sectionResto" *ngFor="let resto of listResto" (click)="onSelect(resto)">
       <div  class="sectionTextContent">
         <div  class="sectionHeader">
@@ -30,5 +30,5 @@
 </div>
 
 <div *ngIf="selectedResto">
-  <app-details></app-details>
+  <app-details [resto]="selectedResto"></app-details>
 </div>
