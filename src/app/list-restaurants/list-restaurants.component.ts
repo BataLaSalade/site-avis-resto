@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
 //import { Geometry } from "../model/Geometry";
@@ -19,7 +19,7 @@ export class ListRestaurantsComponent implements OnInit{
   restoObservable = this.restoService.getResto();
   listRestoObservable = this.restoService.getListResto();
   selectedResto: Resto;
-  
+
   constructor(private restoService: RestoService) {}
 
   getResto(): void{
@@ -69,6 +69,7 @@ export class ListRestaurantsComponent implements OnInit{
 
   onSelect(resto: Resto){
     this.selectedResto = resto;
+    console.log("coucou from List")
   }
 
   ngOnInit() {
