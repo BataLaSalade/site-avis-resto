@@ -8,14 +8,18 @@ import { Resto } from "../model/Resto";
 })
 export class DetailsComponent implements OnInit {
 
-  @Input() resto: Resto;
-
+  @Input() resto: any;
+  @Input() isShow: boolean;
+  @Input() selectedResto;
 
   constructor() { }
 
-  showList() {
+  /* showList() {
     console.log("coucou from Details")
-  }
+    this.resto.name = "toto";
+    this.isShow = true;
+    console.log("toto")
+  } */
 
   ngOnInit() {
   }

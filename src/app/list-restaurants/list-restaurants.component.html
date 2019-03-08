@@ -1,12 +1,13 @@
-<div > <!--*ngIf="!selectedResto" pour masquer la liste, pour pour l'instant
+<div id="listAndHeader" > <!--*ngIf="!selectedResto" pour masquer la liste, pour pour l'instant
 au click sur un item de la liste, on affiche le détail en dessous
 le display des différents compo semble être géré par le routing cf angular Doc-->
   <div id="filterSection" >
     list-restaurants works!
+    <button class="back" [style.display]="isShow ?'none' :'block'" (click)="showList()">Retourner à la liste</button>
   </div>
   
   <div >
-    <div class="scrollSection">
+    <div class="scrollSection" [style.display]="isShow ?'block' :'none'">
       <div class="sectionResto" *ngFor="let resto of listResto" (click)="onSelect(resto)">
         <div  class="sectionTextContent">
           <div  class="sectionHeader">
@@ -33,7 +34,7 @@ le display des différents compo semble être géré par le routing cf angular D
   </div>
 </div>
 
-<app-details [resto]="selectedResto" ></app-details>
+<app-details [resto]="selectedResto"></app-details>
 
 
 
