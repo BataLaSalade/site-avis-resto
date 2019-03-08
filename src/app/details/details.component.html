@@ -1,45 +1,18 @@
 <div *ngIf="resto">
-  <div class="detailHeaderSection" >
-    <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(resto) + ')'}"></div>
-    <div class="detailHeaderResume">
-        <div  class="sectionHeader">
-          <h3 class="title">NOM DU RESTO : {{resto.name}}</h3>
-          <div class="sectionRating">
-            <span class="ratingScore">Note moyenne : {{resto.rating}}</span>
-            <ol class="ratingStars">
-              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 0, resto.name) + ')'}"></li>
-              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1, resto.name) + ')'}"></li>
-              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 2, resto.name) + ')'}"></li>
-              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3, resto.name) + ')'}"></li>
-              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4, resto.name) + ')'}"></li>
-            </ol>
-            <span class="ratingNumber">Nb avis : {{resto.user_ratings_total}}</span>
-          </div>
-        </div>
-    </div>
-    <button class="back" (click)="showList()">Retourner à la liste</button>
-  </div>
-  
-  <div class="scrollSection">
-      <div class="detailInfoSection">
-        <div class="detailInfoCell">
-          <img src="" alt="">
-          <span>Adresse : {{resto.vicinity}}</span>
-        </div>
-      </div>
-      
-      <div class="detailReview">
-        <div class="detailReviewResume">
-          <h3 class="detailReviewResumeTitle">RESUME DES AVIS</h3>
-          <div class="detailReviewResumeGraphDisplay">
-            <!--
-              progressBar Material
-              label = score à droite
-              progressBar = nb avis en %
-            -->
-          </div>
-          <div class="detailReviewResumeAverage">
-              <span class="ratingScore">Note moyenne: {{resto.rating}}</span>
+    <h3 class="title">Nom du resto : {{resto.name}}</h3>
+    <span class="ratingScore">Note moyenne : {{resto.rating}}</span> 
+    <span class="ratingNumber">Nb avis : {{resto.user_ratings_total}}</span>
+</div>
+
+<!--
+<div *ngIf="resto">
+    <div class="detailHeaderSection" >
+      <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(resto) + ')'}"></div>
+      <div class="detailHeaderResume">
+          <div  class="sectionHeader">
+            <h3 class="title">NOM DU RESTO : {{resto.name}}</h3>
+            <div class="sectionRating">
+              <span class="ratingScore">Note moyenne : {{resto.rating}}</span>
               <ol class="ratingStars">
                 <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 0, resto.name) + ')'}"></li>
                 <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1, resto.name) + ')'}"></li>
@@ -47,19 +20,56 @@
                 <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3, resto.name) + ')'}"></li>
                 <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4, resto.name) + ')'}"></li>
               </ol>
-              <span class="ratingNumber">Nb Avis : {{resto.user_ratings_total}}</span>
+              <span class="ratingNumber">Nb avis : {{resto.user_ratings_total}}</span>
+            </div>
           </div>
-          <div class="detailReviewList">
-            <div class="detailReviewUserContainer">
-              <span class="circleWithLetter">m</span>
-              <span class="userReview">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Pariatur mollitia voluptatibus cum exercitationem aspernatur molestias, officia itaque, 
-                repellat ipsam, est possimus sequi natus iusto ex soluta? Natus, quasi? Similique, excepturi!
-              </span>
+      </div>
+      <button class="back" (click)="showList()">Retourner à la liste</button>
+    </div>
+    
+    <div class="scrollSection">
+        <div class="detailInfoSection">
+          <div class="detailInfoCell">
+            <img src="" alt="">
+            <span>Adresse : {{resto.vicinity}}</span>
+          </div>
+        </div>
+        
+        <div class="detailReview">
+          <div class="detailReviewResume">
+            <h3 class="detailReviewResumeTitle">RESUME DES AVIS</h3>
+            <div class="detailReviewResumeGraphDisplay">
+            -->
+              <!--
+                progressBar Material
+                label = score à droite
+                progressBar = nb avis en %
+              -->
+              <!--
+            </div>
+            <div class="detailReviewResumeAverage">
+                <span class="ratingScore">Note moyenne: {{resto.rating}}</span>
+                <ol class="ratingStars">
+                  <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 0, resto.name) + ')'}"></li>
+                  <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1, resto.name) + ')'}"></li>
+                  <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 2, resto.name) + ')'}"></li>
+                  <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3, resto.name) + ')'}"></li>
+                  <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4, resto.name) + ')'}"></li>
+                </ol>
+                <span class="ratingNumber">Nb Avis : {{resto.user_ratings_total}}</span>
+            </div>
+            <div class="detailReviewList">
+              <div class="detailReviewUserContainer">
+                <span class="circleWithLetter">m</span>
+                <span class="userReview">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                  Pariatur mollitia voluptatibus cum exercitationem aspernatur molestias, officia itaque, 
+                  repellat ipsam, est possimus sequi natus iusto ex soluta? Natus, quasi? Similique, excepturi!
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+    </div>
   </div>
-</div>
 
+-->

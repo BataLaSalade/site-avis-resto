@@ -273,7 +273,7 @@ export const ListResto: Resto[] = [
             ],
             "vicinity": "Boulevard des Ventadouiro, Salon-de-Provence"
         },
-        {
+        /*{
             "geometry": {
                 "location": {
                     "lat": 43.6403905,
@@ -965,5 +965,5 @@ export const ListResto: Resto[] = [
             ],
             "user_ratings_total": 65,
             "vicinity": "136 Allée de Craponne, Salon-de-Provence"
-        }
+        }*/
     ]

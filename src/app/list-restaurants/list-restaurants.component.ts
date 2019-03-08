@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
+import {ListResto} from "../../assets/data/getResto"
 //import { Geometry } from "../model/Geometry";
 //import { Rate } from "../model/Rate";
 //import { Photo } from "../model/Photo";
@@ -14,7 +15,7 @@ import { Resto } from "../model/Resto";
 export class ListRestaurantsComponent implements OnInit{
 
   emptyStar: string = '../../assets/img/1x/emptyStar.png';
-  listResto: Resto[];
+  listResto: Resto[] = ListResto;
   resto: Resto;
   restoObservable = this.restoService.getResto();
   listRestoObservable = this.restoService.getListResto();
@@ -22,7 +23,8 @@ export class ListRestaurantsComponent implements OnInit{
 
   constructor(private restoService: RestoService) {}
 
-  getResto(): void{
+  
+  /*getResto(): void{
     this.restoObservable
       .subscribe(resto => this.resto = resto);
   }
@@ -30,7 +32,7 @@ export class ListRestaurantsComponent implements OnInit{
   getListResto(): void {
     this.listRestoObservable
       .subscribe(listResto => this.listResto = listResto);
-  }
+  }*/
 
   getBkgImgURL(ratingScore:number, starIndex:number){
     let starURL: string = "../../assets/img/1x/";
@@ -73,7 +75,7 @@ export class ListRestaurantsComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.getListResto();
+    //this.getListResto();
   }
 
 }
