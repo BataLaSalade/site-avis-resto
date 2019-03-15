@@ -20,8 +20,12 @@ export class DetailsComponent implements OnInit {
     this.isShow = true;
     console.log("toto")
   } */
+  coucou(){
+    console.log("FROM DETAIL : " + this.isShow)
+  }
 
   ngOnInit() {
+    //console.log("FROM DETAIL : " + this.isShow)
   }
 
 }

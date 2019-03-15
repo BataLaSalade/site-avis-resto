@@ -1,34 +1,30 @@
-<div id="listAndHeader" > <!--*ngIf="!selectedResto" pour masquer la liste, pour pour l'instant
-au click sur un item de la liste, on affiche le détail en dessous
-le display des différents compo semble être géré par le routing cf angular Doc-->
-  <div id="filterSection" >
+<div id="listAndHeader">
+  <div id="filterSection">
     list-restaurants works!
     <button class="back" [style.display]="isShow ?'none' :'block'" (click)="showList()">Retourner à la liste</button>
   </div>
   
-  <div >
-    <div class="scrollSection" [style.display]="isShow ?'block' :'none'">
-      <div class="sectionResto" *ngFor="let resto of listResto" (click)="onSelect(resto)">
-        <div  class="sectionTextContent">
-          <div  class="sectionHeader">
-            <h3 class="title">{{resto.name}}</h3>
-            <div class="sectionRating">
-              <span class="ratingScore">{{resto.rating}}</span>
-              <ol class="ratingStars">
-                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 0, resto.name) + ')'}"></li>
-                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1, resto.name) + ')'}"></li>
-                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 2, resto.name) + ')'}"></li>
-                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3, resto.name) + ')'}"></li>
-                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4, resto.name) + ')'}"></li>
-              </ol>
-              <span class="ratingNumber">{{resto.user_ratings_total}}</span>
-            </div>
+  <div class="scrollSection" [style.display]="isShow ?'block' :'none'">
+    <div class="sectionResto" *ngFor="let resto of listResto" (click)="onSelect(resto)">
+      <div  class="sectionTextContent">
+        <div  class="sectionHeader">
+          <h3 class="title">{{resto.name}}</h3>
+          <div class="sectionRating">
+            <span class="ratingScore">{{resto.rating}}</span>
+            <ol class="ratingStars">
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 0, resto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 1, resto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 2, resto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 3, resto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(resto.rating, 4, resto.name) + ')'}"></li>
+            </ol>
+            <span class="ratingNumber">{{resto.user_ratings_total}}</span>
           </div>
-          <div  class="sectionDescription">{{resto.vicinity}}</div>
         </div>
-        <div  class="sectionImageContent">
-          <img [src]="getUrlPhotoRequest(resto)"/>
-        </div>
+        <div  class="sectionDescription">{{resto.vicinity}}</div>
+      </div>
+      <div  class="sectionImageContent">
+        <img [src]="getUrlPhotoRequest(resto)"/>
       </div>
     </div>
   </div>

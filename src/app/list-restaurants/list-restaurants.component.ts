@@ -20,7 +20,8 @@ export class ListRestaurantsComponent implements OnInit{
   restoObservable = this.restoService.getResto();
   listRestoObservable = this.restoService.getListResto();
   selectedResto: Resto;
-  isShow: boolean = true
+  isShow: boolean = true;
+  
 
   constructor(private restoService: RestoService) {}
 
@@ -73,14 +74,13 @@ export class ListRestaurantsComponent implements OnInit{
 
   onSelect(resto: Resto){
     this.selectedResto = resto;
-    this.isShow = false;
+    this.isShow = false; // hide list - show back btn & details
     console.log("coucou from List")
   }
 
   showList() {
-    
-    this.isShow = true;
-    console.log("toto")
+    this.isShow = true; // show list - hide back btn & details
+    console.log("coucou from Details")
   }
 
   ngOnInit() {

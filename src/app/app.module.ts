@@ -8,12 +8,13 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { ListRestaurantsComponent } from './list-restaurants/list-restaurants.component';
 import { DetailsComponent } from './details/details.component';
-import { from } from 'rxjs';
+import { MapSidebarComponent } from './map-sidebar/map-sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
+    MapSidebarComponent,
     ListRestaurantsComponent,
     DetailsComponent
   ],
