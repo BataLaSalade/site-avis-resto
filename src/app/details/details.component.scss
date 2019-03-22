@@ -1,5 +1,83 @@
+@import '../app.component.scss';
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
 .scrollSection{
     overflow-x: hidden;
     overflow-y: scroll;
     max-height: 80vh;
+    .detailHeaderSection{
+        margin-left: 8px;
+        margin-right: 8px;
+        .detailHeaderResume{
+            .sectionHeader{
+                .title{
+                    margin: 8px 0px 0px 8px;
+                    opacity: 0.8;
+                }
+                .sectionRating{
+                    font-size: 0.8rem;
+                    display: flex;
+                    align-items: center;
+                    height: 40px;
+                    .ratingScore, .ratingStars, .ratingNumber{
+                        margin-left: 8px;
+                    }
+                    .ratingScore, .ratingStars, .ratingStar, .ratingNumber{
+                        display: inline-block;
+                    }
+                    .ratingScore{
+                        color: $secondary500;
+                    }
+                    .ratingStars{
+                        list-style: none;
+                        padding: 0;
+                        .ratingStar{
+                          height: 25px;
+                          width:25px;
+                          //border: #888 solid 1px;
+                        }
+                    }
+                    .ratingNumber{
+                        color: $grey;
+                        opacity: 0.7;
+                    }
+                }
+            }
+        }
+    }
+    #adressSection{
+        margin-left: 8px;
+        margin-right: 8px;
+        margin-bottom: 16px;
+        img{
+            height: 24px;
+            width: 24px;
+            vertical-align: middle;
+        }
+        span{
+            line-height: 24px;
+            font-size: 0.8rem;
+            color: #8c8c8c;
+            
+        }
+    }
+    #userReviewSection{
+        margin-left: 8px;
+        margin-right: 8px;
+        button{
+            box-align: center;
+        }
+    }
+    
 }

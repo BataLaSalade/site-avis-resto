@@ -13,12 +13,17 @@ import {ListResto} from "../../assets/data/getResto"
     
     isShowDetails: boolean = false;
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
-    listResto: Resto[] = ListResto;
-    restoObservable = this.restoService.getResto();
+    selectedResto: any;
+    listResto: Resto[];
     listRestoObservable = this.restoService.getListResto();
-    selectedResto: any
+    
     
     constructor(private restoService: RestoService) {}
+
+    setListResto(): void{
+        this.listRestoObservable
+            .subscribe(listResto => this.listResto = listResto);
+    }
 
     toggleListDetail() {
         this.isShowDetails = !this.isShowDetails;
@@ -32,6 +37,7 @@ import {ListResto} from "../../assets/data/getResto"
 
     ngOnInit(): void {
         console.log("coucou from parent = " + this.isShowDetails)
+        this.setListResto()
     }
 
   }

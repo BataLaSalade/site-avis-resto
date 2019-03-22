@@ -1,24 +1,54 @@
-Details works !
 <div *ngIf="selectedResto">
-  <div class="detailHeaderSection" >
-    <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(selectedResto) + ')'}">
-    </div> 
-    <div class="detailHeaderResume">
-      <div  class="sectionHeader">
-        <h3 class="title">NOM DU RESTO : {{selectedResto.name}}</h3>
-        <div class="sectionRating">
-          <span class="ratingScore">Note moyenne : {{selectedResto.rating}}</span>
-          <ol class="ratingStars">
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 0, selectedResto.name) + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 1, selectedResto.name) + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 2, selectedResto.name) + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 3, selectedResto.name) + ')'}"></li>
-            <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 4, selectedResto.name) + ')'}"></li>
-          </ol>
-          <span class="ratingNumber">Nb avis : {{selectedResto.user_ratings_total}}</span>
+  <div class="scrollSection">
+      <div class="detailHeaderSection" >
+        <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(selectedResto) + ')'}">
+        </div> 
+        <div class="detailHeaderResume">
+          <div  class="sectionHeader">
+            <h3 class="title">{{selectedResto.name}}</h3>
+            <div class="sectionRating">
+              <span class="ratingScore">{{selectedResto.rating}}</span>
+              <ol class="ratingStars">
+                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 0, selectedResto.name) + ')'}"></li>
+                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 1, selectedResto.name) + ')'}"></li>
+                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 2, selectedResto.name) + ')'}"></li>
+                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 3, selectedResto.name) + ')'}"></li>
+                <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 4, selectedResto.name) + ')'}"></li>
+              </ol>
+              <span class="ratingNumber">{{selectedResto.user_ratings_total}}</span>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div id="adressSection">
+        <!--<img src="../../assets/img/1x/outline_map_black_48dp.png" alt="phoneIcon">-->
+        <span id="adressInfo">{{selectedResto.vicinity}}</span>
+      </div>
+      <div id="userReviewSection">
+        <button>Rédiger un avis</button>
+        <h3 class="reviewTitle">Tous les avis</h3>
+        <div class="reviews"><!--ici ngFor let review of listReview-->
+          <div class="authorInfo">
+            <img src="" alt="authorAvatar">
+            <p class="authorName">Nom de l'auteur</p>
+            <!--
+              recuperer l'avis de l'utilisater et set le bkgImg a partir de cette valeur la
+            <ol class="ratingByUser">
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 0, selectedResto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 1, selectedResto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 2, selectedResto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 3, selectedResto.name) + ')'}"></li>
+              <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 4, selectedResto.name) + ')'}"></li>
+            </ol>
+          -->
+            <span class="timeDescription">posté il y a: xxjours</span>
+            <p class="authorReview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos libero consequatur praesentium voluptatibus architecto molestias quo, ad, voluptate pariatur a sit nesciunt excepturi odit dignissimos sed! Delectus eligendi a obcaecati?
+            </p>
+          </div>
         </div>
       </div>
-    </div> 
+  </div>
+  
 </div>
 
 <!--<div *ngIf="resto">
