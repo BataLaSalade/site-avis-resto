@@ -1,10 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { RestoService } from "../services/resto.service";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Resto } from "../model/Resto";
-import {ListResto} from "../../assets/data/getResto"
-//import { Geometry } from "../model/Geometry";
-//import { Rate } from "../model/Rate";
-//import { Photo } from "../model/Photo";
 
 @Component({
   selector: 'app-list-restaurants',
@@ -13,28 +8,12 @@ import {ListResto} from "../../assets/data/getResto"
 },)
 
 export class ListRestaurantsComponent implements OnInit{
-
-  emptyStar: string = '../../assets/img/1x/emptyStar.png';
-  listResto: Resto[] = ListResto;
-  resto: Resto;
-  restoObservable = this.restoService.getResto();
-  listRestoObservable = this.restoService.getListResto();
+  @Input() listResto: Resto[];
+  @Input() isShowDetails: boolean;
+  @Output() currentRestoChange: EventEmitter<any> = new EventEmitter;
   selectedResto: Resto;
-  isShow: boolean = true;
   
-
-  constructor(private restoService: RestoService) {}
-
-  
-  /*getResto(): void{
-    this.restoObservable
-      .subscribe(resto => this.resto = resto);
-  }
-
-  getListResto(): void {
-    this.listRestoObservable
-      .subscribe(listResto => this.listResto = listResto);
-  }*/
+  constructor() {}
 
   getBkgImgURL(ratingScore:number, starIndex:number){
     let starURL: string = "../../assets/img/1x/";
@@ -42,10 +21,10 @@ export class ListRestaurantsComponent implements OnInit{
     let resultPng = "emptyStar.png";
 
     if(currentRate >= 0.75) {
-      resultPng = "filledStar.png"
+        resultPng = "filledStar.png"
     }
     else if(currentRate >= 0.25) {
-      resultPng ="halfStar.png"
+        resultPng ="halfStar.png"
     }
 
     return starURL + resultPng
@@ -53,38 +32,31 @@ export class ListRestaurantsComponent implements OnInit{
 
   getUrlPhotoRequest(resto: any) {
     if (typeof resto.photos == "undefined") {
-      let defaultImg: string = "../../assets/img/1x/emptyStar.png";
+        let defaultImg: string = "../../assets/img/1x/emptyStar.png";
 
-      return defaultImg;
-
+        return defaultImg;
     } else {
-      let firstPart: string = "https://maps.googleapis.com/maps/api/place/photo"
-      let maxWidthKey: string = "?maxwidth=";
-      let maxWidthValue: string = "80";
-      let photoReferenceKey: string = "&photoreference=";
-      let photoReferenceValue: string = resto.photos[0].photo_reference;
-      let keyKey: string = "&key=";
-      let keyValue: string = "AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM";
-      let url: string = firstPart+maxWidthKey+maxWidthValue+photoReferenceKey+photoReferenceValue+keyKey+keyValue    
-      
-      return url;
+        let firstPart: string = "https://maps.googleapis.com/maps/api/place/photo"
+        let maxWidthKey: string = "?maxwidth=";
+        let maxWidthValue: string = "80";
+        let photoReferenceKey: string = "&photoreference=";
+        let photoReferenceValue: string = resto.photos[0].photo_reference;
+        let keyKey: string = "&key=";
+        let keyValue: string = "AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM";
+        let url: string = firstPart+maxWidthKey+maxWidthValue+photoReferenceKey+photoReferenceValue+keyKey+keyValue    
+        
+        return url;
     }  
   }
 
-
   onSelect(resto: Resto){
-    this.selectedResto = resto;
-    this.isShow = false; // hide list - show back btn & details
-    console.log("coucou from List")
+    this.selectedResto = resto
+    console.log("coucou from list = " + resto)
+    this.currentRestoChange.emit(this.selectedResto);
   }
-
-  showList() {
-    this.isShow = true; // show list - hide back btn & details
-    console.log("coucou from Details")
-  }
-
+  
   ngOnInit() {
-    //this.getListResto();
+
   }
 
 }
