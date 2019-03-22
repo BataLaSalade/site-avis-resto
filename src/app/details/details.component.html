@@ -30,7 +30,7 @@
         <div class="reviews" *ngFor = "let detail of details" ><!--ici ngFor let review of listReview-->
           <div class="authorInfo">
             <img src={{detail.author_url}} alt="authorAvatar">
-            <p class="authorName">Nom de l'auteur : {{detail.author_name}}</p>
+            <span class="authorName">Nom de l'auteur : {{detail.author_name}}</span>
             <!--
               recuperer l'avis de l'utilisater et set le bkgImg a partir de cette valeur la
             <ol class="ratingByUser">

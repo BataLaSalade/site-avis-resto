@@ -86,6 +86,12 @@
         .reviews{
             padding: 8px 0px 0px 8px;
             border-bottom: 1px solid $spacer;
+            .authorInfo{
+                img{
+                    vertical-align: middle;
+                    margin: 0px;
+                }
+            }
         }
     }
     
