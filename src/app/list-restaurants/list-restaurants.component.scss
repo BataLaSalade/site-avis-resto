@@ -2,7 +2,7 @@
 
 #filterSection {
     height: 20vh;
-    background-color: $primary700;
+    background-color: $blueGrey;
 }
 
 ::-webkit-scrollbar {
@@ -48,7 +48,7 @@
                         display: inline-block;
                     }
                     .ratingScore{
-                        color: $secondary500;
+                        color: $pink;
                     }
                     .ratingStars{
                         list-style: none;
