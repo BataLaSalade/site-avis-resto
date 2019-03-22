@@ -17,7 +17,6 @@ import {ListResto} from "../../assets/data/getResto"
     listResto: Resto[];
     listRestoObservable = this.restoService.getListResto();
     
-    
     constructor(private restoService: RestoService) {}
 
     setListResto(): void{

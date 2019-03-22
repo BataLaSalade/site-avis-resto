@@ -27,10 +27,10 @@
       <div id="userReviewSection">
         <button>Rédiger un avis</button>
         <h3 class="reviewTitle">Tous les avis</h3>
-        <div class="reviews"><!--ici ngFor let review of listReview-->
+        <div class="reviews" *ngFor = "let detail of details" ><!--ici ngFor let review of listReview-->
           <div class="authorInfo">
-            <img src="" alt="authorAvatar">
-            <p class="authorName">Nom de l'auteur</p>
+            <img src={{detail.author_url}} alt="authorAvatar">
+            <p class="authorName">Nom de l'auteur : {{detail.author_name}}</p>
             <!--
               recuperer l'avis de l'utilisater et set le bkgImg a partir de cette valeur la
             <ol class="ratingByUser">
@@ -41,8 +41,8 @@
               <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(selectedResto.rating, 4, selectedResto.name) + ')'}"></li>
             </ol>
           -->
-            <span class="timeDescription">posté il y a: xxjours</span>
-            <p class="authorReview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos libero consequatur praesentium voluptatibus architecto molestias quo, ad, voluptate pariatur a sit nesciunt excepturi odit dignissimos sed! Delectus eligendi a obcaecati?
+            <span class="timeDescription">posté il y a: {{detail.relative_time_description}}</span>
+            <p class="authorReview"> {{detail.text}}
             </p>
           </div>
         </div>

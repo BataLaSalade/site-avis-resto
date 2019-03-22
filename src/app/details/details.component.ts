@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RestoService } from "../services/resto.service";
+import {DetailsService} from "../services/details.service";
 import { Resto } from "../model/Resto";
-import {ListResto} from "../../assets/data/getResto"
+import {Rate} from "../model/Rate";
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-details',
@@ -13,11 +15,21 @@ export class DetailsComponent implements OnInit {
   @Input() resto: any;
   @Input() isShowDetails: boolean;
   @Input() selectedResto: Resto;
+  //detailsObservable: Observable<any> = this.detailsService.getDetails();
+  details: Rate[];
 
-  constructor() { }
+  constructor(private detailsService: DetailsService) { }
 
-  ngOnInit() {
-    //console.log("FROM DETAIL : " + this.isShow)
+  fetchDetails(): void {
+    console.log("fetchDetails");
+    //if (typeof this.detailsObservable.subscribe != "undefined") {
+      var obs = this.detailsService.getDetails()
+      console.log("obs=", obs)
+        obs.subscribe(details => this.details = details);
+    //}o
+    //this.detailsObservable
+     // .subscribe(details => this.details = details);
+    
   }
 
   getBkgImgURL(ratingScore:number, starIndex:number){
@@ -52,6 +64,11 @@ export class DetailsComponent implements OnInit {
         
         return url;
     }  
+  }
+
+  ngOnInit() {
+    //console.log("FROM DETAIL : " + this.isShow)
+    this.fetchDetails()
   }
 
 }

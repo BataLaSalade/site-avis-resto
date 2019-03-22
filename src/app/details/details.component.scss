@@ -75,8 +75,17 @@
     #userReviewSection{
         margin-left: 8px;
         margin-right: 8px;
+        //padding: 8px 0px 0px 8px;
         button{
             box-align: center;
+        }
+        h3{
+            border-bottom: 1px solid $spacer;
+            padding: 8px 0px 0px 8px;
+        }
+        .reviews{
+            padding: 8px 0px 0px 8px;
+            border-bottom: 1px solid $spacer;
         }
     }
     
