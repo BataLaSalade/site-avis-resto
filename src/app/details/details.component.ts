@@ -15,20 +15,26 @@ export class DetailsComponent implements OnInit {
   @Input() resto: any;
   @Input() isShowDetails: boolean;
   @Input() selectedResto: Resto;
-  //detailsObservable: Observable<any> = this.detailsService.getDetails();
+  detailsObservable: Observable<any> = this.detailsService.getDetails();
   details: Rate[];
 
   constructor(private detailsService: DetailsService) { }
 
+getRandomIndex(max: number): number{
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+getRandomAvatar(): string {
+  let url: string = "../../assets/img/1x/roundedAvatarFichier";
+  let index: string = String(this.getRandomIndex(5));
+  let extension: string = ".png"
+  let randomUrl: string = url + String(index) + extension
+  return randomUrl
+}
+
   fetchDetails(): void {
-    console.log("fetchDetails");
-    //if (typeof this.detailsObservable.subscribe != "undefined") {
-      var obs = this.detailsService.getDetails()
-      console.log("obs=", obs)
-        obs.subscribe(details => this.details = details);
-    //}o
-    //this.detailsObservable
-     // .subscribe(details => this.details = details);
+    this.detailsObservable
+      .subscribe(details => this.details = details);
     
   }
 
@@ -67,7 +73,6 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log("FROM DETAIL : " + this.isShow)
     this.fetchDetails()
   }
 

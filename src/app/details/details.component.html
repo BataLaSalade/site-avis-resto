@@ -28,8 +28,10 @@
         <h3 class="reviewTitle">Tous les avis</h3>
         <div class="reviews" *ngFor = "let detail of details" ><!--ici ngFor let review of listReview-->
           <div class="authorInfo">
-            <img src={{detail.author_url}} alt="authorAvatar">
-            <span class="authorName">Nom de l'auteur : {{detail.author_name}}</span>
+            <div class="authorInfoName">
+                <img [src]=getRandomAvatar() alt="authorAvatar">
+                <span class="authorName">{{detail.author_name}}</span>
+            </div>
             <ol class="ratingStars" >
               <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(detail.rating, 0, selectedResto.name) + ')'}"></li>
               <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(detail.rating, 1, selectedResto.name) + ')'}"></li>
@@ -37,7 +39,7 @@
               <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(detail.rating, 3, selectedResto.name) + ')'}"></li>
               <li class="ratingStar" [ngStyle]="{'background-image':'url('+ getBkgImgURL(detail.rating, 4, selectedResto.name) + ')'}"></li>
             </ol>
-            <span class="timeDescription">posté il y a: {{detail.relative_time_description}}</span>
+            <span class="timeDescription">{{detail.relative_time_description}}</span>
             <p class="authorReview"> {{detail.text}}
             </p>
           </div>
