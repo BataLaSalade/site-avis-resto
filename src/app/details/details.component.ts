@@ -61,7 +61,7 @@ getRandomAvatar(): string {
     } else {
         let firstPart: string = "https://maps.googleapis.com/maps/api/place/photo"
         let maxWidthKey: string = "?maxwidth=";
-        let maxWidthValue: string = "80";
+        let maxWidthValue: string = String(resto.photos[0].width);
         let photoReferenceKey: string = "&photoreference=";
         let photoReferenceValue: string = resto.photos[0].photo_reference;
         let keyKey: string = "&key=";

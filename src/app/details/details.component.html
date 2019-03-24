@@ -1,8 +1,9 @@
 <div *ngIf="selectedResto">
   <div class="scrollSection">
+      <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(selectedResto) + ')'}">
+      </div> 
       <div class="detailHeaderSection" >
-        <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(selectedResto) + ')'}">
-        </div> 
+        
         <div class="detailHeaderResume">
           <div  class="sectionHeader">
             <h3 class="title">{{selectedResto.name}}</h3>
@@ -24,7 +25,7 @@
         <span id="adressInfo">{{selectedResto.vicinity}}</span>
       </div>
       <div id="userReviewSection">
-        <button>Rédiger un avis</button>
+        <button mat-flat-button>Rédiger un avis</button>
         <h3 class="reviewTitle">Tous les avis</h3>
         <div class="reviews" *ngFor = "let detail of details" ><!--ici ngFor let review of listReview-->
           <div class="authorInfo">
