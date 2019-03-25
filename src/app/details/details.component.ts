@@ -1,8 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import {DetailsService} from "../services/details.service";
 import { Resto } from "../model/Resto";
 import {Rate} from "../model/Rate";
 import { Observable } from 'rxjs';
+import { MapsAPILoader } from '@agm/core';
+import { isPlatformBrowser } from '@angular/common';
+import { google } from '@agm/core/services/google-maps-types';
 
 
 @Component({
@@ -10,15 +13,18 @@ import { Observable } from 'rxjs';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, AfterViewInit {
 
   @Input() resto: any;
   @Input() isShowDetails: boolean;
   @Input() selectedResto: Resto;
+  
   detailsObservable: Observable<any> = this.detailsService.getDetails();
   details: Rate[];
+  panorama: any;
 
-  constructor(private detailsService: DetailsService) { }
+  constructor(private detailsService: DetailsService, @Inject(PLATFORM_ID) private platformId: Object, private mapsAPILoader: MapsAPILoader) { }
+
 
 getRandomIndex(max: number): number{
   return Math.floor(Math.random() * Math.floor(max));
@@ -73,7 +79,11 @@ getRandomAvatar(): string {
   }
 
   ngOnInit() {
-    this.fetchDetails()
+    this.fetchDetails();    
   }
 
+  ngAfterViewInit(){
+    
+  }
+   
 }

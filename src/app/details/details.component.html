@@ -3,7 +3,8 @@
       <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(selectedResto) + ')'}">
       </div> 
       <div class="detailHeaderSection" >
-        
+        <div id="streetViewPano" #streetviewPano>
+        </div>
         <div class="detailHeaderResume">
           <div  class="sectionHeader">
             <h3 class="title">{{selectedResto.name}}</h3>
