@@ -29,13 +29,11 @@ import {ListResto} from "../../assets/data/getResto"
     }
 
     onRestoEmission(resto) {
-        console.log("coucou from resto2 = " + resto)
         this.isShowDetails = typeof resto != "undefined";
         this.selectedResto = resto
     }
 
     ngOnInit(): void {
-        console.log("coucou from parent = " + this.isShowDetails)
         this.setListResto()
     }
 

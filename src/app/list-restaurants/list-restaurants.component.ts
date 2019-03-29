@@ -50,8 +50,7 @@ export class ListRestaurantsComponent implements OnInit{
   }
 
   onSelect(resto: Resto){
-    this.selectedResto = resto
-    console.log("coucou from list = " + resto)
+    this.selectedResto = resto;
     this.RestoEmitter.emit(this.selectedResto);
   }
   

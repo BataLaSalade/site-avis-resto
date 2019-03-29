@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
       this.userLat = coords.latitude;
       this.userLong = coords.longitude;
       this.userMarker = "../../assets/img/1x/userFichier 2.png";
-      console.log('Votre position actuelle etait :');
+      console.log('Votre position actuelle est :');
       console.log(`Latitude : ${coords.latitude}`);
       console.log(`Longitude : ${coords.longitude}`);
       console.log(`La précision est de ${coords.accuracy} mètres.`);
