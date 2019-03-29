@@ -7,7 +7,7 @@
 </div>
 <app-list-restaurants 
     [listResto]="listResto"
-    (currentRestoChange)="onCurrentRestoChange($event)" 
+    (RestoEmitter)="onRestoEmission($event)" 
     [style.display]="isShowDetails ?'none' :'block'">
 </app-list-restaurants>
 <app-details 

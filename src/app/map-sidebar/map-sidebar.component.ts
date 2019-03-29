@@ -28,7 +28,7 @@ import {ListResto} from "../../assets/data/getResto"
         this.isShowDetails = !this.isShowDetails;
     }
 
-    onCurrentRestoChange(resto) {
+    onRestoEmission(resto) {
         console.log("coucou from resto2 = " + resto)
         this.isShowDetails = typeof resto != "undefined";
         this.selectedResto = resto

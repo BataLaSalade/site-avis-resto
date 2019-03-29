@@ -10,7 +10,7 @@ import { Resto } from "../model/Resto";
 export class ListRestaurantsComponent implements OnInit{
   @Input() listResto: Resto[];
   @Input() isShowDetails: boolean;
-  @Output() currentRestoChange: EventEmitter<any> = new EventEmitter;
+  @Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
   selectedResto: Resto;
   
   constructor() {}
@@ -52,7 +52,7 @@ export class ListRestaurantsComponent implements OnInit{
   onSelect(resto: Resto){
     this.selectedResto = resto
     console.log("coucou from list = " + resto)
-    this.currentRestoChange.emit(this.selectedResto);
+    this.RestoEmitter.emit(this.selectedResto);
   }
   
   ngOnInit() {
