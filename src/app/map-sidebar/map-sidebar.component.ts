@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
-import {ListResto} from "../../assets/data/getResto"
+import { filter, map } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 @Component({
     selector: 'app-map-sidebar',
@@ -9,19 +10,43 @@ import {ListResto} from "../../assets/data/getResto"
     styleUrls: ['./map-sidebar.component.scss']
   },)
 
-  export class MapSidebarComponent implements OnInit{
+  export class MapSidebarComponent implements OnInit {
     
     isShowDetails: boolean = false;
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
     selectedResto: any;
     listResto: Resto[];
+    filteredListResto: Resto[];
     listRestoObservable = this.restoService.getListResto();
     
+    /*setting filter*/
+    index: string[] = ["0", "1", "2", "3", "4", "5"];
+    selectedMin: string;
+    selectedMax: string;
+
     constructor(private restoService: RestoService) {}
 
-    setListResto(): void{
-        this.listRestoObservable
-            .subscribe(listResto => this.listResto = listResto);
+    setFilteredListResto(): void{
+        this.listRestoObservable.pipe(
+            map(
+                (list: any[]) => list.filter(
+                    (item: any) => item.rating >4
+                )
+            )
+        )
+        .subscribe(listResto => {
+            console.log("SelectedMin = ", this.selectedMin);
+            console.log("SelectedMax = ", this.selectedMax);
+            console.log("setListResto");
+            this.listResto = listResto;
+            console.log(listResto);
+        });
+    }
+
+    setListResto(): void {
+        this.listRestoObservable.subscribe(
+            listResto => this.listResto = listResto
+        )
     }
 
     toggleListDetail() {
@@ -34,7 +59,12 @@ import {ListResto} from "../../assets/data/getResto"
     }
 
     ngOnInit(): void {
-        this.setListResto()
+        //this.setListResto();
+        this.setFilteredListResto();
+    }
+    
+    toto(e: any) {
+        console.log(e);
     }
 
   }

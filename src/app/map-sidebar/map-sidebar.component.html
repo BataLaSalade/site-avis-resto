@@ -1,9 +1,29 @@
 <div id="filterSection">
-    <span>Header sidebar</span>
+    <span>@roundYou</span>
+    <mat-form-field>
+        <mat-label>Note min.</mat-label>
+        <mat-select [(value)]="selectedMin" (selectionChange)="toto($event)">
+            <mat-option value="default">-</mat-option>
+            <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Note max.</mat-label>
+        <mat-select [(value)]="selectedMax">
+            <mat-option value="default">-</mat-option>
+            <mat-option *ngFor="let i of index">{{i}}</mat-option>
+        </mat-select>
+    </mat-form-field>
     <button class="back" 
         [style.display]="isShowDetails ?'block' :'none'" 
         (click)="toggleListDetail()">Retourner à la liste
     </button>
+</div>
+<div>
+    select min = {{selectedMin}}
+</div>
+<div>
+    select max = {{selectedMax}}
 </div>
 <app-list-restaurants 
     [listResto]="listResto"
