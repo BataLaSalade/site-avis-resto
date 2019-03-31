@@ -30,12 +30,23 @@ import { from } from 'rxjs';
     minRateSelectionChange(e: any) {
         console.log(e);
         console.log("selectedMin = ",Number(this.selectedMin));
-        console.log(this.listResto)
+        console.log(this.listResto);
+        this.cdRef.reattach();
     }
 
     maxRateSelectionChange(e: any) {
         console.log(e);
         console.log("selectedMax = ",Number(this.selectedMax));
+        console.log(this.listResto);
+        this.cdRef.reattach();
+    }
+
+    set live(value: boolean) {
+        if (value) {
+            this.cdRef.reattach();
+        } else {
+            this.cdRef.detach();
+        }
     }
 
     setFilteredListResto(): void{
