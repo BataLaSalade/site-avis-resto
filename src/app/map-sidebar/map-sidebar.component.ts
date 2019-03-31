@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
 import { filter, map } from 'rxjs/operators';
@@ -23,16 +23,32 @@ import { from } from 'rxjs';
     index: string[] = ["0", "1", "2", "3", "4", "5"];
     selectedMin: string;
     selectedMax: string;
+    
 
-    constructor(private restoService: RestoService) {}
+    constructor(private restoService: RestoService, private cdRef: ChangeDetectorRef) {}
+
+    minRateSelectionChange(e: any) {
+        console.log(e);
+        console.log("selectedMin = ",Number(this.selectedMin));
+        console.log(this.listResto)
+    }
+
+    maxRateSelectionChange(e: any) {
+        console.log(e);
+        console.log("selectedMax = ",Number(this.selectedMax));
+    }
 
     setFilteredListResto(): void{
         this.listRestoObservable.pipe(
-            map(
-                (list: any[]) => list.filter(
-                    (item: any) => item.rating > 3 && item.rating < 4
-                )
-            )
+            map((list: any[]) => {
+                if ((typeof this.selectedMin == "undefined" && typeof this.selectedMax == "undefined") ||(this.selectedMin == "noFilter" && this.selectedMax == "noFilter")) {
+                    return list
+                } else if (this.selectedMin != "noFilter" && this.selectedMax != "noFilter"){
+                    return list.filter(
+                        (item: any) => item.rating > Number(this.selectedMin) && item.rating < Number(this.selectedMax)
+                    )
+                }
+            })
         )
         .subscribe(listResto => {
             console.log("SelectedMin = ", this.selectedMin);
@@ -40,6 +56,7 @@ import { from } from 'rxjs';
             console.log("setListResto");
             this.listResto = listResto;
             console.log(listResto);
+            
         });
     }
 
@@ -61,10 +78,6 @@ import { from } from 'rxjs';
     ngOnInit(): void {
         //this.setListResto();
         this.setFilteredListResto();
-    }
-    
-    toto(e: any) {
-        console.log(e);
     }
 
   }

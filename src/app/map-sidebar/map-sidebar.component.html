@@ -2,16 +2,16 @@
     <span>@roundYou</span>
     <mat-form-field>
         <mat-label>Note min.</mat-label>
-        <mat-select [(value)]="selectedMin" (selectionChange)="toto($event)">
-            <mat-option value="default">-</mat-option>
+        <mat-select [(value)]="selectedMin" (selectionChange)="minRateSelectionChange($event)">
+            <mat-option value="noFilter">-</mat-option>
             <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Note max.</mat-label>
-        <mat-select [(value)]="selectedMax">
-            <mat-option value="default">-</mat-option>
-            <mat-option *ngFor="let i of index">{{i}}</mat-option>
+        <mat-select [(value)]="selectedMax" (selectionChange)="maxRateSelectionChange($event)">
+            <mat-option value="noFilter">-</mat-option>
+            <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
         </mat-select>
     </mat-form-field>
     <button class="back" 
