@@ -30,7 +30,7 @@ import { from } from 'rxjs';
         this.listRestoObservable.pipe(
             map(
                 (list: any[]) => list.filter(
-                    (item: any) => item.rating >4
+                    (item: any) => item.rating > 3 && item.rating < 4
                 )
             )
         )

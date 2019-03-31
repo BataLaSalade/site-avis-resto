@@ -87,15 +87,18 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnChanges {
   displayStreetViewPanorama() {
     if(isPlatformBrowser(this.platformId)){
       this.mapsAPILoader.load().then(() => {
-        let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
-        let map = new window['google'].maps.Map(this.streetviewMap.nativeElement, { center: center, zoom: 15, scrollwheel: false });
-        let panorama = new window['google'].maps.StreetViewPanorama(
-          this.streetviewPano.nativeElement, {
-            position: center,
-            pov: { heading: 34, pitch: 10 },
-            scrollwheel: false
-          });
-        map.setStreetView(panorama);
+        if (typeof this.selectedResto != "undefined") {
+          let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
+          let map = new window['google'].maps.Map(this.streetviewMap.nativeElement, { center: center, zoom: 15, scrollwheel: false });
+          let panorama = new window['google'].maps.StreetViewPanorama(
+            this.streetviewPano.nativeElement, {
+              position: center,
+              pov: { heading: 34, pitch: 10 },
+              scrollwheel: false
+            });
+          map.setStreetView(panorama);
+        }
+        
       });
     }
   }
