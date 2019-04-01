@@ -18,11 +18,9 @@
         (click)="toggleListDetail()">Retourner à la liste
     </button>
 </div>
-<div>
-    select min = {{selectedMin}}
-</div>
-<div>
-    select max = {{selectedMax}}
+<div id="filterError" [style.display]="isShowError ?'block' :'none'" >
+    <h3>DESOLE...</h3>
+    <p>Aucun restaurant ne correspond à votre rechercher</p>
 </div>
 <app-list-restaurants 
     [(listResto)]="filteredListResto"

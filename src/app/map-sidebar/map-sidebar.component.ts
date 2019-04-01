@@ -12,14 +12,12 @@ import { map } from 'rxjs/operators';
   export class MapSidebarComponent implements OnInit {
     
     isShowDetails: boolean = false;
+    isShowError: boolean = false;
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
     selectedResto: any;
     listResto: Resto[];
     filteredListResto: Resto[];
-    unfilteredListResto: Resto[];
     listRestoObservable = this.restoService.getListResto();
-
-    @Output() NewListEmitter: EventEmitter<any> = new EventEmitter;
     
     /*setting filter*/
     index: string[] = ["0", "1", "2", "3", "4", "5"];
@@ -31,12 +29,10 @@ import { map } from 'rxjs/operators';
     constructor(private restoService: RestoService, private cdRef: ChangeDetectorRef) {}
 
     minRateSelectionChange(e: any) {
-        console.log(e);
         this.displayFilteredListResto(this.selectedMin, this.selectedMax);
     }
 
     maxRateSelectionChange(e: any) {
-        console.log(e);
         this.displayFilteredListResto(this.selectedMin, this.selectedMax);
     }
 
@@ -47,13 +43,11 @@ import { map } from 'rxjs/operators';
     displayFilteredListResto(minSelectedValue: string, maxSelectedValue: string) {
         let minValue: number = Number(minSelectedValue);
         let maxValue:number = Number(maxSelectedValue);
-        let isFilterApply: boolean = false;
-        let isNoFilter = (minSelectedValue == "noFilter" || maxSelectedValue == "noFilter");
-        let isInRange = (minValue >= 0 && maxValue <= 5);
-        if (isInRange) {
+        if (minValue >= 0 && maxValue <= 5) {
             this.filteredListResto = this.listResto.filter(
                 (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
             );
+            this.isShowError = (this.filteredListResto.length == 0) ? true : false;
         } else {
             this.filteredListResto = this.listResto;
         }
