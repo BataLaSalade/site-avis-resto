@@ -1,16 +1,15 @@
 <div id="filterSection">
-    <span>@roundYou</span>
     <mat-form-field>
         <mat-label>Note min.</mat-label>
         <mat-select [(value)]="selectedMin" (selectionChange)="minRateSelectionChange($event)">
-            <mat-option value="noFilter">-</mat-option>
+            <mat-option value="noFilter">Aucun filtre</mat-option>
             <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Note max.</mat-label>
         <mat-select [(value)]="selectedMax" (selectionChange)="maxRateSelectionChange($event)">
-            <mat-option value="noFilter">-</mat-option>
+            <mat-option value="noFilter">Aucun filtre</mat-option>
             <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
         </mat-select>
     </mat-form-field>
@@ -26,7 +25,7 @@
     select max = {{selectedMax}}
 </div>
 <app-list-restaurants 
-    [listResto]="listResto"
+    [(listResto)]="filteredListResto"
     (RestoEmitter)="onRestoEmission($event)" 
     [style.display]="isShowDetails ?'none' :'block'">
 </app-list-restaurants>

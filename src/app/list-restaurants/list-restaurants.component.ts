@@ -11,6 +11,7 @@ export class ListRestaurantsComponent implements OnInit{
   @Input() listResto: Resto[];
   @Input() isShowDetails: boolean;
   @Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
+  @Output() listChange: EventEmitter<any> = new EventEmitter;
   selectedResto: Resto;
   
   constructor() {}
@@ -49,6 +50,10 @@ export class ListRestaurantsComponent implements OnInit{
     }  
   }
 
+  onListChange(newList) {
+    this.listResto = newList;
+    this.listChange.emit(this.listResto);
+  }
   onSelect(resto: Resto){
     this.selectedResto = resto;
     this.RestoEmitter.emit(this.selectedResto);

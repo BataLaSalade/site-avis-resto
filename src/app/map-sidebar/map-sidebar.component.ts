@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
-import { filter, map } from 'rxjs/operators';
-import { from } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-map-sidebar',
@@ -17,63 +16,55 @@ import { from } from 'rxjs';
     selectedResto: any;
     listResto: Resto[];
     filteredListResto: Resto[];
+    unfilteredListResto: Resto[];
     listRestoObservable = this.restoService.getListResto();
+
+    @Output() NewListEmitter: EventEmitter<any> = new EventEmitter;
     
     /*setting filter*/
     index: string[] = ["0", "1", "2", "3", "4", "5"];
-    selectedMin: string;
-    selectedMax: string;
+    selectedMin: string = "0"
+    selectedMax: string =  "5"
+    
     
 
     constructor(private restoService: RestoService, private cdRef: ChangeDetectorRef) {}
 
     minRateSelectionChange(e: any) {
         console.log(e);
-        console.log("selectedMin = ",Number(this.selectedMin));
-        console.log(this.listResto);
-        this.cdRef.reattach();
+        this.displayFilteredListResto(this.selectedMin, this.selectedMax);
     }
 
     maxRateSelectionChange(e: any) {
         console.log(e);
-        console.log("selectedMax = ",Number(this.selectedMax));
-        console.log(this.listResto);
-        this.cdRef.reattach();
+        this.displayFilteredListResto(this.selectedMin, this.selectedMax);
     }
 
-    set live(value: boolean) {
-        if (value) {
-            this.cdRef.reattach();
+    getRatingRange(rating: number) {
+        return rating >= 0 && rating <= 5;
+    }
+
+    displayFilteredListResto(minSelectedValue: string, maxSelectedValue: string) {
+        let minValue: number = Number(minSelectedValue);
+        let maxValue:number = Number(maxSelectedValue);
+        let isFilterApply: boolean = false;
+        let isNoFilter = (minSelectedValue == "noFilter" || maxSelectedValue == "noFilter");
+        let isInRange = (minValue >= 0 && maxValue <= 5);
+        if (isInRange) {
+            this.filteredListResto = this.listResto.filter(
+                (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
+            );
         } else {
-            this.cdRef.detach();
+            this.filteredListResto = this.listResto;
         }
-    }
-
-    setFilteredListResto(): void{
-        this.listRestoObservable.pipe(
-            map((list: any[]) => {
-                if ((typeof this.selectedMin == "undefined" && typeof this.selectedMax == "undefined") ||(this.selectedMin == "noFilter" && this.selectedMax == "noFilter")) {
-                    return list
-                } else if (this.selectedMin != "noFilter" && this.selectedMax != "noFilter"){
-                    return list.filter(
-                        (item: any) => item.rating > Number(this.selectedMin) && item.rating < Number(this.selectedMax)
-                    )
-                }
-            })
-        )
-        .subscribe(listResto => {
-            console.log("SelectedMin = ", this.selectedMin);
-            console.log("SelectedMax = ", this.selectedMax);
-            console.log("setListResto");
-            this.listResto = listResto;
-            console.log(listResto);
-            
-        });
     }
 
     setListResto(): void {
         this.listRestoObservable.subscribe(
-            listResto => this.listResto = listResto
+            listResto => {
+                this.listResto = listResto;
+                this.filteredListResto = listResto;
+            }
         )
     }
 
@@ -87,8 +78,7 @@ import { from } from 'rxjs';
     }
 
     ngOnInit(): void {
-        //this.setListResto();
-        this.setFilteredListResto();
+        this.setListResto();
     }
 
   }
