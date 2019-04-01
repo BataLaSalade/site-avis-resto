@@ -1,19 +1,24 @@
-<div id="filterSection">
-    <mat-form-field>
-        <mat-label>Note min.</mat-label>
-        <mat-select [(value)]="selectedMin" (selectionChange)="minRateSelectionChange($event)">
-            <mat-option value="noFilter">Aucun filtre</mat-option>
-            <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Note max.</mat-label>
-        <mat-select [(value)]="selectedMax" (selectionChange)="maxRateSelectionChange($event)">
-            <mat-option value="noFilter">Aucun filtre</mat-option>
-            <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button class="back" 
+<div id="header">
+    <div id="filterSection" [style.display]="isShowDetails ?'none' :'block'">
+        <mat-form-field>
+            <mat-label>Note min.</mat-label>
+            <mat-select [(value)]="selectedMin" (selectionChange)="minRateSelectionChange($event)">
+                <mat-option value="noFilter">Aucun filtre</mat-option>
+                <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Note max.</mat-label>
+            <mat-select [(value)]="selectedMax" (selectionChange)="maxRateSelectionChange($event)">
+                <mat-option value="noFilter">Aucun filtre</mat-option>
+                <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-flat-button color="primary" [disabled]="disabled"
+            (click)="discardFilter()"> Réinitialiser le filter
+        </button>
+    </div>
+    <button mat-flat-button color="primary" 
         [style.display]="isShowDetails ?'block' :'none'" 
         (click)="toggleListDetail()">Retourner à la liste
     </button>

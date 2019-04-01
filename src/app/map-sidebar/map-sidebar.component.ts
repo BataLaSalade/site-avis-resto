@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input} from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
-import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-map-sidebar',
@@ -24,16 +23,19 @@ import { map } from 'rxjs/operators';
     selectedMin: string = "0"
     selectedMax: string =  "5"
     
+    @Input() disabled: boolean = true;
     
 
     constructor(private restoService: RestoService, private cdRef: ChangeDetectorRef) {}
 
     minRateSelectionChange(e: any) {
         this.displayFilteredListResto(this.selectedMin, this.selectedMax);
+        this.disabled = false;
     }
 
     maxRateSelectionChange(e: any) {
         this.displayFilteredListResto(this.selectedMin, this.selectedMax);
+        this.disabled = false;
     }
 
     getRatingRange(rating: number) {
@@ -51,6 +53,15 @@ import { map } from 'rxjs/operators';
         } else {
             this.filteredListResto = this.listResto;
         }
+    }
+
+    discardFilter() {
+        this.selectedMin = "0";
+        this.selectedMax = "5";
+        this.isShowError = false;
+        this.filteredListResto = this.listResto;
+        this.disabled = true;
+        console.log(this.filteredListResto)
     }
 
     setListResto(): void {

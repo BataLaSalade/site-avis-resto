@@ -1,6 +1,12 @@
 @import '../app.component.scss';
 
-#filterSection {
+#header {
     min-height: 20vh;
     background-color: $blueGrey;
+    button{
+        margin: auto;
+        display: block;
+        text-align: center;
+        font-size: 16px;
+    }
 }
