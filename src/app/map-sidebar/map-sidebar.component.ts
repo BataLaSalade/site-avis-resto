@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { RestoService } from "../services/resto.service";
 import { Resto } from "../model/Resto";
 
@@ -9,81 +9,58 @@ import { Resto } from "../model/Resto";
   },)
 
   export class MapSidebarComponent implements OnInit {
-    
+    constructor(private restoService: RestoService) {}
+
+    @Input() disabled: boolean = true;
+    @Input() isShowError: boolean ;
+    @Input() listResto: Resto[];
+    @Input() filteredListResto: Resto[];
+
+    @Output() minSelectEvent: EventEmitter<any> = new EventEmitter();
+    @Output() maxSelectEvent: EventEmitter<any> = new EventEmitter();
+    @Output() discardFilterEvent: EventEmitter<any> = new EventEmitter();
+
     isShowDetails: boolean = false;
-    isShowError: boolean = false;
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
     selectedResto: any;
-    listResto: Resto[];
-    filteredListResto: Resto[];
-    listRestoObservable = this.restoService.getListResto();
-    
-    /*setting filter*/
     index: string[] = ["0", "1", "2", "3", "4", "5"];
-    selectedMin: string = "0"
-    selectedMax: string =  "5"
-    
-    @Input() disabled: boolean = true;
-    
+    selectedMin: string = "0";
+    selectedMax: string =  "5";
 
-    constructor(private restoService: RestoService, private cdRef: ChangeDetectorRef) {}
+    listRestoObservable = this.restoService.getListResto();
 
-    minRateSelectionChange(e: any) {
-        this.displayFilteredListResto(this.selectedMin, this.selectedMax);
+    onMinRateSelectionChange() {
         this.disabled = false;
+        this.minSelectEvent.emit(this.selectedMin);
     }
 
-    maxRateSelectionChange(e: any) {
-        this.displayFilteredListResto(this.selectedMin, this.selectedMax);
+    onMaxRateSelectionChange() {
         this.disabled = false;
+        this.maxSelectEvent.emit(this.selectedMax);
+    }
+
+    onRestoChange(resto) {
+        this.isShowDetails = typeof resto != "undefined";
+        this.selectedResto = resto;
     }
 
     getRatingRange(rating: number) {
         return rating >= 0 && rating <= 5;
     }
 
-    displayFilteredListResto(minSelectedValue: string, maxSelectedValue: string) {
-        let minValue: number = Number(minSelectedValue);
-        let maxValue:number = Number(maxSelectedValue);
-        if (minValue >= 0 && maxValue <= 5) {
-            this.filteredListResto = this.listResto.filter(
-                (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
-            );
-            this.isShowError = (this.filteredListResto.length == 0) ? true : false;
-        } else {
-            this.filteredListResto = this.listResto;
-        }
-    }
-
     discardFilter() {
         this.selectedMin = "0";
         this.selectedMax = "5";
         this.isShowError = false;
-        this.filteredListResto = this.listResto;
         this.disabled = true;
-        console.log(this.filteredListResto)
-    }
-
-    setListResto(): void {
-        this.listRestoObservable.subscribe(
-            listResto => {
-                this.listResto = listResto;
-                this.filteredListResto = listResto;
-            }
-        )
+        this.discardFilterEvent.emit();
     }
 
     toggleListDetail() {
         this.isShowDetails = !this.isShowDetails;
     }
 
-    onRestoEmission(resto) {
-        this.isShowDetails = typeof resto != "undefined";
-        this.selectedResto = resto
-    }
-
-    ngOnInit(): void {
-        this.setListResto();
+    ngOnInit() {
     }
 
   }

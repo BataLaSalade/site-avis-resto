@@ -8,27 +8,29 @@ import { Resto } from "../model/Resto";
 },)
 
 export class ListRestaurantsComponent implements OnInit{
-  @Input() listResto: Resto[];
-  @Input() isShowDetails: boolean;
-  @Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
-  @Output() listChange: EventEmitter<any> = new EventEmitter;
-  selectedResto: Resto;
-  
   constructor() {}
 
+  @Input() listResto: Resto[];
+  @Input() isShowDetails: boolean;
+
+  @Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
+  @Output() listChange: EventEmitter<any> = new EventEmitter;
+
+  selectedResto: Resto;
+  
   getBkgImgURL(ratingScore:number, starIndex:number){
     let starURL: string = "../../assets/img/1x/";
     let currentRate: number = ratingScore - starIndex;
-    let resultPng = "emptyStar.png";
+    let endURL = "emptyStar.png";
 
     if(currentRate >= 0.75) {
-        resultPng = "filledStar.png"
+      endURL = "filledStar.png";
     }
     else if(currentRate >= 0.25) {
-        resultPng ="halfStar.png"
+      endURL ="halfStar.png";
     }
 
-    return starURL + resultPng
+    return starURL + endURL;
   }
 
   getUrlPhotoRequest(resto: any) {
@@ -37,16 +39,9 @@ export class ListRestaurantsComponent implements OnInit{
 
         return defaultImg;
     } else {
-        let firstPart: string = "https://maps.googleapis.com/maps/api/place/photo"
-        let maxWidthKey: string = "?maxwidth=";
-        let maxWidthValue: string = "80";
-        let photoReferenceKey: string = "&photoreference=";
-        let photoReferenceValue: string = resto.photos[0].photo_reference;
-        let keyKey: string = "&key=";
-        let keyValue: string = "AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM";
-        let url: string = firstPart+maxWidthKey+maxWidthValue+photoReferenceKey+photoReferenceValue+keyKey+keyValue    
+        let photoReference: string = resto.photos[0].photo_reference;
         
-        return url;
+        return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=80&photoreference=${photoReference}&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM`;
     }  
   }
 
@@ -54,13 +49,13 @@ export class ListRestaurantsComponent implements OnInit{
     this.listResto = newList;
     this.listChange.emit(this.listResto);
   }
+
   onSelect(resto: Resto){
     this.selectedResto = resto;
     this.RestoEmitter.emit(this.selectedResto);
   }
   
   ngOnInit() {
-
   }
 
 }

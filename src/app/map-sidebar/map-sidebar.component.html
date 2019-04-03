@@ -2,34 +2,33 @@
     <div id="filterSection" [style.display]="isShowDetails ?'none' :'block'">
         <mat-form-field>
             <mat-label>Note min.</mat-label>
-            <mat-select [(value)]="selectedMin" (selectionChange)="minRateSelectionChange($event)">
+            <mat-select [(value)]="selectedMin" (selectionChange)="onMinRateSelectionChange($event)">
                 <mat-option value="noFilter">Aucun filtre</mat-option>
                 <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Note max.</mat-label>
-            <mat-select [(value)]="selectedMax" (selectionChange)="maxRateSelectionChange($event)">
+            <mat-select [(value)]="selectedMax" (selectionChange)="onMaxRateSelectionChange($event)">
                 <mat-option value="noFilter">Aucun filtre</mat-option>
                 <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-flat-button color="primary" [disabled]="disabled"
-            (click)="discardFilter()"> Réinitialiser le filter
+        <button mat-flat-button color="primary" 
+            (click)="discardFilter($event)"> Réinitialiser le filter
         </button>
     </div>
-    <button mat-flat-button color="primary" 
-        [style.display]="isShowDetails ?'block' :'none'" 
-        (click)="toggleListDetail()">Retourner à la liste
+    <button mat-flat-button color="primary" [style.display]="isShowDetails ?'block' :'none'" (click)="toggleListDetail()">
+        Retourner à la liste
     </button>
 </div>
 <div id="filterError" [style.display]="isShowError ?'block' :'none'" >
     <h3>DESOLE...</h3>
     <p>Aucun restaurant ne correspond à votre rechercher</p>
 </div>
-<app-list-restaurants 
+<app-list-restaurants [listResto] = "listResto"
     [(listResto)]="filteredListResto"
-    (RestoEmitter)="onRestoEmission($event)" 
+    (RestoEmitter)="onRestoChange($event)" 
     [style.display]="isShowDetails ?'none' :'block'">
 </app-list-restaurants>
 <app-details 
