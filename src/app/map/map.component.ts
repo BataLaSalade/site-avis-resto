@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+/// <reference types="@types/googlemaps" />
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Resto } from '../model/Resto';
 import { UserService } from "../services/user.service";
-import {} from 'googlemaps'
+//import {} from 'googlemaps'
 
 @Component({
   selector: 'app-map',
@@ -12,13 +13,23 @@ import {} from 'googlemaps'
 export class MapComponent implements OnInit {
   constructor(private userService: UserService) {}
 
+  @ViewChild('map') mapElement: any;
+
   @Input() listResto: Resto[];
 
+  map: google.maps.Map;
   userLat: number;
   userLong: number;
   userMarker:string;
   zoom: number = 15;
   restoMarker: string;
+  //let response = this.http.get<Response>('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.629067899999995,5.0836215&radius=1500&type=restaurant&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM')
+  
+  mapProperties = {
+    center: new google.maps.LatLng( 43.629067899999995, 5.0836215),
+    zoom: this.zoom,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
 
   setRestoMarker() {
     this.restoMarker = "../../assets/img/1x/restoFichier4.png";
@@ -42,11 +53,12 @@ export class MapComponent implements OnInit {
   }
 
   initMap() {
-
+    this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapProperties)
   }
 
   ngOnInit() {
     this.setRestoMarker();
     this.refreshUserPosition();
+    this.initMap();
   }
 }
