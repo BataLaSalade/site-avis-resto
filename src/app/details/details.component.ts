@@ -3,9 +3,7 @@ import {DetailsService} from "../services/details.service";
 import { Resto } from "../model/Resto";
 import {Rate} from "../model/Rate";
 import { Observable } from 'rxjs';
-import { MapsAPILoader } from '@agm/core';
 import { isPlatformBrowser } from '@angular/common';
-import { google } from '@agm/core/services/google-maps-types';
 
 
 @Component({
@@ -28,8 +26,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnChanges {
 
   constructor(
     private detailsService: DetailsService, 
-    @Inject(PLATFORM_ID) private platformId: Object, 
-    private mapsAPILoader: MapsAPILoader
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
 
@@ -86,7 +83,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnChanges {
 
   displayStreetViewPanorama() {
     if(isPlatformBrowser(this.platformId)){
-      this.mapsAPILoader.load().then(() => {
+      /* this.mapsAPILoader.load().then(() => {
         if (typeof this.selectedResto != "undefined") {
           let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
           let map = new window['google'].maps.Map(this.streetviewMap.nativeElement, { center: center, zoom: 15, scrollwheel: false });
@@ -99,7 +96,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnChanges {
           map.setStreetView(panorama);
         }
         
-      });
+      }); */
     }
   }
 

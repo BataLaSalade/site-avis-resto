@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resto } from '../model/Resto';
 import { ListResto } from '../../assets/data/getResto';
-import { Observable, of, from, BehaviorSubject} from 'rxjs';
+import { Observable, from, BehaviorSubject} from 'rxjs';
 
 
 @Injectable({
