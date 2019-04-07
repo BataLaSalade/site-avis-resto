@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Resto } from '../model/Resto';
 import { UserService } from "../services/user.service";
+import {} from 'googlemaps'
 
 @Component({
   selector: 'app-map',
@@ -38,6 +39,10 @@ export class MapComponent implements OnInit {
 
   error(error) {
     console.warn(`ERREUR (${error.code}): ${error.message}`);
+  }
+
+  initMap() {
+
   }
 
   ngOnInit() {
