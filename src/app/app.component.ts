@@ -1,6 +1,5 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { RestoService } from '../app/services/resto.service';
+import { Component, OnInit } from '@angular/core';
 import { Resto } from './model/Resto';
 
 @Component({
@@ -8,41 +7,46 @@ import { Resto } from './model/Resto';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit{
-  constructor(private restoService: RestoService){}
-
-  @ViewChild('map') mapElement: any;
+export class AppComponent implements OnInit{
+  constructor(){}
 
   listResto: Resto[];
   filteredListResto: Resto[];
   isShowError: boolean = false;
   minSelectedValue: string = "0";
   maxSelectedValue: string = "5";
-  map: any;
-  mapProperties = {
-    center: new google.maps.LatLng(43.629067899999995, 5.0836215),
-    zoom: 15,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
+  map: google.maps.Map;
+  service: google.maps.places.PlacesService;
   userPosition = new google.maps.LatLng(43.629067899999995, 5.0836215)
+
   request = {
     location: this.userPosition,
     radius: '1000',
-    type: ['resaurant']
-  };
+    type: ['restaurant']
+  }; 
 
+  /* Used for mock called onInit
   listRestoObservable = this.restoService.getListResto();
+  */
 
-  onMapLoad(map) {
+  changedMap(map){
     this.map = map;
+    this.getPlaces(this.map);
   }
 
-  callback(results, status) {
+  callbackGetPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      console.log(results);
+      this.listResto = results;
+      this.filteredListResto = results;
     }
   }
 
+  getPlaces(map: google.maps.Map) {
+    this.service = new google.maps.places.PlacesService(map);
+    this.service.nearbySearch(this.request, this.callbackGetPlaces.bind(this));
+  }
+
+  /* Used for mock called onInit
   setListResto(): void {
     this.listRestoObservable.subscribe(
       listResto => {
@@ -51,7 +55,8 @@ export class AppComponent implements OnInit, AfterViewInit{
           console.log("from appComponent",this.listResto);
       }
     )
-  }
+  } 
+  */
 
   onMinSelectEventChange(minSelectedValue) {
     this.minSelectedValue = minSelectedValue;
@@ -81,11 +86,6 @@ export class AppComponent implements OnInit, AfterViewInit{
 }
 
   ngOnInit(){
-    this.setListResto()
-    //this.initMap()
-  }
-
-  ngAfterViewInit(){
-    //this.initMap()
+    
   }
 }
