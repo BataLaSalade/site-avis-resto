@@ -19,12 +19,10 @@ export class MapComponent implements OnInit {
 
   @Output() mapChanged: EventEmitter<google.maps.Map> = new EventEmitter<google.maps.Map>()
 
-  userLat: number;
-  userLong: number;
+  
   userMarker:string;
   zoom: number = 15;
   restoMarker: string;
-  service: any;
   
   mapProperties = {
     center: new google.maps.LatLng(43.629067899999995, 5.0836215),
@@ -32,26 +30,12 @@ export class MapComponent implements OnInit {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
 
-  setRestoMarker() {
+  setMarker() {
     this.restoMarker = "../../assets/img/1x/restoFichier4.png";
+    this.userMarker = "../../assets/img/1x/userFichier 2.png";
   }
 
-  refreshUserPosition() {
-    this.userService.getUserPosition(this.success.bind(this), this.error);
-  }
   
-  success(position) {
-    var coords = position.coords;
-    if(coords != null && coords.latitude != null) {
-      this.userLat = coords.latitude;
-      this.userLong = coords.longitude;
-      this.userMarker = "../../assets/img/1x/userFichier 2.png";
-    }
-  }
-
-  error(error) {
-    console.warn(`map ERREUR (${error.code}): ${error.message}`);
-  }
 
   initMap() {
     this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapProperties);
@@ -59,8 +43,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setRestoMarker();
-    this.refreshUserPosition();
+    this.setMarker();
     this.initMap()
   }
 }

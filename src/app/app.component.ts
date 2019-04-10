@@ -1,6 +1,7 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit } from '@angular/core';
 import { Resto } from './model/Resto';
+import { UserService } from '../app/services/user.service'
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { Resto } from './model/Resto';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  constructor(){}
+  constructor(private userService: UserService){}
 
   listResto: Resto[];
   filteredListResto: Resto[];
@@ -17,8 +18,9 @@ export class AppComponent implements OnInit{
   maxSelectedValue: string = "5";
   map: google.maps.Map;
   service: google.maps.places.PlacesService;
-  userPosition = new google.maps.LatLng(43.629067899999995, 5.0836215)
-
+  userPosition = new google.maps.LatLng(43.629069099999995, 5.0835969);
+  userLat: number;
+  userLong: number;
   request = {
     location: this.userPosition,
     radius: '1000',
@@ -28,6 +30,26 @@ export class AppComponent implements OnInit{
   /* Used for mock called onInit
   listRestoObservable = this.restoService.getListResto();
   */
+ refreshUserPosition() {
+  this.userService.getUserPosition(this.success.bind(this), this.error);
+}
+
+success(position) {
+  var coords = position.coords;
+  if(coords != null && coords.latitude != null) {
+    this.userLat = coords.latitude;
+    this.userLong = coords.longitude;
+    console.log("userlat = ", this.userLat)
+    console.log("userLng = ", this.userLong)
+    console.log("coords type", typeof coords.latitude)
+
+    //this.userMarker = "../../assets/img/1x/userFichier 2.png";
+  }
+}
+
+error(error) {
+  console.warn(`map ERREUR (${error.code}): ${error.message}`);
+}
 
   changedMap(map){
     this.map = map;
@@ -42,8 +64,11 @@ export class AppComponent implements OnInit{
   }
 
   getPlaces(map: google.maps.Map) {
+    var userPosition = new google.maps.LatLng(43.6290516, 5.0836046999999995);
     this.service = new google.maps.places.PlacesService(map);
     this.service.nearbySearch(this.request, this.callbackGetPlaces.bind(this));
+    console.log("user lat = " + userLat + " user long " + userLng)
+    console.log("userPosition = ", userPosition)
   }
 
   /* Used for mock called onInit
@@ -86,6 +111,7 @@ export class AppComponent implements OnInit{
 }
 
   ngOnInit(){
-    
+    this.refreshUserPosition();
+    //console.log("coucou ", this.userLat)
   }
 }
