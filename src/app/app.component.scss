@@ -17,4 +17,7 @@ $lightYellow: #eef5db;
 .wrapper {
     display: grid;
     grid-template-columns: 21% 79%;
+    app-map {
+        height: 100vh;
+    }
 }

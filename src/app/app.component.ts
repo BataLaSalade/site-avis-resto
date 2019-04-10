@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/// <reference types="@types/googlemaps" />
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { RestoService } from '../app/services/resto.service';
 import { Resto } from './model/Resto';
 
@@ -7,16 +8,40 @@ import { Resto } from './model/Resto';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewInit{
   constructor(private restoService: RestoService){}
+
+  @ViewChild('map') mapElement: any;
 
   listResto: Resto[];
   filteredListResto: Resto[];
   isShowError: boolean = false;
   minSelectedValue: string = "0";
   maxSelectedValue: string = "5";
+  map: any;
+  mapProperties = {
+    center: new google.maps.LatLng(43.629067899999995, 5.0836215),
+    zoom: 15,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  userPosition = new google.maps.LatLng(43.629067899999995, 5.0836215)
+  request = {
+    location: this.userPosition,
+    radius: '1000',
+    type: ['resaurant']
+  };
 
   listRestoObservable = this.restoService.getListResto();
+
+  onMapLoad(map) {
+    this.map = map;
+  }
+
+  callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      console.log(results);
+    }
+  }
 
   setListResto(): void {
     this.listRestoObservable.subscribe(
@@ -57,5 +82,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     this.setListResto()
+    //this.initMap()
+  }
+
+  ngAfterViewInit(){
+    //this.initMap()
   }
 }
