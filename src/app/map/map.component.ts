@@ -2,6 +2,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges} from '@angular/core';
 import { Resto } from '../model/Resto';
 import { UserService } from "../services/user.service";
+import { PlacesService } from '../services/places.service';
 
 @Component({
   selector: 'app-map',
@@ -10,7 +11,9 @@ import { UserService } from "../services/user.service";
 })
 
 export class MapComponent implements OnInit, OnChanges {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private placeService: PlacesService) {}
 
   @ViewChild('map') mapElement: any;
 
@@ -19,9 +22,9 @@ export class MapComponent implements OnInit, OnChanges {
 
   @Output() mapChanged: EventEmitter<Object> = new EventEmitter<Object>()
 
-  userMarker:string;
+  userMarker:string = "../../assets/img/1x/userFichier 2.png";
   zoom: number = 15;
-  restoMarker: string;
+  restoMarker: string = "../../assets/img/1x/restoFichier4.png";
   userLocation: any;
   
   mapProperties = {
@@ -35,18 +38,22 @@ export class MapComponent implements OnInit, OnChanges {
     this.userMarker = "../../assets/img/1x/userFichier 2.png";
   }
 
-  
-
   initMap() {
     navigator.geolocation.getCurrentPosition((location) => {
       console.log(location);
-      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+      let map = new google.maps.Map(this.mapElement.nativeElement, {
         center: {lat: location.coords.latitude, lng: location.coords.longitude},
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
       this.userLocation = location;
-      this.mapChanged.emit({ map: this.map, userLocation: this.userLocation });
+      var marker = new google.maps.Marker({
+        position: {lat: location.coords.latitude, lng: location.coords.longitude},
+        icon: this.userMarker,
+        map: map
+      });
+      this.placeService.setMap(map)
+      //this.mapChanged.emit({ map: this.map, userLocation: this.userLocation });
     });
   }
 

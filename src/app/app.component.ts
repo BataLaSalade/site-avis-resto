@@ -2,14 +2,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Resto } from './model/Resto';
 import { UserService } from '../app/services/user.service'
-
+import { PlacesService } from './services/places.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  constructor(private userService: UserService){}
+  constructor(
+    private userService: UserService,
+    private placeService: PlacesService){}
 
   listResto: Resto[];
   filteredListResto: Resto[];
@@ -32,8 +34,9 @@ export class AppComponent implements OnInit{
 
   callbackGetPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      this.listResto = results;
-      this.filteredListResto = results;
+      //this.listResto = results;
+      //this.filteredListResto = results;
+      this.placeService.setListResto(results);
     }
   }
 
@@ -86,6 +89,17 @@ export class AppComponent implements OnInit{
         this.filteredListResto = this.listResto;
     }
 }
-
-  ngOnInit() {}
+  
+  ngOnInit() {
+    this.placeService.setListResto(["toto", "tata", "tutu"])
+    this.placeService.restoSubject$.subscribe(
+      value => console.log("Coucou",value)
+    )
+    this.placeService.setListResto(["riri", "fifi", "loulou"])
+  
+    this.placeService.mapSubject$.subscribe(
+      map => console.log("pass map to appCompo with Subject",map)
+    )
+  
+  }
 }
