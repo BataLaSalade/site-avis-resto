@@ -51,7 +51,7 @@ export class AppComponent implements OnInit{
     console.log("service - getPlaces()", service);
     let request = {
       location: userPosition,
-      radius: '1500',
+      radius: '1000',
       type: ['restaurant']
     }
     console.log("request - getPlaces()", request);
@@ -103,6 +103,7 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.placeService.restoSubject$.subscribe(
       places => {
+        console.log("///// App Component /////");
         console.log("===== PLACES SUBSCRIPTION =====");
         console.log(places);
         console.log("===============================");

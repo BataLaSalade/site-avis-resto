@@ -17,11 +17,7 @@ export class MapComponent implements OnInit {
 
   @ViewChild('map') mapElement: any;
 
-  @Input() listResto: Resto[];
-  @Input() map: google.maps.Map;
-
-  @Output() mapChanged: EventEmitter<Object> = new EventEmitter<Object>()
-
+  listResto: Resto[];
   userMarker:string = "../../assets/img/1x/userFichier 2.png";
   zoom: number = 15;
   restoMarker: string = "../../assets/img/1x/restoFichier4.png";
@@ -42,6 +38,7 @@ export class MapComponent implements OnInit {
         icon: this.userMarker,
         map: map
       });
+      
 
       this.placeService.setMap(map);
       this.userService.userSubject$.next(location);
@@ -50,5 +47,20 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.initMap();
+    this.placeService.restoSubject$.subscribe(
+      places => {
+        console.log("///// Map Component /////");
+        console.log("===== PLACES SUBSCRIPTION =====");
+        console.log(places);
+        console.log(places[0])
+        console.log("===============================");
+        this.listResto = places;
+        //this.filteredListResto = places;
+        console.log("===== LIST OF RESTO =====");
+        console.log(this.listResto);
+        //console.log(this.filteredListResto);
+        console.log("===============================");
+      }
+    )
   }
 }
