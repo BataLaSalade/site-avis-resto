@@ -107,8 +107,10 @@ export class AppComponent implements OnInit{
         console.log(places);
         console.log("===============================");
         this.listResto = places;
+        this.filteredListResto = places;
         console.log("===== LIST OF RESTO =====");
         console.log(this.listResto);
+        console.log(this.filteredListResto);
         console.log("===============================");
       }
     )
