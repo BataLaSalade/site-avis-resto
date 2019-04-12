@@ -1,5 +1,5 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges} from '@angular/core';
 import { Resto } from '../model/Resto';
 import { UserService } from "../services/user.service";
 
@@ -9,7 +9,7 @@ import { UserService } from "../services/user.service";
   styleUrls: ['./map.component.scss']
 })
 
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnChanges {
   constructor(private userService: UserService) {}
 
   @ViewChild('map') mapElement: any;
@@ -19,7 +19,6 @@ export class MapComponent implements OnInit {
 
   @Output() mapChanged: EventEmitter<Object> = new EventEmitter<Object>()
 
-  
   userMarker:string;
   zoom: number = 15;
   restoMarker: string;
@@ -47,13 +46,17 @@ export class MapComponent implements OnInit {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
       this.userLocation = location;
-      this.mapChanged.emit({map: this.map, userLocation: this.userLocation});
+      this.mapChanged.emit({ map: this.map, userLocation: this.userLocation });
     });
-    
   }
 
   ngOnInit() {
     this.setMarker();
     this.initMap()
+    console.log("listResto - ngOnInit - MAP-COMPO",this.listResto);
+  }
+
+  ngOnChanges() {
+    console.log("listResto - ngOnChange - MAP-COMPO",this.listResto);
   }
 }
