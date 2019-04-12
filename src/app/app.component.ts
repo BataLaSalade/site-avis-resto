@@ -47,7 +47,7 @@ export class AppComponent implements OnInit{
       radius: '10000',
       type: ['restaurant']
     }
-    this.service.nearbySearch(request, this.callbackGetPlaces.bind(this));
+    //this.service.nearbySearch(request, this.callbackGetPlaces.bind(this));
   }
 
   /*

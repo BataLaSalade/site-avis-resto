@@ -33,14 +33,10 @@ export class MapComponent implements OnInit, OnChanges {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
 
-  setMarker() {
-    this.restoMarker = "../../assets/img/1x/restoFichier4.png";
-    this.userMarker = "../../assets/img/1x/userFichier 2.png";
-  }
-
   initMap() {
     navigator.geolocation.getCurrentPosition((location) => {
       console.log(location);
+      this.userService.userSubject$.next(location);
       let map = new google.maps.Map(this.mapElement.nativeElement, {
         center: {lat: location.coords.latitude, lng: location.coords.longitude},
         zoom: 15,
@@ -58,9 +54,12 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.setMarker();
     this.initMap()
     console.log("listResto - ngOnInit - MAP-COMPO",this.listResto);
+    this.userService.userSubject$.subscribe(
+      userPosition => console.log("subscribe to UserPositionSubject = ", userPosition)
+      
+    )
   }
 
   ngOnChanges() {

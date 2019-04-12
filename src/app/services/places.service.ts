@@ -7,7 +7,7 @@ import { Observable, from, BehaviorSubject} from 'rxjs';
 })
 export class PlacesService {
   restoSubject$: BehaviorSubject<Resto[]>;
-  mapSubject$: BehaviorSubject<any>;
+  mapSubject$: BehaviorSubject<Object>;
 
   constructor() {
     this.restoSubject$ = new BehaviorSubject(
