@@ -7,14 +7,14 @@ import { Observable, from, BehaviorSubject} from 'rxjs';
 })
 export class PlacesService {
   restoSubject$: BehaviorSubject<Resto[]>;
-  mapSubject$: BehaviorSubject<Object>;
+  mapSubject$: BehaviorSubject<any>;
 
   constructor() {
     this.restoSubject$ = new BehaviorSubject(
       new Array<Resto>()
     );
     this.mapSubject$ = new BehaviorSubject(
-      new Object()
+      {}
     );
   }
 

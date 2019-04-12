@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Resto } from './model/Resto';
 import { UserService } from '../app/services/user.service'
 import { PlacesService } from './services/places.service';
+import { zip } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit{
   maxSelectedValue: string = "5";
   map: google.maps.Map;
   service: google.maps.places.PlacesService;
+  userPosition: google.maps.LatLng;
 
   /* Used for mock called onInit
   listRestoObservable = this.restoService.getListResto();
@@ -29,25 +31,33 @@ export class AppComponent implements OnInit{
     this.map = mapSetting.map;
     var userCoords = mapSetting.userLocation.coords;
     var userLocation = new google.maps.LatLng(userCoords.latitude, userCoords.longitude);
-    this.getPlaces(this.map, userLocation);
+    //this.getPlaces(this.map, userLocation);
   }
 
   callbackGetPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      //this.listResto = results;
-      //this.filteredListResto = results;
+      console.log("===== RESULTS =====");
+      console.log(results);
+      console.log("===================");
       this.placeService.setListResto(results);
+      
     }
   }
 
   getPlaces(map: google.maps.Map, userPosition: google.maps.LatLng ) {
-    this.service = new google.maps.places.PlacesService(map);
+    console.log("MAP - getPlaces()", map);
+    console.log("userPosition - getPlaces()", userPosition);
+    let service = new google.maps.places.PlacesService(map);
+    console.log("service - getPlaces()", service);
     let request = {
       location: userPosition,
-      radius: '10000',
+      radius: '1500',
       type: ['restaurant']
     }
-    //this.service.nearbySearch(request, this.callbackGetPlaces.bind(this));
+    console.log("request - getPlaces()", request);
+    service.nearbySearch(request, this.callbackGetPlaces.bind(this));
+    
+    
   }
 
   /*
@@ -91,15 +101,27 @@ export class AppComponent implements OnInit{
 }
   
   ngOnInit() {
-    this.placeService.setListResto(["toto", "tata", "tutu"])
     this.placeService.restoSubject$.subscribe(
-      value => console.log("Coucou",value)
+      places => {
+        console.log("===== PLACES SUBSCRIPTION =====");
+        console.log(places);
+        console.log("===============================");
+        this.listResto = places;
+        console.log("===== LIST OF RESTO =====");
+        console.log(this.listResto);
+        console.log("===============================");
+      }
     )
-    this.placeService.setListResto(["riri", "fifi", "loulou"])
-  
-    this.placeService.mapSubject$.subscribe(
-      map => console.log("pass map to appCompo with Subject",map)
+
+    zip(this.placeService.mapSubject$, this.userService.userSubject$).subscribe(
+      params => {
+        let map = params[0];
+        let location = params[1];
+        if (typeof location.coords != 'undefined') {
+          let userPos = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
+          this.getPlaces(map, userPos);
+        }
+      }
     )
-  
   }
 }

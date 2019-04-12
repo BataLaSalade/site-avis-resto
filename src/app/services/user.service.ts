@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class UserService {
   
 
-  userSubject$: BehaviorSubject<Object>;
+  userSubject$: BehaviorSubject<any>;
 
   options = {
     enableHighAccuracy: true,
@@ -16,12 +16,12 @@ export class UserService {
   }
 
   constructor() { 
-    this.userSubject$ = new BehaviorSubject<Object>(
-      new Object()
+    this.userSubject$ = new BehaviorSubject<any>(
+      {}
     )
   }
   
-  setUserPosition(location: Object) {
+  setUserPosition(location: any) {
     this.userSubject$.next(location)
   }
 
