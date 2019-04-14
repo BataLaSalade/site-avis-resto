@@ -3,6 +3,8 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges} f
 import { Resto } from '../model/Resto';
 import { UserService } from "../services/user.service";
 import { PlacesService } from '../services/places.service';
+import { Location } from '../model/Location';
+import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-map',
@@ -17,7 +19,8 @@ export class MapComponent implements OnInit {
 
   @ViewChild('map') mapElement: any;
 
-  listResto: Resto[];
+  listResto: Resto[] = new Array<Resto>();
+  listRestoLocation: Array<Location> = new Array<Location>();
   userMarker:string = "../../assets/img/1x/userFichier 2.png";
   zoom: number = 15;
   restoMarker: string = "../../assets/img/1x/restoFichier4.png";
@@ -38,35 +41,30 @@ export class MapComponent implements OnInit {
         icon: this.userMarker,
         map: map
       });
-      
-
       this.placeService.setMap(map);
       this.userService.userSubject$.next(location);
     });
   }
 
+  addRestoMarkers(listResto: Resto[], map: google.maps.Map) {
+    let index: number;
+    for (index = 0; index< listResto.length; index++) {
+      let marker = new google.maps.Marker({
+        position: listResto[index].geometry.location,
+        icon: this.restoMarker,
+        map: map
+      });
+    }
+  }
+
   ngOnInit() {
     this.initMap();
-    this.placeService.restoSubject$.subscribe(
-      places => {
-        console.log("///// Map Component /////");
-        console.log("===== PLACES SUBSCRIPTION =====");
-        console.log(places);
-        console.log(places[0]);
-        if (typeof places[0] != 'undefined') {
-          console.log(places[0].geometry);
-          console.log(places[0].geometry.location);
-        }
-        
-        
-        console.log("===============================");
-        this.listResto = places;
-        //this.filteredListResto = places;
-        console.log("===== LIST OF RESTO =====");
-        console.log(this.listResto);
-        //console.log(this.filteredListResto);
-        console.log("===============================");
-      }
+    zip(this.placeService.restoSubject$, this.placeService.mapSubject$).subscribe(
+      markerParams => {
+        let listResto = markerParams[0];
+        let map = markerParams[1];
+        this.addRestoMarkers(listResto, map);
+      } 
     )
   }
 }
