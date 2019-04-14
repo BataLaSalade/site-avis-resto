@@ -23,17 +23,6 @@ export class AppComponent implements OnInit{
   service: google.maps.places.PlacesService;
   userPosition: google.maps.LatLng;
 
-  /* Used for mock called onInit
-  listRestoObservable = this.restoService.getListResto();
-  */
-
-  changedMap(mapSetting){
-    this.map = mapSetting.map;
-    var userCoords = mapSetting.userLocation.coords;
-    var userLocation = new google.maps.LatLng(userCoords.latitude, userCoords.longitude);
-    //this.getPlaces(this.map, userLocation);
-  }
-
   callbackGetPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       console.log("===== RESULTS =====");
@@ -59,19 +48,6 @@ export class AppComponent implements OnInit{
     
     
   }
-
-  /*
-  Used for mock called onInit
-  setListResto(): void {
-    this.listRestoObservable.subscribe(
-      listResto => {
-          this.listResto = listResto;
-          this.filteredListResto = listResto;
-          console.log("from appComponent",this.listResto);
-      }
-    )
-  } 
-  */
 
   onMinSelectEventChange(minSelectedValue) {
     this.minSelectedValue = minSelectedValue;
@@ -103,16 +79,8 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.placeService.restoSubject$.subscribe(
       places => {
-        console.log("///// App Component /////");
-        console.log("===== PLACES SUBSCRIPTION =====");
-        console.log(places);
-        console.log("===============================");
         this.listResto = places;
         this.filteredListResto = places;
-        console.log("===== LIST OF RESTO =====");
-        console.log(this.listResto);
-        console.log(this.filteredListResto);
-        console.log("===============================");
       }
     )
 
