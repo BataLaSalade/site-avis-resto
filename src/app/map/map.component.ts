@@ -52,7 +52,13 @@ export class MapComponent implements OnInit {
         console.log("///// Map Component /////");
         console.log("===== PLACES SUBSCRIPTION =====");
         console.log(places);
-        console.log(places[0])
+        console.log(places[0]);
+        if (typeof places[0] != 'undefined') {
+          console.log(places[0].geometry);
+          console.log(places[0].geometry.location);
+        }
+        
+        
         console.log("===============================");
         this.listResto = places;
         //this.filteredListResto = places;

@@ -6,24 +6,9 @@ export const ListResto: Resto[] = [
                 "location": {
                     "lat": 43.62858900000001,
                     "lng": 5.096153999999999
-                },
-                "viewport": {
-                    "northeast": {
-                        "lat": 43.6299319802915,
-                        "lng": 5.097496930291503
-                    },
-                    "southwest": {
-                        "lat": 43.6272340197085,
-                        "lng": 5.094798969708498
-                    }
                 }
             },
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-            "id": "7681f329e501aae66eeb44e3b96222e591c95223",
             "name": "PIZZAPP",
-            "opening_hours": {
-                "open_now": false
-            },
             "photos": [
                 {
                     "height": 1536,
@@ -35,21 +20,7 @@ export const ListResto: Resto[] = [
                 }
             ],
             "place_id": "ChIJcbKqH1r-yRIRsLX0VnP5X3g",
-            "plus_code": {
-                "compound_code": "J3HW+CF Salon-de-Provence, France",
-                "global_code": "8FM7J3HW+CF"
-            },
-            "price_level": 1,
             "rating": 4.6,
-            "reference": "ChIJcbKqH1r-yRIRsLX0VnP5X3g",
-            "scope": "GOOGLE",
-            "types": [
-                "meal_delivery",
-                "restaurant",
-                "point_of_interest",
-                "food",
-                "establishment"
-            ],
             "user_ratings_total": 39,
             "vicinity": "47 Rue du Remoulaire, Salon-de-Provence"
         },
@@ -58,24 +29,9 @@ export const ListResto: Resto[] = [
                 "location": {
                     "lat": 43.63847190000001,
                     "lng": 5.093852499999999
-                },
-                "viewport": {
-                    "northeast": {
-                        "lat": 43.6398220802915,
-                        "lng": 5.095306230291501
-                    },
-                    "southwest": {
-                        "lat": 43.6371241197085,
-                        "lng": 5.092608269708497
-                    }
                 }
             },
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-            "id": "fd5acc75aa3280006f205c3358027b4459130122",
             "name": "l'Entre 2 côtes",
-            "opening_hours": {
-                "open_now": false
-            },
             "photos": [
                 {
                     "height": 720,
@@ -87,20 +43,7 @@ export const ListResto: Resto[] = [
                 }
             ],
             "place_id": "ChIJ-yClRLP_yRIRruIwMGxV9UQ",
-            "plus_code": {
-                "compound_code": "J3QV+9G Salon-de-Provence, France",
-                "global_code": "8FM7J3QV+9G"
-            },
-            "price_level": 2,
             "rating": 4.2,
-            "reference": "ChIJ-yClRLP_yRIRruIwMGxV9UQ",
-            "scope": "GOOGLE",
-            "types": [
-                "restaurant",
-                "point_of_interest",
-                "food",
-                "establishment"
-            ],
             "user_ratings_total": 231,
             "vicinity": "195 Place Jules Morgan, Salon-de-Provence"
         },
@@ -110,23 +53,8 @@ export const ListResto: Resto[] = [
                     "lat": 43.638966,
                     "lng": 5.08921
                 },
-                "viewport": {
-                    "northeast": {
-                        "lat": 43.6403951802915,
-                        "lng": 5.090544180291502
-                    },
-                    "southwest": {
-                        "lat": 43.6376972197085,
-                        "lng": 5.087846219708498
-                    }
-                }
             },
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-            "id": "676e295e611b19fca92c2870106fc5f275bed5de",
             "name": "Le Phénix de Saïgon",
-            "opening_hours": {
-                "open_now": false
-            },
             "photos": [
                 {
                     "height": 4608,
@@ -138,19 +66,7 @@ export const ListResto: Resto[] = [
                 }
             ],
             "place_id": "ChIJhVsTMU3-yRIRngOkW1VTX6A",
-            "plus_code": {
-                "compound_code": "J3QQ+HM Salon-de-Provence, France",
-                "global_code": "8FM7J3QQ+HM"
-            },
             "rating": 4.5,
-            "reference": "ChIJhVsTMU3-yRIRngOkW1VTX6A",
-            "scope": "GOOGLE",
-            "types": [
-                "restaurant",
-                "point_of_interest",
-                "food",
-                "establishment"
-            ],
             "user_ratings_total": 120,
             "vicinity": "533 Boulevard Maréchal Foch, Salon-de-Provence"
         },
@@ -159,34 +75,10 @@ export const ListResto: Resto[] = [
                 "location": {
                     "lat": 43.6262801,
                     "lng": 5.0849818
-                },
-                "viewport": {
-                    "northeast": {
-                        "lat": 43.6275858302915,
-                        "lng": 5.086313830291502
-                    },
-                    "southwest": {
-                        "lat": 43.6248878697085,
-                        "lng": 5.083615869708497
-                    }
                 }
             },
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
-            "id": "40f3534dcc13df11affaa1dbd4977909b552c0ff",
             "name": "Tontic",
             "place_id": "ChIJY4_vMkT-yRIRnmN5172D4ak",
-            "plus_code": {
-                "compound_code": "J3GM+GX Salon-de-Provence, France",
-                "global_code": "8FM7J3GM+GX"
-            },
-            "reference": "ChIJY4_vMkT-yRIRnmN5172D4ak",
-            "scope": "GOOGLE",
-            "types": [
-                "restaurant",
-                "point_of_interest",
-                "food",
-                "establishment"
-            ],
             "vicinity": "330 Chemin de la Sagne, Salon-de-Provence"
         },
         {
@@ -195,23 +87,8 @@ export const ListResto: Resto[] = [
                     "lat": 43.6325285,
                     "lng": 5.095985299999999
                 },
-                "viewport": {
-                    "northeast": {
-                        "lat": 43.6337029302915,
-                        "lng": 5.097086580291502
-                    },
-                    "southwest": {
-                        "lat": 43.6310049697085,
-                        "lng": 5.094388619708497
-                    }
-                }
             },
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-            "id": "5b0412de8b74b6299f6ecfab9295e48dd877f711",
             "name": "Asia Buffet Wok",
-            "opening_hours": {
-                "open_now": false
-            },
             "photos": [
                 {
                     "height": 2322,
@@ -223,19 +100,7 @@ export const ListResto: Resto[] = [
                 }
             ],
             "place_id": "ChIJESDMJlH-yRIRPcQK-7xDyiQ",
-            "plus_code": {
-                "compound_code": "J3MW+29 Salon-de-Provence, France",
-                "global_code": "8FM7J3MW+29"
-            },
             "rating": 3.7,
-            "reference": "ChIJESDMJlH-yRIRPcQK-7xDyiQ",
-            "scope": "GOOGLE",
-            "types": [
-                "restaurant",
-                "point_of_interest",
-                "food",
-                "establishment"
-            ],
             "user_ratings_total": 576,
             "vicinity": "Parc d'activité La Gandonne, 246 Rue des Canesteu, Salon-de-Provence"
         },
@@ -245,32 +110,9 @@ export const ListResto: Resto[] = [
                     "lat": 43.627114,
                     "lng": 5.0961375
                 },
-                "viewport": {
-                    "northeast": {
-                        "lat": 43.6284070302915,
-                        "lng": 5.097436180291503
-                    },
-                    "southwest": {
-                        "lat": 43.6257090697085,
-                        "lng": 5.094738219708498
-                    }
-                }
             },
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-            "id": "6ce33a4883c1e8c97eb0f250d9f59364618ea84b",
             "name": "C Et B",
-            "opening_hours": {
-                "open_now": false
-            },
             "place_id": "ChIJtyb81Fv-yRIRkFrlFR1VXp0",
-            "reference": "ChIJtyb81Fv-yRIRkFrlFR1VXp0",
-            "scope": "GOOGLE",
-            "types": [
-                "restaurant",
-                "point_of_interest",
-                "food",
-                "establishment"
-            ],
             "vicinity": "Boulevard des Ventadouiro, Salon-de-Provence"
         },
         /*{

@@ -14,8 +14,8 @@ export class AppComponent implements OnInit{
     private userService: UserService,
     private placeService: PlacesService){}
 
-  listResto: Resto[];
-  filteredListResto: Resto[];
+  listResto: Resto[] = new Array<Resto>();
+  filteredListResto: Resto[] = new Array<Resto>();
   isShowError: boolean = false;
   minSelectedValue: string = "0";
   maxSelectedValue: string = "5";
