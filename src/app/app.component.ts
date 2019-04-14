@@ -34,19 +34,13 @@ export class AppComponent implements OnInit{
   }
 
   getPlaces(map: google.maps.Map, userPosition: google.maps.LatLng ) {
-    console.log("MAP - getPlaces()", map);
-    console.log("userPosition - getPlaces()", userPosition);
     let service = new google.maps.places.PlacesService(map);
-    console.log("service - getPlaces()", service);
     let request = {
       location: userPosition,
-      radius: '1000',
+      radius: '1500',
       type: ['restaurant']
     }
-    console.log("request - getPlaces()", request);
     service.nearbySearch(request, this.callbackGetPlaces.bind(this));
-    
-    
   }
 
   onMinSelectEventChange(minSelectedValue) {
