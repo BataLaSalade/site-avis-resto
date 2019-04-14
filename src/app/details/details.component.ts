@@ -4,6 +4,8 @@ import { Resto } from "../model/Resto";
 import {Rate} from "../model/Rate";
 import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { PlacesService } from '../services/places.service';
+import { Location } from '../model/Location';
 
 
 @Component({
@@ -11,7 +13,7 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit, AfterViewInit, OnChanges {
+export class DetailsComponent implements OnInit, OnChanges {
 
   @ViewChild('streetviewMap') streetviewMap: any;
   @ViewChild('streetviewPano') streetviewPano: any;
@@ -26,6 +28,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnChanges {
 
   constructor(
     private detailsService: DetailsService, 
+    private placesService: PlacesService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -81,33 +84,51 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnChanges {
     }  
   }
 
+  getStreetViewImg(restoLocation: Location) {
+    let url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${restoLocation.lat,restoLocation.lng}&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM`
+    return url
+  }
+
   displayStreetViewPanorama() {
-    if(isPlatformBrowser(this.platformId)){
-      /* this.mapsAPILoader.load().then(() => {
+    //if(isPlatformBrowser(this.platformId)){
         if (typeof this.selectedResto != "undefined") {
           let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
-          let map = new window['google'].maps.Map(this.streetviewMap.nativeElement, { center: center, zoom: 15, scrollwheel: false });
-          let panorama = new window['google'].maps.StreetViewPanorama(
+          //let map = new window['google'].maps.Map(this.streetviewMap.nativeElement, { center: center, zoom: 15, scrollwheel: false });
+          let panorama = new google.maps.StreetViewPanorama(
+            this.streetviewPano.nativeElement, {
+              position: center,
+              pov: { heading: 34, pitch: 10 },
+              scrollwheel: false
+            });
+          //map.setStreetView(panorama);
+          console.log("lat:", this.selectedResto.geometry.location.lat, "lng:", this.selectedResto.geometry.location.lng)
+        }
+        
+      //}
+    }
+  
+
+  ngOnInit() {
+    this.fetchDetails();
+    
+  }
+  
+  ngOnChanges(){
+    //this.displayStreetViewPanorama();
+    this.placesService.mapSubject$.subscribe(
+      map => {
+        if (typeof this.selectedResto != "undefined") {
+          let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
+          let panorama = new google.maps.StreetViewPanorama(
             this.streetviewPano.nativeElement, {
               position: center,
               pov: { heading: 34, pitch: 10 },
               scrollwheel: false
             });
           map.setStreetView(panorama);
+          console.log("lat:", this.selectedResto.geometry.location.lat, "lng:", this.selectedResto.geometry.location.lng)
         }
-        
-      }); */
-    }
-  }
-
-  ngOnInit() {
-    this.fetchDetails();
-  }
-
-  ngAfterViewInit(){
-  }
-  
-  ngOnChanges(){
-    this.displayStreetViewPanorama();
+      }
+    )
   }
 }

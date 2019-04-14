@@ -1,15 +1,11 @@
+
 <div class="scrollSection">
-  <div id="streetViewMap" #streetviewMap >
-    map
-  </div>
-  <div id="streetViewPano" #streetviewPano>
-    pano
-  </div>
+    <div id="streetViewMap" #streetviewMap>
+    </div>
+    <div id="streetViewPano" #streetviewPano>
+    </div>
   <div *ngIf="selectedResto">
-      <!-- 
-      <div class="detailHeaderImage" [ngStyle]="{'background-image':'url('+ getUrlPhotoRequest(selectedResto) + ')'}">
-      </div> 
-      --> 
+      <!-- <img src="https://maps.googleapis.com/maps/api/streetview/metadata?size=600x200&location=selectedResto.geometry.location.lat,selectedResto.geometry.location.lng&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM" alt="streetView"> -->
       <div class="detailHeaderSection" >
         <div class="detailHeaderResume">
           <div  class="sectionHeader">
