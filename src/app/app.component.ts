@@ -29,7 +29,6 @@ export class AppComponent implements OnInit{
       console.log(results);
       console.log("===================");
       this.placeService.setListResto(results);
-      
     }
   }
 
