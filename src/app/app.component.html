@@ -1,10 +1,5 @@
 <div class="wrapper">
-  <app-map-sidebar 
-  [listResto]="filteredListResto" 
-  [isShowError] = "isShowError"
-  (minSelectEvent)="onMinSelectEventChange($event)" 
-  (maxSelectEvent)="onMaxSelectEventChange($event)"
-  (discardFilterEvent)="onDiscardFilterEventChange($event)"></app-map-sidebar>
+  <app-map-sidebar></app-map-sidebar>
   <app-map></app-map>
 </div>
 

@@ -44,19 +44,19 @@ export class AppComponent implements OnInit{
 
   onMinSelectEventChange(minSelectedValue) {
     this.minSelectedValue = minSelectedValue;
-    this.displayFilteredListResto(this.minSelectedValue, this.maxSelectedValue);
+    //this.displayFilteredListResto(this.minSelectedValue, this.maxSelectedValue);
   }
 
   onMaxSelectEventChange(maxSelectedValue) {
     this.maxSelectedValue = maxSelectedValue;
-    this.displayFilteredListResto(this.minSelectedValue, this.maxSelectedValue);
+    //this.displayFilteredListResto(this.minSelectedValue, this.maxSelectedValue);
   }
 
   onDiscardFilterEventChange() {
     this.filteredListResto = this.listResto;
   }
 
-  displayFilteredListResto(minSelectedValue: string, maxSelectedValue: string) {
+  /* displayFilteredListResto(minSelectedValue: string, maxSelectedValue: string) {
     let minValue: number = Number(minSelectedValue);
     let maxValue:number = Number(maxSelectedValue);
     if (minValue >= 0 && maxValue <= 5) {
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit{
     } else {
         this.filteredListResto = this.listResto;
     }
-}
+  } */
   
   ngOnInit() {
     this.placeService.restoSubject$.subscribe(

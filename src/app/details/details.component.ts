@@ -115,7 +115,7 @@ export class DetailsComponent implements OnInit, OnChanges {
   
   ngOnChanges(){
     //this.displayStreetViewPanorama();
-    this.placesService.mapSubject$.subscribe(
+    /* this.placesService.mapSubject$.subscribe(
       map => {
         if (typeof this.selectedResto != "undefined") {
           let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
@@ -129,6 +129,6 @@ export class DetailsComponent implements OnInit, OnChanges {
           console.log("lat:", this.selectedResto.geometry.location.lat, "lng:", this.selectedResto.geometry.location.lng)
         }
       }
-    )
+    ) */
   }
 }

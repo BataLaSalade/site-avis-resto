@@ -14,8 +14,8 @@
                 <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-flat-button color="primary" 
-            (click)="discardFilter($event)"> Réinitialiser le filter
+        <button mat-flat-button color="primary" [disabled]="disabled"
+            (click)="discardFilter()"> Réinitialiser le filter
         </button>
     </div>
     <button mat-flat-button color="primary" [style.display]="isShowDetails ?'block' :'none'" (click)="toggleListDetail()">
