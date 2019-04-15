@@ -15,14 +15,15 @@ import { zip } from 'rxjs';
     constructor(private restoService: RestoService, private placesService: PlacesService, private filterService: FilterService) {}
 
     disabled: boolean = true;
-    @Input() isShowError: boolean ;
+    isShowError: boolean = false;
     
     //@Input() filteredListResto: Resto[];
 
     
     //discardFilter$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
-    listResto: Resto[] = new Array<Resto> ()
+    listResto: Resto[] = new Array<Resto>()
+    filteredListResto: Resto[] = new Array<Resto>()
     isShowDetails: boolean = false;
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
     selectedResto: Resto = new Resto();
@@ -30,18 +31,16 @@ import { zip } from 'rxjs';
     selectedMin: string = "0";
     selectedMax: string =  "5";
 
-    listRestoObservable = this.restoService.getListResto();
+    //listRestoObservable = this.restoService.getListResto();
 
     onMinRateSelectionChange() {
        this.filterService.setMinValue(this.selectedMin);
        this.disabled = false;
-       console.log("min value change = ", this.selectedMin, this.disabled);
     }
 
     onMaxRateSelectionChange() {
         this.filterService.setMaxValue(this.selectedMax);
         this.disabled = false;
-        console.log("max value change = ", this.selectedMax, this.disabled);
     }
 
     onRestoChange(resto) {
@@ -49,34 +48,45 @@ import { zip } from 'rxjs';
         this.selectedResto = resto;
     }
 
-    getRatingRange(rating: number) {
-        return rating >= 0 && rating <= 5;
-    }
-
     discardFilter() {
         this.selectedMin = "0";
         this.selectedMax = "5";
         this.filterService.setMinValue(this.selectedMin);
         this.filterService.setMaxValue(this.selectedMax);
-        //this.isShowError = false;
         this.disabled = true;
-        console.log("discardFilter() = ",this.selectedMin, this.selectedMax,  "isShowError = ", this.isShowError, "disabled = ", this.disabled)
     }
 
     toggleListDetail() {
         this.isShowDetails = !this.isShowDetails;
     }
 
+    displayFilteredListResto(minSelectedValue: string, maxSelectedValue: string) {
+        let minValue: number = Number(minSelectedValue);
+        let maxValue:number = Number(maxSelectedValue);
+        if (minValue >= 0 && maxValue <= 5) {
+            this.filteredListResto = this.listResto.filter(
+                (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
+            );
+            this.placesService.setFilteredListResto(this.filteredListResto);
+            // apparait d'office car à l'init du projet listResto et filteredListResto sont vide...
+            //this.isShowError = (this.listResto.length == 0) ? true : false;
+        }
+    }
+
     ngOnInit() {
         this.placesService.restoSubject$.subscribe(
-            places => this.listResto = places
+            places => {
+                this.listResto = places;
+            }
         )
         
         zip(this.filterService.minSelect$, this.filterService.maxSelect$).subscribe(
             selectedValues => {
-                this.selectedMin = selectedValues[0];
-                this.selectedMax = selectedValues[1];
-                this.disabled = false;
+                let minValue = selectedValues[0];
+                let maxValue = selectedValues[1];
+                this.disabled = true;
+                this.isShowError = false;
+                this.displayFilteredListResto(minValue, maxValue);
             }
         )
     }

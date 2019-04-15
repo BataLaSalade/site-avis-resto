@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Resto } from "../model/Resto";
+import { PlacesService } from '../services/places.service';
 
 @Component({
   selector: 'app-list-restaurants',
@@ -8,14 +9,15 @@ import { Resto } from "../model/Resto";
 },)
 
 export class ListRestaurantsComponent implements OnInit{
-  constructor() {}
+  constructor(private placesService: PlacesService) {}
 
-  @Input() listResto: Resto[];
+  
   @Input() isShowDetails: boolean;
 
   @Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
   @Output() listChange: EventEmitter<any> = new EventEmitter;
 
+  listResto: Resto[];
   selectedResto: Resto;
   
   getBkgImgURL(ratingScore:number, starIndex:number){
@@ -36,18 +38,11 @@ export class ListRestaurantsComponent implements OnInit{
   getUrlPhotoRequest(resto: any) {
     if (typeof resto.photos == "undefined") {
         let defaultImg: string = "../../assets/img/1x/emptyStar.png";
-
         return defaultImg;
     } else {
         let photoReference: string = resto.photos[0].photo_reference;
-        
         return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=80&photoreference=${photoReference}&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM`;
     }  
-  }
-
-  onListChange(newList) {
-    this.listResto = newList;
-    this.listChange.emit(this.listResto);
   }
 
   onSelect(resto: Resto){
@@ -56,6 +51,13 @@ export class ListRestaurantsComponent implements OnInit{
   }
   
   ngOnInit() {
+    this.placesService.restoSubject$.subscribe(
+      places => this.listResto = places
+    );
+    
+    this.placesService.filteredRestoSubject$.subscribe(
+      places => this.listResto = places
+    );
   }
 
 }
