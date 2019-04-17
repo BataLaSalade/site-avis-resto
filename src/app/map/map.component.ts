@@ -60,22 +60,22 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.initMap();
 
-    this.placeService.restoSubject$.subscribe(
+    /* this.placeService.restoSubject$.subscribe(
       places => this.listResto = places
-    );
+    ); */
     
     this.placeService.filteredRestoSubject$.subscribe(
       places => this.listResto = places
     );
     
 
-    zip(this.placeService.restoSubject$, this.placeService.mapSubject$).subscribe(
+    /* zip(this.placeService.restoSubject$, this.placeService.mapSubject$).subscribe(
       markerParams => {
         let listResto = markerParams[0];
         let map = markerParams[1];
         this.addRestoMarkers(listResto, map);
       } 
-    );
+    ); */
 
     zip(this.placeService.filteredRestoSubject$, this.placeService.mapSubject$).subscribe(
       markerParams => {
