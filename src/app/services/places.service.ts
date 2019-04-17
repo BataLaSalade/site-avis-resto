@@ -8,6 +8,7 @@ import { Observable, from, BehaviorSubject} from 'rxjs';
 export class PlacesService {
   restoSubject$: BehaviorSubject<Resto[]>;
   filteredRestoSubject$: BehaviorSubject<Resto[]>;
+  markersSubject$: BehaviorSubject<any[]>
   mapSubject$: BehaviorSubject<any>;
 
   constructor() {
@@ -17,6 +18,10 @@ export class PlacesService {
 
     this.filteredRestoSubject$ = new BehaviorSubject(
       new Array<Resto>()
+    );
+
+    this.markersSubject$ = new BehaviorSubject(
+      new Array<any>()
     );
 
     this.mapSubject$ = new BehaviorSubject(
@@ -34,5 +39,9 @@ export class PlacesService {
   
   setFilteredListResto(listResto: Resto[]) {
     this.filteredRestoSubject$.next(listResto);
+  }
+
+  setListMarkers(listResto: Resto[]) {
+    this.markersSubject$.next(listResto);
   }
 }

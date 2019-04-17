@@ -12,7 +12,8 @@ import { zip } from 'rxjs';
   },)
 
   export class MapSidebarComponent implements OnInit {
-    constructor(private restoService: RestoService, private placesService: PlacesService, private filterService: FilterService) {}
+    constructor(private placesService: PlacesService,
+         private filterService: FilterService) {}
 
     disabled: boolean = true;
     isShowError: boolean = false;
@@ -68,6 +69,7 @@ import { zip } from 'rxjs';
                 (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
             );
             this.placesService.setFilteredListResto(this.filteredListResto);
+            this.placesService.setListMarkers(this.filteredListResto);
             // apparait d'office car à l'init du projet listResto et filteredListResto sont vide...
             //this.isShowError = (this.listResto.length == 0) ? true : false;
         }
