@@ -27,8 +27,7 @@ export class ListRestaurantsComponent implements OnInit{
 
     if(currentRate >= 0.75) {
       endURL = "filledStar.png";
-    }
-    else if(currentRate >= 0.25) {
+    } else if(currentRate >= 0.25) {
       endURL ="halfStar.png";
     }
 
@@ -40,9 +39,8 @@ export class ListRestaurantsComponent implements OnInit{
         let defaultImg: string = "../../assets/img/1x/emptyStar.png";
         return defaultImg;
     } else {
-        let photoReference: string = resto.photos[0].photo_reference;
-        return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=80&photoreference=${photoReference}&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM`;
-    }  
+        return resto.photos[0].getUrl()
+      }  
   }
 
   onSelect(resto: Resto){
