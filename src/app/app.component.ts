@@ -25,9 +25,6 @@ export class AppComponent implements OnInit{
 
   callbackGetPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      console.log("===== RESULTS =====");
-      console.log(results);
-      console.log("===================");
       this.placeService.setListResto(results);
       this.placeService.setListMarkers(results);
     }
@@ -37,8 +34,8 @@ export class AppComponent implements OnInit{
     let service = new google.maps.places.PlacesService(map);
     let request = {
       location: userPosition,
-      radius: '1500',
-      type: ['restaurant']
+      radius: 1500,
+      type: 'restaurant'
     }
     service.nearbySearch(request, this.callbackGetPlaces.bind(this));
   }
