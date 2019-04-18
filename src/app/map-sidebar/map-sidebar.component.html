@@ -18,7 +18,7 @@
             (click)="discardFilter()"> Réinitialiser le filter
         </button>
     </div>
-    <button mat-flat-button color="primary" [style.display]="isShowDetails ?'block' :'none'" (click)="toggleListDetail()">
+    <button mat-flat-button color="primary" [style.display]="isShowDetails ?'block' :'none'" (click)="backToList()">
         Retourner à la liste
     </button>
 </div>
@@ -27,10 +27,8 @@
     <p>Aucun restaurant ne correspond à votre rechercher</p>
 </div>
 <app-list-restaurants
-    (RestoEmitter)="onRestoChange($event)" 
     [style.display]="isShowDetails ?'none' :'block'">
 </app-list-restaurants>
 <app-details 
-    [selectedResto]='selectedResto'
     [style.display]="isShowDetails ?'block' :'none'">
 </app-details>

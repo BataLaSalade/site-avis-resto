@@ -10,6 +10,8 @@ export class PlacesService {
   filteredRestoSubject$: BehaviorSubject<Resto[]>;
   markersSubject$: BehaviorSubject<any[]>
   mapSubject$: BehaviorSubject<any>;
+  selectedRestoSubject$: BehaviorSubject<Resto>;
+  isSelectedResto$: BehaviorSubject<boolean>;
 
   constructor() {
     this.restoSubject$ = new BehaviorSubject(
@@ -19,6 +21,12 @@ export class PlacesService {
     this.filteredRestoSubject$ = new BehaviorSubject(
       new Array<Resto>()
     );
+
+    this.selectedRestoSubject$ = new BehaviorSubject(
+      new Resto()
+    );
+
+    this.isSelectedResto$ = new BehaviorSubject (false);
 
     this.markersSubject$ = new BehaviorSubject(
       new Array<any>()
@@ -39,6 +47,10 @@ export class PlacesService {
   
   setFilteredListResto(listResto: Resto[]) {
     this.filteredRestoSubject$.next(listResto);
+  }
+
+  setSelectedResto(selectedResto: Resto) {
+    this.selectedRestoSubject$.next(selectedResto);
   }
 
   setListMarkers(listResto: Resto[]) {

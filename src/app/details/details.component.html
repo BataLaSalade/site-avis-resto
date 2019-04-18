@@ -1,12 +1,7 @@
-
-<div class="scrollSection">
-    <div id="streetViewMap" #streetviewMap>
-    </div>
-    <div id="streetViewPano" #streetviewPano>
-    </div>
+<div class="scrollSection"> 
   <div *ngIf="selectedResto">
-      <!-- <img src="https://maps.googleapis.com/maps/api/streetview/metadata?size=600x200&location=selectedResto.geometry.location.lat,selectedResto.geometry.location.lng&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM" alt="streetView"> -->
-      <div class="detailHeaderSection" >
+    <img [src]="streetViewURL" alt="streetView">
+    <div class="detailHeaderSection" >
         <div class="detailHeaderResume">
           <div  class="sectionHeader">
             <h3 class="title">{{selectedResto.name}}</h3>

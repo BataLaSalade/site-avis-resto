@@ -16,11 +16,11 @@ import { FilterService } from '../services/filter.service';
 
     disabled: boolean = true;
     isShowError: boolean = false;
-    isShowDetails: boolean = false;
+    isShowDetails: boolean;
 
     listResto: Resto[] = new Array<Resto>()
     filteredListResto: Resto[] = new Array<Resto>()
-    selectedResto: Resto = new Resto();
+    //selectedResto: Resto = new Resto();
     
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
     index: string[] = ["0", "1", "2", "3", "4", "5"];
@@ -37,11 +37,6 @@ import { FilterService } from '../services/filter.service';
         this.disabled = false;
     }
 
-    onRestoChange(resto) {
-        this.isShowDetails = typeof resto != "undefined";
-        this.selectedResto = resto;
-    }
-
     discardFilter() {
         this.selectedMin = "0";
         this.selectedMax = "5";
@@ -50,7 +45,7 @@ import { FilterService } from '../services/filter.service';
         this.disabled = true;
     }
 
-    toggleListDetail() {
+    backToList() {
         this.isShowDetails = !this.isShowDetails;
     }
 
@@ -83,6 +78,18 @@ import { FilterService } from '../services/filter.service';
                 this.displayFilteredListResto(this.selectedMin, value);
             }
         );
+
+        this.placesService.isSelectedResto$.subscribe(
+            isSelectedResto => this.isShowDetails = isSelectedResto
+        )
+        /* this.placesService.selectedRestoSubject$.subscribe(
+            resto => {
+                console.log("selectedResto - Sidebar = ", resto);
+                this.isShowDetails = true;
+                
+                
+            }
+        ) */
     }
 
   }

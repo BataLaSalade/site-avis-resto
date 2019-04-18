@@ -12,9 +12,9 @@ export class ListRestaurantsComponent implements OnInit{
   constructor(private placesService: PlacesService) {}
 
   
-  @Input() isShowDetails: boolean;
+  //@Input() isShowDetails: boolean;
 
-  @Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
+  //@Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
   @Output() listChange: EventEmitter<any> = new EventEmitter;
 
   listResto: Resto[];
@@ -44,8 +44,12 @@ export class ListRestaurantsComponent implements OnInit{
   }
 
   onSelect(resto: Resto){
-    this.selectedResto = resto;
-    this.RestoEmitter.emit(this.selectedResto);
+    //this.selectedResto = resto;
+    console.log(resto);
+    this.placesService.selectedRestoSubject$.next(resto);
+    this.placesService.isSelectedResto$.next(true);
+    //this.isShowDetails = true;
+    //this.RestoEmitter.emit(this.selectedResto);
   }
   
   ngOnInit() {
@@ -56,6 +60,7 @@ export class ListRestaurantsComponent implements OnInit{
     this.placesService.filteredRestoSubject$.subscribe(
       places => this.listResto = places
     );
+
   }
 
 }

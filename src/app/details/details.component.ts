@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, ViewChild, Inject, PLATFORM_ID, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {DetailsService} from "../services/details.service";
 import { Resto } from "../model/Resto";
 import {Rate} from "../model/Rate";
-import { Observable } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { Observable} from 'rxjs';
 import { PlacesService } from '../services/places.service';
 import { Location } from '../model/Location';
 
@@ -13,15 +12,11 @@ import { Location } from '../model/Location';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit, OnChanges {
+export class DetailsComponent implements OnInit {
 
-  @ViewChild('streetviewMap') streetviewMap: any;
-  @ViewChild('streetviewPano') streetviewPano: any;
-
-  @Input() resto: any;
-  @Input() isShowDetails: boolean;
-  @Input() selectedResto: any;
-  
+  resto: Resto;
+  selectedResto: Resto = new Resto()
+  streetViewURL: string;
   detailsObservable: Observable<any> = this.detailsService.getDetails();
   details: Rate[];
   panorama: any;
@@ -29,7 +24,6 @@ export class DetailsComponent implements OnInit, OnChanges {
   constructor(
     private detailsService: DetailsService, 
     private placesService: PlacesService,
-    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
 
@@ -65,70 +59,22 @@ export class DetailsComponent implements OnInit, OnChanges {
     return starURL + resultPng
   }
 
-  getUrlPhotoRequest(resto: any) {
-    if (typeof resto.photos == "undefined") {
-        let defaultImg: string = "../../assets/img/1x/emptyStar.png";
-
-        return defaultImg;
-    } else {
-        let firstPart: string = "https://maps.googleapis.com/maps/api/place/photo";
-        let maxWidthKey: string = "?maxwidth=";
-        let maxWidthValue: string = String(resto.photos[0].width);
-        let photoReferenceKey: string = "&photoreference=";
-        let photoReferenceValue: string = resto.photos[0].photo_reference;
-        let keyKey: string = "&key=";
-        let keyValue: string = "AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM";
-        let url: string = firstPart+maxWidthKey+maxWidthValue+photoReferenceKey+photoReferenceValue+keyKey+keyValue;
-        
-        return url
-    }  
-  }
-
-  getStreetViewImg(restoLocation: Location) {
-    let url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${restoLocation.lat,restoLocation.lng}&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM`
-    return url
-  }
-
-  displayStreetViewPanorama() {
-    //if(isPlatformBrowser(this.platformId)){
-        if (typeof this.selectedResto != "undefined") {
-          let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
-          //let map = new window['google'].maps.Map(this.streetviewMap.nativeElement, { center: center, zoom: 15, scrollwheel: false });
-          let panorama = new google.maps.StreetViewPanorama(
-            this.streetviewPano.nativeElement, {
-              position: center,
-              pov: { heading: 34, pitch: 10 },
-              scrollwheel: false
-            });
-          //map.setStreetView(panorama);
-          console.log("lat:", this.selectedResto.geometry.location.lat, "lng:", this.selectedResto.geometry.location.lng)
-        }
-        
-      //}
-    }
+  setStreetViewImg(restoLocation?: Location) {
+    let lat = restoLocation.lat();
+    let lng = restoLocation.lng();
+    this.streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lat},${lng}&heading=34&pitch=10&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM`;
   
-
+  }
+  
   ngOnInit() {
     this.fetchDetails();
-    
-  }
-  
-  ngOnChanges(){
-    //this.displayStreetViewPanorama();
-    /* this.placesService.mapSubject$.subscribe(
-      map => {
-        if (typeof this.selectedResto != "undefined") {
-          let center = { lat: this.selectedResto.geometry.location.lat, lng: this.selectedResto.geometry.location.lng };
-          let panorama = new google.maps.StreetViewPanorama(
-            this.streetviewPano.nativeElement, {
-              position: center,
-              pov: { heading: 34, pitch: 10 },
-              scrollwheel: false
-            });
-          map.setStreetView(panorama);
-          console.log("lat:", this.selectedResto.geometry.location.lat, "lng:", this.selectedResto.geometry.location.lng)
+    this.placesService.selectedRestoSubject$.subscribe(
+      resto => {
+        this.selectedResto = resto;
+        if (typeof resto.geometry != 'undefined') {
+          this.setStreetViewImg(resto.geometry.location)
         }
       }
-    ) */
+    )
   }
 }
