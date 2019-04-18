@@ -1,8 +1,9 @@
+/// <reference types="@types/googlemaps" />
 import { Component, OnInit } from '@angular/core';
 import {DetailsService} from "../services/details.service";
 import { Resto } from "../model/Resto";
 import {Rate} from "../model/Rate";
-import { Observable} from 'rxjs';
+import { Observable, zip} from 'rxjs';
 import { PlacesService } from '../services/places.service';
 import { Location } from '../model/Location';
 
@@ -18,8 +19,9 @@ export class DetailsComponent implements OnInit {
   selectedResto: Resto = new Resto()
   streetViewURL: string;
   detailsObservable: Observable<any> = this.detailsService.getDetails();
-  details: Rate[];
+  details: Rate[] = new Array<Rate>();
   panorama: any;
+  map: google.maps.Map;
 
   constructor(
     private detailsService: DetailsService, 
@@ -39,9 +41,20 @@ export class DetailsComponent implements OnInit {
     return randomUrl
   }
 
-  fetchDetails(): void {
-    this.detailsObservable
-      .subscribe(details => this.details = details);
+  callBackGetDetails(results, status) {
+    console.log(google.maps.places.PlacesServiceStatus)
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      this.details = results.reviews;
+    }
+  }
+
+  getDetails(placeId: string, map: google.maps.Map) {
+    let service = new google.maps.places.PlacesService(map);
+    let request = {
+      placeId: placeId,
+      fields: ['reviews']
+    }
+    service.getDetails(request, this.callBackGetDetails.bind(this));
   }
 
   getBkgImgURL(ratingScore:number, starIndex:number){
@@ -67,12 +80,18 @@ export class DetailsComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.fetchDetails();
+    this.placesService.mapSubject$.subscribe(
+      map => {
+        this.map = map;
+      }
+    );
+
     this.placesService.selectedRestoSubject$.subscribe(
       resto => {
         this.selectedResto = resto;
+        this.getDetails(resto.place_id, this.map);
         if (typeof resto.geometry != 'undefined') {
-          this.setStreetViewImg(resto.geometry.location)
+          this.setStreetViewImg(resto.geometry.location);
         }
       }
     )
