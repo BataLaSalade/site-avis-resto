@@ -18,13 +18,13 @@ export class MapComponent implements OnInit {
   @ViewChild('map') mapElement: any;
 
   listResto: Resto[] = new Array<Resto>();
-  listMarkers: google.maps.Marker[] = []
-  userMarker:string = "../../assets/img/1x/userFichier 2.png";
-  zoom: number = 15;
-  restoMarker: string = "../../assets/img/1x/restoFichier4.png";
-  userLocation: any;
-  map: google.maps.Map;
 
+  map: google.maps.Map;
+  listMarkers: google.maps.Marker[] = []
+  userLocation: any;
+  userMarker:string = "../../assets/img/1x/userFichier 2.png";
+  restoMarker: string = "../../assets/img/1x/restoFichier4.png";
+  
   initMap() {
     navigator.geolocation.getCurrentPosition((location) => {
       let map = new google.maps.Map(this.mapElement.nativeElement, {
