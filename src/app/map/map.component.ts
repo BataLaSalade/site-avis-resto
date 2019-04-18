@@ -45,16 +45,6 @@ export class MapComponent implements OnInit {
       });
       this.placeService.setMap(map);
       this.userService.userSubject$.next(location);
-
-      /* let index: number;
-        for (index = 0; index< this.listResto.length; index++) {
-          let marker = new google.maps.Marker({
-            position: this.listResto[index].geometry.location,
-            icon: this.restoMarker,
-            map: map
-          });
-        } */
-        console.log("listResto initMap() = ", this.listResto)
     });
   }
 
@@ -97,7 +87,35 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.initMap();
 
-    this.placeService.markersSubject$.subscribe(
+    this.placeService.restoSubject$.subscribe(
+      places => {
+        this.listResto = places
+        console.log("Resto$", this.listResto)
+        console.log("listMarkers", this.listMarkers)
+        console.log("===== addRestoMarkers =====");
+        this.addRestoMarkers(this.listResto, this.map, this.listMarkers);
+        this.setMapOnAll(this.map, this.listMarkers);
+      }
+    )
+
+    this.placeService.filteredRestoSubject$.subscribe(
+      places => {
+        this.listResto = places
+        console.log("filteredResto$ = ", this.listResto)
+        console.log("listMarkers", this.listMarkers)
+        console.log("===== clearMarkers =====");
+        for (var i = 0; i < this.listMarkers.length; i++) {
+          this.listMarkers[i].setMap(null);
+        }
+        console.log("listMarkers", this.listMarkers);
+        this.listMarkers = []
+        console.log("listMarkers", this.listMarkers);
+        this.addRestoMarkers(this.listResto, this.map, this.listMarkers);
+        this.setMapOnAll(this.map, this.listMarkers);
+      }
+    )
+
+    /* this.placeService.markersSubject$.subscribe(
       places => {
         this.listResto = places;
         console.log("listResto subscription = ", this.listResto);
@@ -121,9 +139,8 @@ export class MapComponent implements OnInit {
         this.listMarkers = []
         console.log("listMarkers", this.listMarkers);
         //this.deleteMarkers(this.map, this.listMarkers);
-      }
-        
-    )
+      } 
+    ) */
 
   }
 }

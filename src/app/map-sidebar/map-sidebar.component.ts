@@ -32,8 +32,6 @@ import { zip } from 'rxjs';
     selectedMin: string = "0";
     selectedMax: string =  "5";
 
-    //listRestoObservable = this.restoService.getListResto();
-
     onMinRateSelectionChange() {
        this.filterService.setMinValue(this.selectedMin);
        this.disabled = false;
@@ -54,7 +52,6 @@ import { zip } from 'rxjs';
         this.selectedMax = "5";
         this.filterService.setMinValue(this.selectedMin);
         this.filterService.setMaxValue(this.selectedMax);
-        this.filterService.isClearMarkersNeeded.next(true);
         this.disabled = true;
     }
 
@@ -71,8 +68,7 @@ import { zip } from 'rxjs';
             );
             this.placesService.setFilteredListResto(this.filteredListResto);
             this.placesService.setListMarkers(this.filteredListResto);
-            // apparait d'office car à l'init du projet listResto et filteredListResto sont vide...
-            //this.isShowError = (this.listResto.length == 0) ? true : false;
+            
         }
     }
 
@@ -81,18 +77,19 @@ import { zip } from 'rxjs';
             places => {
                 this.listResto = places;
             }
-        )
-        
-        zip(this.filterService.minSelect$, this.filterService.maxSelect$).subscribe(
-            selectedValues => {
-                let minValue = selectedValues[0];
-                let maxValue = selectedValues[1];
-                this.disabled = true;
-                this.isShowError = false;
-                this.displayFilteredListResto(minValue, maxValue);
-                this.filterService.isClearMarkersNeeded.next(true);
+        );
+
+        this.filterService.minSelect$.subscribe(
+            value => {
+                this.displayFilteredListResto(value, this.selectedMax);
             }
-        )
+        );
+
+        this.filterService.maxSelect$.subscribe(
+            value => {
+                this.displayFilteredListResto(this.selectedMin, value);
+            }
+        );
     }
 
   }
