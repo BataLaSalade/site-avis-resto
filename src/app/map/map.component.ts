@@ -22,7 +22,7 @@ export class MapComponent implements OnInit {
   @ViewChild('map') mapElement: any;
 
   listResto: Resto[] = new Array<Resto>();
-  listMarkers: google.maps.Marker[];
+  listMarkers: google.maps.Marker[] = []
   userMarker:string = "../../assets/img/1x/userFichier 2.png";
   zoom: number = 15;
   restoMarker: string = "../../assets/img/1x/restoFichier4.png";
@@ -63,7 +63,8 @@ export class MapComponent implements OnInit {
     for (index = 0; index< listResto.length; index++) {
       let marker = new google.maps.Marker({
         position: listResto[index].geometry.location,
-        icon: this.restoMarker
+        icon: this.restoMarker,
+        title: listResto[index].name
       });
       listMarkers.push(marker)
     }
@@ -76,6 +77,7 @@ export class MapComponent implements OnInit {
       listMarkers[i].setMap(map);
     }
     console.log("setMapOnAll() listMarkers => ", listMarkers);
+    
   }
 
   // Removes the markers from the map, but keeps them in the array.
@@ -97,19 +99,31 @@ export class MapComponent implements OnInit {
 
     this.placeService.markersSubject$.subscribe(
       places => {
-        this.listResto = places
-        let listMarkers: google.maps.Marker[] = [];
+        this.listResto = places;
         console.log("listResto subscription = ", this.listResto);
-        console.log("listMarkers = ", listMarkers);
-        console.log("===== clearMarkers =====");
-        console.log("//TODO");
-        //this.deleteMarkers(this.map, listMarkers);
+        console.log("listMarkers = ", this.listMarkers);
         console.log("===== addRestoMarkers =====");
-        this.addRestoMarkers(this.listResto, this.map, listMarkers);
-        this.setMapOnAll(this.map, listMarkers);
+        this.addRestoMarkers(this.listResto, this.map, this.listMarkers);
+        this.setMapOnAll(this.map, this.listMarkers);
+        
 
       }
     ); 
+    this.filterService.isClearMarkersNeeded.subscribe(
+      isClear => {
+        console.log("===== clearMarkers =====");
+        console.log(isClear);
+        console.log("//TODO");
+        for (var i = 0; i < this.listMarkers.length; i++) {
+          this.listMarkers[i].setMap(null);
+        }
+        console.log("listMarkers", this.listMarkers);
+        this.listMarkers = []
+        console.log("listMarkers", this.listMarkers);
+        //this.deleteMarkers(this.map, this.listMarkers);
+      }
+        
+    )
 
   }
 }

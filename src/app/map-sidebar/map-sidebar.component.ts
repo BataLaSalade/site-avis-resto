@@ -54,6 +54,7 @@ import { zip } from 'rxjs';
         this.selectedMax = "5";
         this.filterService.setMinValue(this.selectedMin);
         this.filterService.setMaxValue(this.selectedMax);
+        this.filterService.isClearMarkersNeeded.next(true);
         this.disabled = true;
     }
 
@@ -89,6 +90,7 @@ import { zip } from 'rxjs';
                 this.disabled = true;
                 this.isShowError = false;
                 this.displayFilteredListResto(minValue, maxValue);
+                this.filterService.isClearMarkersNeeded.next(true);
             }
         )
     }
