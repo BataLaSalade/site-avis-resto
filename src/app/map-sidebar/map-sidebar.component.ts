@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { RestoService } from "../services/resto.service";
+import { Component, OnInit} from '@angular/core';
 import { Resto } from "../model/Resto";
 import { PlacesService } from '../services/places.service';
 import { FilterService } from '../services/filter.service';
-import { zip } from 'rxjs';
 
 @Component({
     selector: 'app-map-sidebar',
@@ -12,22 +10,19 @@ import { zip } from 'rxjs';
   },)
 
   export class MapSidebarComponent implements OnInit {
-    constructor(private placesService: PlacesService,
-         private filterService: FilterService) {}
+    constructor(
+        private placesService: PlacesService,
+        private filterService: FilterService) {}
 
     disabled: boolean = true;
     isShowError: boolean = false;
-    
-    //@Input() filteredListResto: Resto[];
-
-    
-    //discardFilter$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+    isShowDetails: boolean = false;
 
     listResto: Resto[] = new Array<Resto>()
     filteredListResto: Resto[] = new Array<Resto>()
-    isShowDetails: boolean = false;
-    emptyStar: string = '../../assets/img/1x/emptyStar.png';
     selectedResto: Resto = new Resto();
+    
+    emptyStar: string = '../../assets/img/1x/emptyStar.png';
     index: string[] = ["0", "1", "2", "3", "4", "5"];
     selectedMin: string = "0";
     selectedMax: string =  "5";
@@ -67,8 +62,6 @@ import { zip } from 'rxjs';
                 (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
             );
             this.placesService.setFilteredListResto(this.filteredListResto);
-            this.placesService.setListMarkers(this.filteredListResto);
-            
         }
     }
 
