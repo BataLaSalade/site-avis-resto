@@ -18,6 +18,7 @@ export class DetailsComponent implements OnInit {
   resto: Resto;
   selectedResto: Resto = new Resto()
   streetViewURL: string;
+  randomAvatar: string;
   detailsObservable: Observable<any> = this.detailsService.getDetails();
   details: Rate[] = new Array<Rate>();
   panorama: any;
@@ -38,7 +39,8 @@ export class DetailsComponent implements OnInit {
     let index: string = String(this.getRandomIndex(5));
     let extension: string = ".png";
     let randomUrl: string = url + String(index) + extension;
-    return randomUrl
+
+    return randomUrl;
   }
 
   callBackGetDetails(results, status) {
@@ -80,6 +82,7 @@ export class DetailsComponent implements OnInit {
   }
   
   ngOnInit() {
+
     this.placesService.mapSubject$.subscribe(
       map => {
         this.map = map;

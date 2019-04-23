@@ -28,9 +28,9 @@
         <div class="reviews" *ngFor = "let detail of details" ><!--ici ngFor let review of listReview-->
           <div class="authorInfo">
             <div class="authorInfoName">
-              <!--
-                <img [src]=getRandomAvatar() alt="authorAvatar">
-              -->  
+              
+                <img [src]="getRandomAvatar()" alt="authorAvatar">
+                
                 <span class="authorName">{{detail.author_name}}</span>
             </div>
             <ol class="ratingStars" >
