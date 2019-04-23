@@ -6,6 +6,8 @@ import {Rate} from "../model/Rate";
 import { Observable, zip} from 'rxjs';
 import { PlacesService } from '../services/places.service';
 import { Location } from '../model/Location';
+import { MatDialog } from '@angular/material';
+import { ReviewDialogComponent } from '../review-dialog/review-dialog.component';
 
 
 @Component({
@@ -27,6 +29,7 @@ export class DetailsComponent implements OnInit {
   constructor(
     private detailsService: DetailsService, 
     private placesService: PlacesService,
+    private dialog: MatDialog
   ) {}
 
 
@@ -79,6 +82,16 @@ export class DetailsComponent implements OnInit {
     let lng = restoLocation.lng();
     this.streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lat},${lng}&heading=34&pitch=10&key=AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM`;
   
+  }
+
+  openReviewDialog(): void {
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      height: '400px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log("the dialog was closed");
+    });
   }
   
   ngOnInit() {

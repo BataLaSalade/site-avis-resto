@@ -4,9 +4,7 @@ import {
     MatButtonModule,
     MatListModule,
     MatSelectModule,
-    MatDialog,
-    MatDialogRef,
-    MAT_DIALOG_DATA
+    MatDialogModule
  } from '@angular/material';
 
 @NgModule({
@@ -14,15 +12,13 @@ import {
     MatButtonModule,
     MatListModule,
     MatSelectModule,
-    MatDialog,
-    MatDialogRef
+    MatDialogModule
     ],
     exports: [
         MatButtonModule,
         MatListModule,
         MatSelectModule,
-        MatDialog,
-        MatDialogRef
+        MatDialogModule
     ]
 })
 

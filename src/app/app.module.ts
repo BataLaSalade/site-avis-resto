@@ -9,6 +9,7 @@ import { MapComponent } from './map/map.component';
 import { ListRestaurantsComponent } from './list-restaurants/list-restaurants.component';
 import { DetailsComponent } from './details/details.component';
 import { MapSidebarComponent } from './map-sidebar/map-sidebar.component';
+import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MapSidebarComponent } from './map-sidebar/map-sidebar.component';
     MapComponent,
     MapSidebarComponent,
     ListRestaurantsComponent,
-    DetailsComponent
+    DetailsComponent,
+    ReviewDialogComponent
   ],
   imports: [
     BrowserModule,
