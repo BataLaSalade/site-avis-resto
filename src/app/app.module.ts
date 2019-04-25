@@ -26,6 +26,9 @@ import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
     BrowserAnimationsModule,
     //AgmCoreModule.forRoot({apiKey:'AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM'})
   ],
+  entryComponents: [
+    ReviewDialogComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
