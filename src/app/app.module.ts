@@ -10,6 +10,7 @@ import { ListRestaurantsComponent } from './list-restaurants/list-restaurants.co
 import { DetailsComponent } from './details/details.component';
 import { MapSidebarComponent } from './map-sidebar/map-sidebar.component';
 import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
+import { NewRestoDialogComponent } from './new-resto-dialog/new-resto-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
     MapSidebarComponent,
     ListRestaurantsComponent,
     DetailsComponent,
-    ReviewDialogComponent
+    ReviewDialogComponent,
+    NewRestoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
     //AgmCoreModule.forRoot({apiKey:'AIzaSyDAwcZjZjN-laVyfAhmfdH9vr6MyQWzWqM'})
   ],
   entryComponents: [
-    ReviewDialogComponent
+    ReviewDialogComponent,
+    NewRestoDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
