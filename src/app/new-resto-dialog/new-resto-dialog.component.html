@@ -1,3 +1,20 @@
-<p>
-  new-resto-dialog works!
-</p>
+<h1 mat-dialog-title>Ajouter un restaurant</h1>
+<div mat-dialog-content>
+  <p>Renseignez les champs suivant</p>
+  <form >
+    <mat-form-field>
+      <input matInput #restoName name="restoName" placeholder="Nom de l'établissement">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Attribuez une note</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Annuler</button>
+  <button mat-button (click)="onValidClick(restoName.value, comment.value)">Valider</button>
+</div>
