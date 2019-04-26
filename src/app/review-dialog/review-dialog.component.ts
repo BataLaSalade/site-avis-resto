@@ -18,8 +18,9 @@ export class ReviewDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) { }
 
+  index: string[] = ["0", "1", "2", "3", "4", "5"];
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
   

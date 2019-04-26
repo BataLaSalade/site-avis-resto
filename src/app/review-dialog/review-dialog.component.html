@@ -1,11 +1,20 @@
-<h1 mat-dialog-title>Hi</h1>
+<h1 mat-dialog-title>Ajouter un restaurant</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
+  <p>Renseignez les champs suivant</p>
   <mat-form-field>
-    <input matInput >
+    <input matInput placeholder="Votre identifiant">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Attribuez une note</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Votre commentaire"></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button >Ok</button>
+  <button mat-button (click)="onCancelClick()">Annuler</button>
+  <button mat-button >Valider</button>
 </div>

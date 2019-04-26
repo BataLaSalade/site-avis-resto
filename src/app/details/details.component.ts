@@ -9,12 +9,12 @@ import { Location } from '../model/Location';
 import { MatDialog } from '@angular/material';
 import { ReviewDialogComponent } from '../review-dialog/review-dialog.component';
 
-
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
+
 export class DetailsComponent implements OnInit {
 
   resto: Resto;
@@ -23,15 +23,14 @@ export class DetailsComponent implements OnInit {
   randomAvatar: string;
   detailsObservable: Observable<any> = this.detailsService.getDetails();
   details: Rate[] = new Array<Rate>();
-  panorama: any;
   map: google.maps.Map;
+  newReview: Rate;
 
   constructor(
     private detailsService: DetailsService,
     private placesService: PlacesService,
     private dialog: MatDialog
   ) {}
-
 
   getRandomIndex(max: number): number{
     return Math.floor(Math.random() * Math.floor(max));
@@ -86,11 +85,11 @@ export class DetailsComponent implements OnInit {
 
   openReviewDialog(): void {
     const dialogRef = this.dialog.open(ReviewDialogComponent, {
-      height: '400px',
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result =>{
       console.log("the dialog was closed");
+      console.log(">>> new review = result : ", result);
     });
   }
   
