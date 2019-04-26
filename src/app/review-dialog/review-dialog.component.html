@@ -1,20 +1,23 @@
 <h1 mat-dialog-title>Ajouter un restaurant</h1>
 <div mat-dialog-content>
   <p>Renseignez les champs suivant</p>
-  <mat-form-field>
-    <input matInput placeholder="Votre identifiant">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Attribuez une note</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <textarea matInput placeholder="Votre commentaire"></textarea>
-  </mat-form-field>
+  <form >
+    <mat-form-field>
+      <input matInput #identifiant name="identifiant" placeholder="Votre identifiant">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Attribuez une note</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput #comment name="comment" placeholder="Votre commentaire"></textarea>
+    </mat-form-field>
+  </form>
+  
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Annuler</button>
-  <button mat-button >Valider</button>
+  <button mat-button (click)="onValidClick(identifiant.value, comment.value)">Valider</button>
 </div>

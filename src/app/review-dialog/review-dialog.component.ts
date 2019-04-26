@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+
 export interface DialogData {
   authorName: string;
   rating: number;
@@ -15,15 +16,24 @@ export interface DialogData {
 })
 export class ReviewDialogComponent implements OnInit {
 
-  constructor(
-    public dialogRef: MatDialogRef<ReviewDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) { }
+  constructor( public dialogRef: MatDialogRef<ReviewDialogComponent> ) { }
 
   index: string[] = ["0", "1", "2", "3", "4", "5"];
+  identifiant: string;
+  selected: string;
 
   onCancelClick(): void {
     this.dialogRef.close();
+  }
+
+  onValidClick(idInput, commentInput): void {
+    console.log(">>> Test get Data --> id = ", idInput, " note = ", this.selected, " comment = ", commentInput );
+    let data = {
+      id: idInput,
+      note: this.selected,
+      comment: commentInput
+    }
+    this.dialogRef.close(data);
   }
   
   ngOnInit() {

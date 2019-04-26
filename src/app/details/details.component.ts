@@ -86,7 +86,7 @@ export class DetailsComponent implements OnInit {
 
   openReviewDialog(): void {
     const dialogRef = this.dialog.open(ReviewDialogComponent, {
-      width: '600px',
+      width: '600px'
     });
     dialogRef.afterClosed().subscribe(result =>{
       console.log("the dialog was closed");
