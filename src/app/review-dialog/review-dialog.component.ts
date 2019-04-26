@@ -2,8 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  authorName: string;
+  rating: number;
+  text: string;
+  relativeTimeDescription: string;
 }
 
 @Component({

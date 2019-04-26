@@ -49,6 +49,7 @@ export class DetailsComponent implements OnInit {
     console.log(google.maps.places.PlacesServiceStatus)
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       this.details = results.reviews;
+      console.log(">>>>> details result",results)
     }
   }
 
