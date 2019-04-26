@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-
+import {MatInputModule} from '@angular/material/input';
 import { 
     MatButtonModule,
     MatListModule,
@@ -12,13 +12,15 @@ import {
     MatButtonModule,
     MatListModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule
     ],
     exports: [
         MatButtonModule,
         MatListModule,
         MatSelectModule,
-        MatDialogModule
+        MatDialogModule,
+        MatInputModule
     ]
 })
 

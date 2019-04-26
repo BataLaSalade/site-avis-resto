@@ -27,7 +27,7 @@ export class DetailsComponent implements OnInit {
   map: google.maps.Map;
 
   constructor(
-    private detailsService: DetailsService, 
+    private detailsService: DetailsService,
     private placesService: PlacesService,
     private dialog: MatDialog
   ) {}
