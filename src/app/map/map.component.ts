@@ -1,5 +1,5 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone} from '@angular/core';
 import { Resto } from '../model/Resto';
 import { UserService } from "../services/user.service";
 import { PlacesService } from '../services/places.service';
@@ -16,7 +16,8 @@ export class MapComponent implements OnInit {
   constructor(
     private userService: UserService,
     private placeService: PlacesService,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog,
+    private ngZone: NgZone) {}
 
   @ViewChild('map') mapElement: any;
 
@@ -44,9 +45,26 @@ export class MapComponent implements OnInit {
         map: map
       });
 
-      google.maps.event.addListener(map, 'click', function(event) {
-        console.log("click event on map",event)
-      });
+      google.maps.event.addListener(map, 'click', (event) => {
+        this.ngZone.run(() => {
+          console.log("clickEvent --> ", event);
+          let geocoder = new google.maps.Geocoder();
+          let address: string;
+          geocoder.geocode({
+            location: event.latLng
+          }, function(results, status){
+            if(status == google.maps.GeocoderStatus.OK) {
+              console.log("geoCoder results", results)
+              if(results[0]) {
+                address = results[0].formatted_address
+                console.log("adress = ", address)
+              }
+            }
+          });
+          //this.openReviewDialog(event);
+        });
+      }
+     );
 
       this.placeService.setMap(map);
       this.userService.userSubject$.next(location);
@@ -71,22 +89,17 @@ export class MapComponent implements OnInit {
     }
   }
 
-  addNewResto(event) {
-    // 1- click event on map to get LatLng, set marker position and get adress from coords
-    // 2- openNewRestoDialog
-
-  }
-
-  openReviewDialog(): void {
+  openReviewDialog(event): void {
+    console.log("openDialog", event)
     const dialogRef = this.dialog.open(NewRestoDialogComponent, {
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result =>{
       console.log("the dialog was closed");
-      console.log("===== result send =====");
-      console.log(result);
+      //console.log("===== result send =====");
+      //console.log(result);
       // change resto constructo to init it with name, geometry.location, rate
-      console.log("===== new resto =====");
+      //console.log("===== new resto =====");
       // change resto constructo to init it with name, geometry.location, rate
       //this.newResto = new Resto(result.restoName, result.location, result.rate)
       //console.log(this.newResto);
