@@ -56,8 +56,8 @@ export class MapComponent implements OnInit {
             if(status == google.maps.GeocoderStatus.OK) {
               console.log("geoCoder results", results)
               if(results[0]) {
-                address = results[0].formatted_address
-                console.log("adress = ", address)
+                address = results[0].formatted_address;
+                console.log("adress = ", address);
               }
             }
           });
