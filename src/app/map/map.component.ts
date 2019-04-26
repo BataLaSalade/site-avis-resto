@@ -24,6 +24,7 @@ export class MapComponent implements OnInit {
   listResto: Resto[] = new Array<Resto>();
 
   map: google.maps.Map;
+  geocoder : google.maps.Geocoder;
   listMarkers: google.maps.Marker[] = []
   userLocation: any;
   userMarker:string = "../../assets/img/1x/userFichier 2.png";
@@ -48,19 +49,7 @@ export class MapComponent implements OnInit {
       google.maps.event.addListener(map, 'click', (event) => {
         this.ngZone.run(() => {
           console.log("clickEvent --> ", event);
-          let geocoder = new google.maps.Geocoder();
-          let address: string;
-          geocoder.geocode({
-            location: event.latLng
-          }, function(results, status){
-            if(status == google.maps.GeocoderStatus.OK) {
-              console.log("geoCoder results", results)
-              if(results[0]) {
-                address = results[0].formatted_address;
-                console.log("adress = ", address);
-              }
-            }
-          });
+          this.getAdress(event);
           //this.openReviewDialog(event);
         });
       }
@@ -87,6 +76,22 @@ export class MapComponent implements OnInit {
     for (var i = 0; i < listMarkers.length; i++) {
       listMarkers[i].setMap(map);
     }
+  }
+
+  getAdress(event) {
+    this.geocoder = new google.maps.Geocoder();
+    let address: string;
+    this.geocoder.geocode({
+      location: event.latLng
+    }, function(results, status){
+      if(status == google.maps.GeocoderStatus.OK) {
+        console.log("geoCoder results", results)
+        if(results[0]) {
+          address = results[0].formatted_address;
+          console.log("adress = ", address);
+        }
+      }
+    });
   }
 
   openReviewDialog(event): void {
