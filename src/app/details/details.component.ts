@@ -90,7 +90,15 @@ export class DetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result =>{
       console.log("the dialog was closed");
-      console.log(">>> new review = result : ", result);
+      console.log("===== result send =====");
+      console.log(result);
+      console.log("===== new review =====");
+      this.newReview = new Rate(result.id, result.note, "maintenant", result.comment)
+      console.log(this.newReview);
+      console.log("===== push new review in details list=====");
+      console.log("nb avis avant = ", this.details.length);
+      this.details.push(this.newReview);
+      console.log("nb avis après = ", this.details.length);
     });
   }
   
