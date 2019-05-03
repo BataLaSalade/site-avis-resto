@@ -5,6 +5,7 @@ import { UserService } from "../services/user.service";
 import { PlacesService } from '../services/places.service';
 import { MatDialog } from '@angular/material';
 import { NewRestoDialogComponent } from '../new-resto-dialog/new-resto-dialog.component';
+import { Geometry } from '../model/Geometry';
 
 export interface DialogData {
   adress: string;
@@ -71,7 +72,7 @@ export class MapComponent implements OnInit {
     for (index = 0; index< listResto.length; index++) {
       let marker = new google.maps.Marker({
         position: listResto[index].geometry.location,
-        icon: this.restoMarker,
+        //icon: this.restoMarker,
         title: listResto[index].name
       });
       listMarkers.push(marker)
@@ -84,7 +85,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  getAddressFromClick(event, dialogResults, listResto) {
+  getAddressFromClick(event, dialogResults, listResto, listMarkers, map, addMarkerCompletion, setMarkersOnMapCompletion) {
     this.geocoder = new google.maps.Geocoder();
     let address: string;
     this.geocoder.geocode({
@@ -97,12 +98,18 @@ export class MapComponent implements OnInit {
           console.log("adress = ", address);
           console.log("dialogResults - ", dialogResults);
           console.log("access to event - ", event);
-          let newResto: Resto = new Resto(dialogResults.restoName, address, event.latLng, dialogResults.note);
+          let geometry = new Geometry();
+          geometry.location = event.latLng;
+          let newResto: Resto = new Resto(dialogResults.restoName, address, geometry, dialogResults.note);
           console.log("newResto - ", newResto);
           console.log("nb resto avant - ", listResto.length);
           listResto.push(newResto);
           console.log("nb resto avant - ", listResto.length);
           console.log("listResto - ", listResto);
+          console.log("listMarker - ", listMarkers);
+          addMarkerCompletion(listResto, listMarkers);
+          console.log("listMarker - ", listMarkers);
+          setMarkersOnMapCompletion(map, listMarkers);
 
         }
       }
@@ -118,7 +125,8 @@ export class MapComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult =>{
       console.log("the Resto dialog was closed");
       console.log("this.listResto", this.listResto);
-      this.getAddressFromClick(event, dialogResult, this.listResto);
+      console.log("this.listMarkers", this.listMarkers);
+      this.getAddressFromClick(event, dialogResult, this.listResto, this.listMarkers, this.map, this.addRestoMarkers, this.setMapOnAll);
     });
   }
 
@@ -130,6 +138,7 @@ export class MapComponent implements OnInit {
         this.listResto = places;
         console.log("***** this.placeService.restoSubject$ ******");
         console.log(this.listResto);
+        //console.log(this.listMarkers);
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
       }
@@ -140,12 +149,14 @@ export class MapComponent implements OnInit {
         this.listResto = places;
         console.log("***** this.placeService.filteredRestoSubject$ ******");
         console.log(this.listResto);
+        //console.log(this.listMarkers);
         for (var i = 0; i < this.listMarkers.length; i++) {
           this.listMarkers[i].setMap(null);
         }
         this.listMarkers = [];
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
+        //console.log(this.listMarkers);
       }
     )
   }
