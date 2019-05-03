@@ -34,8 +34,8 @@ export class MapComponent implements OnInit {
   userMarker:string = "../../assets/img/1x/userFichier 2.png";
   restoMarker: string = "../../assets/img/1x/restoFichier4.png";
   newResto: Resto;
-  
-  address: string;
+  address: string = "";
+  test = "Je suis un test";
 
   initMap() {
     navigator.geolocation.getCurrentPosition((location) => {
@@ -55,8 +55,8 @@ export class MapComponent implements OnInit {
       google.maps.event.addListener(map, 'click', (event) => {
         this.ngZone.run(() => {
           console.log("clickEvent --> ", event);
-          this.getAdress(event);
-          this.openRestoDialog(this.address);
+          
+          this.openRestoDialog(event);
         });
       }
      );
@@ -84,7 +84,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  getAdress(event) {
+  getAddressFromClick(event, dialogResults) {
     this.geocoder = new google.maps.Geocoder();
     let address: string;
     this.geocoder.geocode({
@@ -95,30 +95,21 @@ export class MapComponent implements OnInit {
         if(results[0]) {
           address = results[0].formatted_address;
           console.log("adress = ", address);
+          console.log("dialogResults - ", dialogResults);
         }
       }
     });
   }
 
-  openRestoDialog(address: string): void {
+  openRestoDialog(event): void {
     console.log("openDialog", event)
+    
     const dialogRef = this.dialog.open(NewRestoDialogComponent, {
       width: '600px'
     });
-    console.log("adress - openReviewDialog ", address)
-    dialogRef.afterClosed().subscribe(result =>{
+    dialogRef.afterClosed().subscribe(dialogResult =>{
       console.log("the Resto dialog was closed");
-      console.log("===== new resto send =====");
-      console.log(result);
-      // change resto constructo to init it with name, geometry.location, rate
-      //console.log("===== new resto =====");
-      // change resto constructo to init it with name, geometry.location, rate
-      //this.newResto = new Resto(result.restoName, result.location, result.rate)
-      //console.log(this.newResto);
-      //console.log("===== push new resto in listResto=====");
-      //console.log("nb avis avant = ", this.listResto.length);
-      //this.listResto.push(this.newResto);
-      //console.log("nb avis après = ", this.listResto.length);
+      this.getAddressFromClick(event, dialogResult);
     });
   }
 
