@@ -107,9 +107,9 @@ export class MapComponent implements OnInit {
     });
     console.log("adress - openReviewDialog ", address)
     dialogRef.afterClosed().subscribe(result =>{
-      console.log("the dialog was closed");
-      //console.log("===== result send =====");
-      //console.log(result);
+      console.log("the Resto dialog was closed");
+      console.log("===== new resto send =====");
+      console.log(result);
       // change resto constructo to init it with name, geometry.location, rate
       //console.log("===== new resto =====");
       // change resto constructo to init it with name, geometry.location, rate
