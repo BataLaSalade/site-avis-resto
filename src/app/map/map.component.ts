@@ -6,6 +6,10 @@ import { PlacesService } from '../services/places.service';
 import { MatDialog } from '@angular/material';
 import { NewRestoDialogComponent } from '../new-resto-dialog/new-resto-dialog.component';
 
+export interface DialogData {
+  adress: string;
+}
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -31,6 +35,8 @@ export class MapComponent implements OnInit {
   restoMarker: string = "../../assets/img/1x/restoFichier4.png";
   newResto: Resto;
   
+  address: string;
+
   initMap() {
     navigator.geolocation.getCurrentPosition((location) => {
       let map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -50,7 +56,7 @@ export class MapComponent implements OnInit {
         this.ngZone.run(() => {
           console.log("clickEvent --> ", event);
           this.getAdress(event);
-          //this.openReviewDialog(event);
+          this.openRestoDialog(this.address);
         });
       }
      );
@@ -94,11 +100,12 @@ export class MapComponent implements OnInit {
     });
   }
 
-  openReviewDialog(event): void {
+  openRestoDialog(address: string): void {
     console.log("openDialog", event)
     const dialogRef = this.dialog.open(NewRestoDialogComponent, {
       width: '600px'
     });
+    console.log("adress - openReviewDialog ", address)
     dialogRef.afterClosed().subscribe(result =>{
       console.log("the dialog was closed");
       //console.log("===== result send =====");

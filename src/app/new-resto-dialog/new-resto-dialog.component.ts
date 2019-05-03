@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+export interface DialogData {
+  adress: string;
+}
 
 @Component({
   selector: 'app-new-resto-dialog',
   templateUrl: './new-resto-dialog.component.html',
   styleUrls: ['./new-resto-dialog.component.scss']
 })
+
 export class NewRestoDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<NewRestoDialogComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<NewRestoDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData ) { }
 
   index: string[] = ["0", "1", "2", "3", "4", "5"];
   selected: string;
