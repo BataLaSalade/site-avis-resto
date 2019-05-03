@@ -84,7 +84,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  getAddressFromClick(event, dialogResults) {
+  getAddressFromClick(event, dialogResults, listResto) {
     this.geocoder = new google.maps.Geocoder();
     let address: string;
     this.geocoder.geocode({
@@ -96,20 +96,29 @@ export class MapComponent implements OnInit {
           address = results[0].formatted_address;
           console.log("adress = ", address);
           console.log("dialogResults - ", dialogResults);
+          console.log("access to event - ", event);
+          let newResto: Resto = new Resto(dialogResults.restoName, address, event.latLng, dialogResults.note);
+          console.log("newResto - ", newResto);
+          console.log("nb resto avant - ", listResto.length);
+          listResto.push(newResto);
+          console.log("nb resto avant - ", listResto.length);
+          console.log("listResto - ", listResto);
+
         }
       }
     });
   }
 
   openRestoDialog(event): void {
-    console.log("openDialog", event)
+    console.log("openDialog", event);
     
     const dialogRef = this.dialog.open(NewRestoDialogComponent, {
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(dialogResult =>{
       console.log("the Resto dialog was closed");
-      this.getAddressFromClick(event, dialogResult);
+      console.log("this.listResto", this.listResto);
+      this.getAddressFromClick(event, dialogResult, this.listResto);
     });
   }
 
@@ -119,6 +128,8 @@ export class MapComponent implements OnInit {
     this.placeService.restoSubject$.subscribe(
       places => {
         this.listResto = places;
+        console.log("***** this.placeService.restoSubject$ ******");
+        console.log(this.listResto);
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
       }
@@ -127,6 +138,8 @@ export class MapComponent implements OnInit {
     this.placeService.filteredRestoSubject$.subscribe(
       places => {
         this.listResto = places;
+        console.log("***** this.placeService.filteredRestoSubject$ ******");
+        console.log(this.listResto);
         for (var i = 0; i < this.listMarkers.length; i++) {
           this.listMarkers[i].setMap(null);
         }
