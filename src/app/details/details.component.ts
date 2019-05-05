@@ -54,12 +54,14 @@ export class DetailsComponent implements OnInit {
   }
 
   getDetails(placeId: string, map: google.maps.Map) {
-    let service = new google.maps.places.PlacesService(map);
-    let request = {
-      placeId: placeId,
-      fields: ['reviews']
+    if (typeof placeId != 'undefined') {
+      let service = new google.maps.places.PlacesService(map);
+      let request = {
+        placeId: placeId,
+        fields: ['reviews']
+      }
+      service.getDetails(request, this.callBackGetDetails.bind(this));
     }
-    service.getDetails(request, this.callBackGetDetails.bind(this));
   }
 
   getBkgImgURL(ratingScore:number, starIndex:number){
