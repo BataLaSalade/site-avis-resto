@@ -105,6 +105,8 @@ export class MapComponent implements OnInit {
           console.log("nb resto avant - ", listResto.length);
           console.log("listResto - ", listResto);
           console.log("listMarker - ", listMarkers);
+          listMarkers = [];
+          console.log("reset listMarker - ", listMarkers);
           addMarkerCompletion(listResto, listMarkers);
           console.log("listMarker - ", listMarkers);
           setMarkersOnMapCompletion(map, listMarkers);
@@ -121,7 +123,7 @@ export class MapComponent implements OnInit {
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(dialogResult =>{
-      console.log("the Resto dialog was closed");
+      console.log("***** the Resto dialog was closed *****");
       console.log("this.listResto", this.listResto);
       console.log("this.listMarkers", this.listMarkers);
       this.getAddressFromClick(event, dialogResult, this.listResto, this.listMarkers, this.map, this.addRestoMarkers, this.setMapOnAll);
@@ -136,7 +138,7 @@ export class MapComponent implements OnInit {
         this.listResto = places;
         console.log("***** this.placeService.restoSubject$ ******");
         console.log(this.listResto);
-        //console.log(this.listMarkers);
+        console.log(this.listMarkers);
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
       }
@@ -147,7 +149,7 @@ export class MapComponent implements OnInit {
         this.listResto = places;
         console.log("***** this.placeService.filteredRestoSubject$ ******");
         console.log(this.listResto);
-        //console.log(this.listMarkers);
+        console.log(this.listMarkers);
         for (var i = 0; i < this.listMarkers.length; i++) {
           this.listMarkers[i].setMap(null);
         }
