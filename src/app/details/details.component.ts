@@ -46,10 +46,8 @@ export class DetailsComponent implements OnInit {
   }
 
   callBackGetDetails(results, status) {
-    console.log(google.maps.places.PlacesServiceStatus)
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       this.details = results.reviews;
-      console.log(">>>>> details result",results)
     }
   }
 
@@ -91,16 +89,8 @@ export class DetailsComponent implements OnInit {
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result =>{
-      console.log("the review dialog was closed");
-      console.log("===== result send =====");
-      console.log(result);
-      console.log("===== new review =====");
       this.newReview = new Rate(result.id, result.note, "maintenant", result.comment);
-      console.log(this.newReview);
-      console.log("===== push new review in details list=====");
-      console.log("nb avis avant = ", this.details.length);
       this.details.push(this.newReview);
-      console.log("nb avis après = ", this.details.length);
     });
   }
   
