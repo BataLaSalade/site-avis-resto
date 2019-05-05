@@ -32,8 +32,6 @@ export class MapComponent implements OnInit {
   geocoder : google.maps.Geocoder;
   listMarkers: google.maps.Marker[] = []
   userLocation: any;
-  userMarker:string = "../../assets/img/1x/userFichier 2.png";
-  restoMarker: string = "../../assets/img/1x/restoFichier4.png";
   newResto: Resto;
   address: string = "";
   test = "Je suis un test";
@@ -49,7 +47,7 @@ export class MapComponent implements OnInit {
 
       let marker = new google.maps.Marker({
         position: {lat: location.coords.latitude, lng: location.coords.longitude},
-        icon: this.userMarker,
+        icon: "../../assets/img/1x/userFichier 2.png",
         map: map
       });
 
@@ -72,7 +70,7 @@ export class MapComponent implements OnInit {
     for (index = 0; index< listResto.length; index++) {
       let marker = new google.maps.Marker({
         position: listResto[index].geometry.location,
-        //icon: this.restoMarker,
+        icon: "../../assets/img/1x/restoFichier4.png",
         title: listResto[index].name
       });
       listMarkers.push(marker)
