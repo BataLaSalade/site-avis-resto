@@ -83,34 +83,21 @@ export class MapComponent implements OnInit {
     }
   }
 
-  getAddressFromClick(event, dialogResults, listResto, listMarkers, map, addMarkerCompletion, setMarkersOnMapCompletion) {
+  getAddressFromClick(event, dialogResults, placeService, listResto) {
     this.geocoder = new google.maps.Geocoder();
     let address: string;
     this.geocoder.geocode({
       location: event.latLng
     }, function(results, status){
       if(status == google.maps.GeocoderStatus.OK) {
-        console.log("geoCoder results", results)
         if(results[0]) {
           address = results[0].formatted_address;
-          console.log("adress = ", address);
-          console.log("dialogResults - ", dialogResults);
-          console.log("access to event - ", event);
           let geometry = new Geometry();
           geometry.location = event.latLng;
           let newResto: Resto = new Resto(dialogResults.restoName, address, geometry, dialogResults.note);
-          console.log("newResto - ", newResto);
-          console.log("nb resto avant - ", listResto.length);
           listResto.push(newResto);
-          console.log("nb resto avant - ", listResto.length);
-          console.log("listResto - ", listResto);
-          console.log("listMarker - ", listMarkers);
-          listMarkers = [];
-          console.log("reset listMarker - ", listMarkers);
-          addMarkerCompletion(listResto, listMarkers);
-          console.log("listMarker - ", listMarkers);
-          setMarkersOnMapCompletion(map, listMarkers);
-
+          placeService.setListResto(listResto);
+          //placeService.setFilteredListResto(listResto);
         }
       }
     });
@@ -126,7 +113,7 @@ export class MapComponent implements OnInit {
       console.log("***** the Resto dialog was closed *****");
       console.log("this.listResto", this.listResto);
       console.log("this.listMarkers", this.listMarkers);
-      this.getAddressFromClick(event, dialogResult, this.listResto, this.listMarkers, this.map, this.addRestoMarkers, this.setMapOnAll);
+      this.getAddressFromClick(event, dialogResult, this.placeService, this.listResto);
     });
   }
 
@@ -139,8 +126,13 @@ export class MapComponent implements OnInit {
         console.log("***** this.placeService.restoSubject$ ******");
         console.log(this.listResto);
         console.log(this.listMarkers);
+        /* for (var i = 0; i < this.listMarkers.length; i++) {
+          this.listMarkers[i].setMap(null);
+        }
+        this.listMarkers = []; */
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
+        console.log(this.listMarkers);
       }
     )
 
@@ -156,7 +148,7 @@ export class MapComponent implements OnInit {
         this.listMarkers = [];
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
-        //console.log(this.listMarkers);
+        console.log(this.listMarkers);
       }
     )
   }
