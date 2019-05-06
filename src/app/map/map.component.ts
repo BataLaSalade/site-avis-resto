@@ -27,6 +27,7 @@ export class MapComponent implements OnInit {
   @ViewChild('map') mapElement: any;
 
   listResto: Resto[] = new Array<Resto>();
+  filteredListResto: Resto[] = new Array<Resto>();
 
   map: google.maps.Map;
   geocoder : google.maps.Geocoder;
@@ -126,10 +127,10 @@ export class MapComponent implements OnInit {
         console.log("***** this.placeService.restoSubject$ ******");
         console.log(this.listResto);
         console.log(this.listMarkers);
-        /* for (var i = 0; i < this.listMarkers.length; i++) {
+        for (var i = 0; i < this.listMarkers.length; i++) {
           this.listMarkers[i].setMap(null);
         }
-        this.listMarkers = []; */
+        this.listMarkers = [];
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
         console.log(this.listMarkers);
@@ -138,15 +139,15 @@ export class MapComponent implements OnInit {
 
     this.placeService.filteredRestoSubject$.subscribe(
       places => {
-        this.listResto = places;
+        this.filteredListResto = places;
         console.log("***** this.placeService.filteredRestoSubject$ ******");
-        console.log(this.listResto);
+        console.log(this.filteredListResto);
         console.log(this.listMarkers);
         for (var i = 0; i < this.listMarkers.length; i++) {
           this.listMarkers[i].setMap(null);
         }
         this.listMarkers = [];
-        this.addRestoMarkers(this.listResto, this.listMarkers);
+        this.addRestoMarkers(this.filteredListResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
         console.log(this.listMarkers);
       }
