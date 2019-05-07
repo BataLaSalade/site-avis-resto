@@ -52,10 +52,15 @@ import { FilterService } from '../services/filter.service';
     displayFilteredListResto(minSelectedValue: string, maxSelectedValue: string) {
         let minValue: number = Number(minSelectedValue);
         let maxValue:number = Number(maxSelectedValue);
+        let arrayOfUndefined = this.listResto.filter(
+            (resto: Resto) => typeof resto.rating == 'undefined'
+        );
+        console.log("arrayOfUndefined - MapSideBar Compo= ", arrayOfUndefined);
         if (minValue >= 0 && maxValue <= 5) {
             this.filteredListResto = this.listResto.filter(
                 (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
-            );
+            ).concat(arrayOfUndefined);
+            console.log("concat array = ", this.filteredListResto);
             this.placesService.setFilteredListResto(this.filteredListResto);
         }
     }
@@ -64,6 +69,10 @@ import { FilterService } from '../services/filter.service';
         this.placesService.restoSubject$.subscribe(
             places => {
                 this.listResto = places;
+                let arrayOfUndefined = this.listResto.filter(
+                    (resto: Resto) => typeof resto.rating == 'undefined'
+                );
+                console.log("arrayOfUndefined - MapSideBar Compo= ", arrayOfUndefined);
             }
         );
 
