@@ -15,7 +15,7 @@ export class ListRestaurantsComponent implements OnInit{
   //@Input() isShowDetails: boolean;
 
   //@Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
-  @Output() listChange: EventEmitter<any> = new EventEmitter;
+  //@Output() listChange: EventEmitter<any> = new EventEmitter;
 
   listResto: Resto[];
   selectedResto: Resto;

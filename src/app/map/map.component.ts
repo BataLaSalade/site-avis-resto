@@ -125,15 +125,15 @@ export class MapComponent implements OnInit {
       places => {
         this.listResto = places;
         console.log("***** this.placeService.restoSubject$ ******");
-        console.log(this.listResto);
-        console.log(this.listMarkers);
+        console.log(" Resto ",this.listResto);
+        console.log("markers ",this.listMarkers);
         for (var i = 0; i < this.listMarkers.length; i++) {
           this.listMarkers[i].setMap(null);
         }
         this.listMarkers = [];
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
-        console.log(this.listMarkers);
+        console.log("markers ",this.listMarkers);
       }
     )
 
