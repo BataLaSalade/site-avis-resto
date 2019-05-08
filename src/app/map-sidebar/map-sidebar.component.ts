@@ -69,10 +69,6 @@ import { FilterService } from '../services/filter.service';
         this.placesService.restoSubject$.subscribe(
             places => {
                 this.listResto = places;
-                let arrayOfUndefined = this.listResto.filter(
-                    (resto: Resto) => typeof resto.rating == 'undefined'
-                );
-                console.log("arrayOfUndefined - MapSideBar Compo= ", arrayOfUndefined);
             }
         );
 
