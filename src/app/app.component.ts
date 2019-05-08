@@ -20,7 +20,6 @@ export class AppComponent implements OnInit{
   callbackGetPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       this.placeService.setListResto(results);
-      this.placeService.setListMarkers(results);
     }
   }
 
