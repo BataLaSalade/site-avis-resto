@@ -48,7 +48,7 @@ export class MapComponent implements OnInit {
 
       let marker = new google.maps.Marker({
         position: {lat: location.coords.latitude, lng: location.coords.longitude},
-        icon: "../../assets/img/1x/userFichier 2.png",
+        icon: "../../assets/img/1x/userFichier8.png",
         map: map
       });
 
@@ -71,7 +71,7 @@ export class MapComponent implements OnInit {
     for (index = 0; index< listResto.length; index++) {
       let marker = new google.maps.Marker({
         position: listResto[index].geometry.location,
-        icon: "../../assets/img/1x/restoFichier4.png",
+        icon: "../../assets/img/1x/restoFichier10.png",
         title: listResto[index].name
       });
       listMarkers.push(marker)
