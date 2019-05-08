@@ -36,7 +36,7 @@ export class ListRestaurantsComponent implements OnInit{
 
   getUrlPhotoRequest(resto: any) {
     if (typeof resto.photos == "undefined") {
-        let defaultImg: string = "../../assets/img/1x/emptyStar.png";
+        let defaultImg: string = "../../assets/img/1x/default.jpg";
         return defaultImg;
     } else {
         return resto.photos[0].getUrl()
