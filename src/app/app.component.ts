@@ -15,12 +15,6 @@ export class AppComponent implements OnInit{
     private placeService: PlacesService){}
 
   listResto: Resto[] = new Array<Resto>();
-  filteredListResto: Resto[] = new Array<Resto>();
-  isShowError: boolean = false;
-  minSelectedValue: string = "0";
-  maxSelectedValue: string = "5";
-  map: google.maps.Map;
-  service: google.maps.places.PlacesService;
   userPosition: google.maps.LatLng;
 
   callbackGetPlaces(results, status) {
