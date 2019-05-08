@@ -3,6 +3,16 @@
 #header {
     min-height: 20vh;
     background-color: $blueGrey;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    #filterSection {
+        display: flex;
+        justify-content: space-evenly;
+        mat-form-field {
+            padding: 0.5rem;
+        }
+    }
     button{
         margin: auto;
         display: block;
