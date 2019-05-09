@@ -3,14 +3,12 @@
         <mat-form-field>
             <mat-label>Note min.</mat-label>
             <mat-select [(value)]="selectedMin" (selectionChange)="onMinRateSelectionChange($event)">
-                <mat-option value="noFilter">Aucun filtre</mat-option>
                 <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Note max.</mat-label>
             <mat-select [(value)]="selectedMax" (selectionChange)="onMaxRateSelectionChange($event)">
-                <mat-option value="noFilter">Aucun filtre</mat-option>
                 <mat-option *ngFor="let i of index" value="{{i}}">{{i}}</mat-option>
             </mat-select>
         </mat-form-field>
