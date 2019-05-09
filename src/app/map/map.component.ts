@@ -7,10 +7,6 @@ import { MatDialog } from '@angular/material';
 import { NewRestoDialogComponent } from '../new-resto-dialog/new-resto-dialog.component';
 import { Geometry } from '../model/Geometry';
 
-export interface DialogData {
-  adress: string;
-}
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -34,8 +30,6 @@ export class MapComponent implements OnInit {
   listMarkers: google.maps.Marker[] = []
   userLocation: any;
   newResto: Resto;
-  address: string = "";
-  test = "Je suis un test";
 
   initMap() {
     navigator.geolocation.getCurrentPosition((location) => {
@@ -44,6 +38,7 @@ export class MapComponent implements OnInit {
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
+
       this.map = map;
 
       let marker = new google.maps.Marker({
@@ -54,8 +49,6 @@ export class MapComponent implements OnInit {
 
       google.maps.event.addListener(map, 'click', (event) => {
         this.ngZone.run(() => {
-          console.log("clickEvent --> ", event);
-          
           this.openRestoDialog(event);
         });
       }
@@ -67,8 +60,7 @@ export class MapComponent implements OnInit {
   }
 
   addRestoMarkers(listResto: Resto[], listMarkers: google.maps.Marker[]) {
-    let index: number;
-    for (index = 0; index< listResto.length; index++) {
+    for ( let index = 0; index< listResto.length; index++) {
       let marker = new google.maps.Marker({
         position: listResto[index].geometry.location,
         icon: "../../assets/img/1x/restoFichier10.png",
@@ -84,6 +76,13 @@ export class MapComponent implements OnInit {
     }
   }
 
+  clearMarkers(listMarkers: google.maps.Marker[]): Array<google.maps.Marker> {
+    for (var i = 0; i < listMarkers.length; i++) {
+      listMarkers[i].setMap(null);
+    }
+    return []
+  }
+
   getAddressFromClick(event, dialogResults, placeService, listResto) {
     this.geocoder = new google.maps.Geocoder();
     let address: string;
@@ -93,27 +92,21 @@ export class MapComponent implements OnInit {
       if(status == google.maps.GeocoderStatus.OK) {
         if(results[0]) {
           address = results[0].formatted_address;
-          let geometry = new Geometry();
+          let geometry = new Geometry(); // TODO: init with location
           geometry.location = event.latLng;
           let newResto: Resto = new Resto(dialogResults.restoName, address, geometry, dialogResults.note);
           listResto.push(newResto);
           placeService.setListResto(listResto);
-          //placeService.setFilteredListResto(listResto);
         }
       }
     });
   }
 
   openRestoDialog(event): void {
-    console.log("openDialog", event);
-    
     const dialogRef = this.dialog.open(NewRestoDialogComponent, {
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(dialogResult =>{
-      console.log("***** the Resto dialog was closed *****");
-      console.log("this.listResto", this.listResto);
-      console.log("this.listMarkers", this.listMarkers);
       this.getAddressFromClick(event, dialogResult, this.placeService, this.listResto);
     });
   }
@@ -124,32 +117,18 @@ export class MapComponent implements OnInit {
     this.placeService.restoSubject$.subscribe(
       places => {
         this.listResto = places;
-        console.log("***** this.placeService.restoSubject$ ******");
-        console.log(" Resto ",this.listResto);
-        console.log("markers ",this.listMarkers);
-        for (var i = 0; i < this.listMarkers.length; i++) {
-          this.listMarkers[i].setMap(null);
-        }
-        this.listMarkers = [];
+        this.listMarkers = this.clearMarkers(this.listMarkers);
         this.addRestoMarkers(this.listResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
-        console.log("markers ",this.listMarkers);
       }
-    )
+    );
 
     this.placeService.filteredRestoSubject$.subscribe(
       places => {
         this.filteredListResto = places;
-        console.log("***** this.placeService.filteredRestoSubject$ ******");
-        console.log(this.filteredListResto);
-        console.log(this.listMarkers);
-        for (var i = 0; i < this.listMarkers.length; i++) {
-          this.listMarkers[i].setMap(null);
-        }
-        this.listMarkers = [];
+        this.listMarkers = this.clearMarkers(this.listMarkers);
         this.addRestoMarkers(this.filteredListResto, this.listMarkers);
         this.setMapOnAll(this.map, this.listMarkers);
-        console.log(this.listMarkers);
       }
     )
   }
