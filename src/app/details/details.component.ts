@@ -1,9 +1,7 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit } from '@angular/core';
-import {DetailsService} from "../services/details.service";
 import { Resto } from "../model/Resto";
 import {Rate} from "../model/Rate";
-import { Observable, zip} from 'rxjs';
 import { PlacesService } from '../services/places.service';
 import { Location } from '../model/Location';
 import { MatDialog } from '@angular/material';
@@ -20,30 +18,14 @@ export class DetailsComponent implements OnInit {
   resto: Resto;
   selectedResto: Resto = new Resto()
   streetViewURL: string;
-  randomAvatar: string;
-  detailsObservable: Observable<any> = this.detailsService.getDetails();
   details: Rate[] = new Array<Rate>();
   map: google.maps.Map;
   newReview: Rate;
 
   constructor(
-    private detailsService: DetailsService,
     private placesService: PlacesService,
     private dialog: MatDialog
   ) {}
-
-  getRandomIndex(max: number): number{
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
-  getRandomAvatar(): string {
-    let url: string = "../../assets/img/1x/roundedAvatarFichier";
-    let index: string = String(this.getRandomIndex(5));
-    let extension: string = ".png";
-    let randomUrl: string = url + String(index) + extension;
-
-    return randomUrl;
-  }
 
   callBackGetDetails(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -68,10 +50,10 @@ export class DetailsComponent implements OnInit {
     let resultPng = "emptyStar.png";
 
     if(currentRate >= 0.75) {
-        resultPng = "filledStar.png";
+      resultPng = "filledStar.png";
     }
     else if(currentRate >= 0.25) {
-        resultPng ="halfStar.png";
+      resultPng ="halfStar.png";
     }
 
     return starURL + resultPng
@@ -89,7 +71,7 @@ export class DetailsComponent implements OnInit {
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result =>{
-      this.newReview = new Rate(result.id, result.note, "maintenant", result.comment);
+      this.newReview = new Rate(result.id, result.note, "à l'instant", result.comment);
       this.details.push(this.newReview);
     });
   }
