@@ -91,11 +91,14 @@ export class MapComponent implements OnInit {
     }, function(results, status){
       if(status == google.maps.GeocoderStatus.OK) {
         if(results[0]) {
-          address = results[0].formatted_address;
-          let geometry = new Geometry(event.latLng);
-          let newResto: Resto = new Resto(dialogResults.restoName, address, geometry, dialogResults.note);
-          listResto.push(newResto);
-          placeService.setListResto(listResto);
+          console.log(dialogResults)
+          if (typeof dialogResults != 'undefined') {
+            address = results[0].formatted_address;
+            let geometry = new Geometry(event.latLng);
+            let newResto: Resto = new Resto(dialogResults.restoName, address, geometry, dialogResults.note);
+            listResto.push(newResto);
+            placeService.setListResto(listResto);
+          }
         }
       }
     });
