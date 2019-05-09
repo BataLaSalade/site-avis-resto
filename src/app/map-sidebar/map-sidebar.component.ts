@@ -19,8 +19,7 @@ import { FilterService } from '../services/filter.service';
     isShowDetails: boolean;
 
     listResto: Resto[] = new Array<Resto>()
-    filteredListResto: Resto[] = new Array<Resto>()
-    //selectedResto: Resto = new Resto();
+    filteredListResto: Resto[] = new Array<Resto>();
     
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
     index: string[] = ["0", "1", "2", "3", "4", "5"];
@@ -55,12 +54,10 @@ import { FilterService } from '../services/filter.service';
         let arrayOfUndefined = this.listResto.filter(
             (resto: Resto) => typeof resto.rating == 'undefined'
         );
-        console.log("arrayOfUndefined - MapSideBar Compo= ", arrayOfUndefined);
         if (minValue >= 0 && maxValue <= 5) {
             this.filteredListResto = this.listResto.filter(
                 (resto: any) => resto.rating >= minValue && resto.rating <= maxValue
             ).concat(arrayOfUndefined);
-            console.log("concat array = ", this.filteredListResto);
             this.placesService.setFilteredListResto(this.filteredListResto);
         }
     }
@@ -86,15 +83,7 @@ import { FilterService } from '../services/filter.service';
 
         this.placesService.isSelectedResto$.subscribe(
             isSelectedResto => this.isShowDetails = isSelectedResto
-        )
-        /* this.placesService.selectedRestoSubject$.subscribe(
-            resto => {
-                console.log("selectedResto - Sidebar = ", resto);
-                this.isShowDetails = true;
-                
-                
-            }
-        ) */
+        );
     }
 
   }
