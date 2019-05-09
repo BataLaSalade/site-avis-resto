@@ -12,7 +12,6 @@ export class FilterService {
   constructor() {
     this.minSelect$ = new BehaviorSubject<string>("0");
     this.maxSelect$ = new BehaviorSubject<string>("5");
-    this.isClearMarkersNeeded = new BehaviorSubject<boolean>(false);
   }
 
   setMinValue(minValue) {
