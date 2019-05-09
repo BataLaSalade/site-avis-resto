@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Resto } from "../model/Resto";
 import { PlacesService } from '../services/places.service';
 
@@ -10,12 +10,6 @@ import { PlacesService } from '../services/places.service';
 
 export class ListRestaurantsComponent implements OnInit{
   constructor(private placesService: PlacesService) {}
-
-  
-  //@Input() isShowDetails: boolean;
-
-  //@Output() RestoEmitter: EventEmitter<any> = new EventEmitter;
-  //@Output() listChange: EventEmitter<any> = new EventEmitter;
 
   listResto: Resto[];
   selectedResto: Resto;
@@ -44,12 +38,8 @@ export class ListRestaurantsComponent implements OnInit{
   }
 
   onSelect(resto: Resto){
-    //this.selectedResto = resto;
-    console.log(resto);
     this.placesService.selectedRestoSubject$.next(resto);
     this.placesService.isSelectedResto$.next(true);
-    //this.isShowDetails = true;
-    //this.RestoEmitter.emit(this.selectedResto);
   }
   
   ngOnInit() {
@@ -60,7 +50,5 @@ export class ListRestaurantsComponent implements OnInit{
     this.placesService.filteredRestoSubject$.subscribe(
       places => this.listResto = places
     );
-
   }
-
 }
