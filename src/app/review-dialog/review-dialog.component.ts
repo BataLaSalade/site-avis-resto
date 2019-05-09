@@ -19,7 +19,6 @@ export class ReviewDialogComponent implements OnInit {
   constructor( public dialogRef: MatDialogRef<ReviewDialogComponent> ) { }
 
   index: string[] = ["0", "1", "2", "3", "4", "5"];
-  identifiant: string;
   selected: string;
 
   onCancelClick(): void {
@@ -27,7 +26,6 @@ export class ReviewDialogComponent implements OnInit {
   }
 
   onValidClick(idInput, commentInput): void {
-    console.log(">>> Test get Data --> id = ", idInput, " note = ", this.selected, " comment = ", commentInput );
     let data = {
       id: idInput,
       note: this.selected,
