@@ -18,7 +18,7 @@ import { FilterService } from '../services/filter.service';
     isShowError: boolean = false;
     isShowDetails: boolean;
 
-    listResto: Resto[] = new Array<Resto>()
+    listResto: Resto[] = new Array<Resto>();
     filteredListResto: Resto[] = new Array<Resto>();
     
     emptyStar: string = '../../assets/img/1x/emptyStar.png';
